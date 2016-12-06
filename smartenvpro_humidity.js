@@ -6,6 +6,11 @@ module.exports = function(RED) {
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
+    var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions');
+    var WsEventHandler = require('/root/.node-red/nodes/socketServer/WsEventHandler');
+    var SocketServer = require('/root/.node-red/nodes/socketServer/SocketServer');
+    var nodeName = "smartenvpro_humidity";
+
     // The main node definition - most things happen in here
     function SmartEnvProhumidityNode(n) {
         // Create a RED node
@@ -23,28 +28,39 @@ module.exports = function(RED) {
         // Look at other real nodes for some better ideas of what to do....
         var msg = {};
         msg.deviceid = this.deviceid;
-        msg.payload = "Hello world !"
+        if (!this.deviceid == '') {
+            this.status({fill: "gray", shape: "ring", text: "disconnected"});
+            var ws = new WsEventHandler(node, 'ws://localhost:8081/?role=node&sensorId=' + node.deviceid + "&node_type=" + nodeName);
 
-        // send out the message to the rest of the workspace.
-        // ... this message will get sent at startup so you may not see it in a debug node.
-        this.send(msg);
+            // respond to inputs....
+            this.on('input', function (msg) {
+                node.warn("I saw a payload: " + msg.payload);
+                // in this example just send it straight on... should process it here really
+                //node.send(msg);
+            });
 
-        // respond to inputs....
-        this.on('input', function (msg) {
-            node.warn("I saw a payload: "+msg.payload);
-            // in this example just send it straight on... should process it here really
-            node.send(msg);
-        });
+            this.on("close", function () {
+                // Called when the node is shutdown - eg on redeploy.
+                // Allows ports to be closed, connections dropped etc.
+                // eg: node.client.disconnect();
+                var _data = {
+                    type: SocketActions.NODE_DISCONNECT,
+                    data: {
+                        disconnected: true
+                    }
+                }
+                ws.getSocket().send(JSON.stringify(_data));
+            });
 
-        this.on("close", function() {
-            // Called when the node is shutdown - eg on redeploy.
-            // Allows ports to be closed, connections dropped etc.
-            // eg: node.client.disconnect();
-        });
+        }
+        else {
+            console.log("RED")
+            this.status({fill: "red", shape: "ring", text: "No ID specified"});
+        }
     }
 
     // Register the node by name. This must be called before overriding any of the
     // Node functions.
-    RED.nodes.registerType("smartenvpro_humidity",SmartEnvProhumidityNode);
+    RED.nodes.registerType(nodeName,SmartEnvProhumidityNode);
 
 }

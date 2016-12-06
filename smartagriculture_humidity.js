@@ -35,7 +35,7 @@ module.exports = function (RED) {
         var msg = {};
         msg.deviceid = this.deviceid;
 
-        if (!this.deviceid == ""){
+        if (!this.deviceid == ''){
             this.status({fill:"gray",shape:"ring",text:"disconnected"});
             var ws = new WsEventHandler(node,'ws://localhost:8081/?role=node&sensorId='+node.deviceid+"&node_type="+nodeName);
 
@@ -43,11 +43,13 @@ module.exports = function (RED) {
             this.on('input', function (msg) {
                 node.warn("I saw a payload: " + msg.payload);
                 // in this example just send it straight on... should process it here really
-                node.send(msg);
+                //node.send(msg);
             });
 
             this.on("close", function () {
-
+                // Called when the node is shutdown - eg on redeploy.
+                // Allows ports to be closed, connections dropped etc.
+                // eg: node.client.disconnect();
                 var _data ={
                     type:SocketActions.NODE_DISCONNECT,
                     data:{
@@ -55,9 +57,7 @@ module.exports = function (RED) {
                     }
                 }
                 ws.getSocket().send(JSON.stringify(_data));
-                // Called when the node is shutdown - eg on redeploy.
-                // Allows ports to be closed, connections dropped etc.
-                // eg: node.client.disconnect();
+
             });
 
 
@@ -95,6 +95,10 @@ module.exports = function (RED) {
             ws.on('close', function close() {
                 console.log("disconnected");
             });*/
+        }
+        else{
+            console.log("RED")
+            this.status({fill:"red",shape:"ring",text:"No ID specified"});
         }
 
     }

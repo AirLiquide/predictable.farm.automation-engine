@@ -26,13 +26,13 @@ class WsEventHandler{
                 payload : data
             }
             if(data.type === SocketActions.SENSOR_DISCONNECT){
-                console.log("Sensor disconnected")
+                //console.log("Sensor disconnected")
                 _node.status({fill:"gray",shape:"ring",text:"disconnected"});
                 _node.send([null,null,_data]);
             }
             if(data.type === SocketActions.SENSOR_CONNECT){
-                console.log("Sensor connected")
-                _node.status({fill:"green",shape:"ring",text:"connected"});
+                //console.log("Sensor connected")
+                _node.status({fill:"green",shape:"dot",text:"connected"});
                 _node.send([null,null,_data]);
             }
             else
@@ -42,7 +42,7 @@ class WsEventHandler{
         });
 
         this.ws.on('close', function close() {
-            console.log("disconnected");
+            //console.log("disconnected");
         });
     }
 
