@@ -16,8 +16,7 @@ class WsEventHandler{
 
         this.ws.on('open', function open() {
             //ws.send(JSON.stringify({message: 'something'}));
-            console.log("connected to server")
-
+            //console.log("connected to server")
         });
 
         this.ws.on('message', function (data, flags) {

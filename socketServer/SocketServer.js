@@ -27,6 +27,7 @@ class SocketServer {
         _nodes = {};
         _sensors = {};
         server.on('connection', this.handleConnection);
+        console.log("Socket Server started!")
         return this;
     }
 
@@ -46,7 +47,9 @@ class SocketServer {
             //TODO : refactor code to have something cleaner
             if (role == 'node') {
                 var sensorId = location.query.sensorId;
+                var nodeType = location.query.node_type;
                 client.sensorId = sensorId;
+                client.nodeType = nodeType;
                 _nodes[id] = client;
                 _clients[id] = client;
                 var sensors = Object.keys(_sensors);

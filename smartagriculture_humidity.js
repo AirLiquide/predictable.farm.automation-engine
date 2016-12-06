@@ -7,9 +7,12 @@ module.exports = function (RED) {
 
     var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions');
     var WsEventHandler = require('/root/.node-red/nodes/socketServer/WsEventHandler');
+    var SocketServer = require('/root/.node-red/nodes/socketServer/SocketServer');
+    var nodeName = "smartagriculture_humidity";
 
     // The main node definition - most things happen in here
     function SmartAgriculturehumidityNode(n) {
+
         //console.log(server)
 
         //var wss = require('./socketServer/SocketServer')(RED);
@@ -34,7 +37,7 @@ module.exports = function (RED) {
 
         if (!this.deviceid == ""){
             this.status({fill:"gray",shape:"ring",text:"disconnected"});
-            var ws = new WsEventHandler(node,'ws://localhost:8081/?role=node&sensorId='+node.deviceid);
+            var ws = new WsEventHandler(node,'ws://localhost:8081/?role=node&sensorId='+node.deviceid+"&node_type="+nodeName);
 
             // respond to inputs....
             this.on('input', function (msg) {
@@ -98,6 +101,6 @@ module.exports = function (RED) {
 
     // Register the node by name. This must be called before overriding any of the
     // Node functions.
-    RED.nodes.registerType("smartagriculture_humidity", SmartAgriculturehumidityNode);
+    RED.nodes.registerType(nodeName, SmartAgriculturehumidityNode);
 
 }
