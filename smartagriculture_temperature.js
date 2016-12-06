@@ -54,7 +54,6 @@ module.exports = function (RED) {
 
         }
         else {
-            console.log("RED")
             this.status({fill: "red", shape: "ring", text: "No ID specified"});
         }
     }
