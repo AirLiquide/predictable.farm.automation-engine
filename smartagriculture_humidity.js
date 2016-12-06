@@ -8,6 +8,7 @@ module.exports = function (RED) {
     var WebSocket = require('/usr/local/lib/node_modules/node-red/node_modules/ws');
     var SocketServer = require('/root/.node-red/nodes/socketServer/SocketServer.js')
     var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions')
+    var WsEventHandler = require('/root/.node-red/nodes/socketServer/WsEventHandler')
 
     // The main node definition - most things happen in here
     function SmartAgriculturehumidityNode(n) {
@@ -35,7 +36,7 @@ module.exports = function (RED) {
 
         if (!this.deviceid == ""){
             this.status({fill:"gray",shape:"ring",text:"disconnected"});
-            var ws = new WebSocket('ws://localhost:8081/?role=node&sensorId='+node.deviceid);
+            var ws = new WsEventHandler(node,'ws://localhost:8081/?role=node&sensorId='+node.deviceid);
 
             // respond to inputs....
             this.on('input', function (msg) {
@@ -52,13 +53,17 @@ module.exports = function (RED) {
                         disconnected: true
                     }
                 }
-                ws.send(JSON.stringify(_data));
+                ws.getSocket().send(JSON.stringify(_data));
                 // Called when the node is shutdown - eg on redeploy.
                 // Allows ports to be closed, connections dropped etc.
                 // eg: node.client.disconnect();
             });
 
-            ws.on('open', function open() {
+
+
+
+
+/*            ws.on('open', function open() {
                 //ws.send(JSON.stringify({message: 'something'}));
                 console.log("connected to server")
 
@@ -88,10 +93,8 @@ module.exports = function (RED) {
 
             ws.on('close', function close() {
                 console.log("disconnected");
-            });
+            });*/
         }
-
-        //TODO : signal that the device id need to be placed
 
     }
 

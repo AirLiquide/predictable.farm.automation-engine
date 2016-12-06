@@ -1,16 +1,16 @@
 /**
  * Created by ilab on 30/11/16.
  */
-"use strict"
+"use strict";
 /**
  * Created by ilab on 01/12/16.
  */
 
-var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions')
+var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions');
 
-var url = require('url')
+var url = require('url');
 
-var WebSocketServer = require('/usr/local/lib/node_modules/node-red/node_modules/ws').Server
+var WebSocketServer = require('/usr/local/lib/node_modules/node-red/node_modules/ws').Server;
 
 var _clients = {};
 var _nodes = {}; //might be removed to save memory, useful to fast iterate on nodes
@@ -59,7 +59,7 @@ class SocketServer {
                             },
                             sensorId:sensorId,
                             id:id
-                        }
+                        };
                         ws.send(JSON.stringify(_data));
                     }
                 });
@@ -73,7 +73,6 @@ class SocketServer {
                 var nodes = Object.keys(_nodes);
                 nodes.forEach(function each(node) {
                     if (_nodes[node].sensorId == sensorId) { //id is the sensor id
-                        console.log("found node")
 
                         var _data ={
                             type:SocketActions.SENSOR_CONNECT,
@@ -85,8 +84,6 @@ class SocketServer {
                         }
                         _nodes[node].socket.send(JSON.stringify(_data));
 
-                        //TODO: send information about sensor connected
-                        //TODO : send sensor information
                     }
                 });
                 console.log("Sensor " + id + "(" + sensorId + ") connected");
@@ -97,7 +94,7 @@ class SocketServer {
 
         ws.on('message', function (message) {
 
-            var data = JSON.parse(message)
+            var data = JSON.parse(message);
             if (role == 'node') {
                 if (data.type == SocketActions.NODE_DISCONNECT){
                     delete _nodes[id];
@@ -137,7 +134,7 @@ class SocketServer {
                             id:id
                         }
                         _nodes[node].socket.send(JSON.stringify(_data));
-                        //TODO: send information to all the connected nodes about sensor disconnection
+
                     }
                 });
 
