@@ -5,10 +5,8 @@ module.exports = function (RED) {
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
-    var WebSocket = require('/usr/local/lib/node_modules/node-red/node_modules/ws');
-    var SocketServer = require('/root/.node-red/nodes/socketServer/SocketServer.js')
-    var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions')
-    var WsEventHandler = require('/root/.node-red/nodes/socketServer/WsEventHandler')
+    var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions');
+    var WsEventHandler = require('/root/.node-red/nodes/socketServer/WsEventHandler');
 
     // The main node definition - most things happen in here
     function SmartAgriculturehumidityNode(n) {
