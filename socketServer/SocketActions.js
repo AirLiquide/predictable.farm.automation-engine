@@ -1,28 +1,12 @@
 /**
  * Created by ilab on 05/12/16.
  */
-"use strict"
 
-class SocketActions{
-
-    //TODO : add all the different actions
-
-    static get NODE_CONNECT(){
-        return "NODE_CONNECT"
-    }
-
-    static get NODE_DISCONNECT(){
-        return "NODE_DISCONNECT"
-    }
-
-    static get SENSOR_CONNECT(){
-        return "SENSOR_CONNECT"
-    }
-
-    static get SENSOR_DISCONNECT(){
-        return "SENSOR_DISCONNECT"
-    }
-
+var SocketActions = {
+    NODE_CONNECT: "NODE_CONNECT",
+    NODE_DISCONNECT: "NODE_DISCONNECT",
+    SENSOR_CONNECT: "SENSOR_CONNECT",
+    SENSOR_DISCONNECT: "SENSOR_DISCONNECT"
 }
 
-module.export =SocketActions
+module.exports = SocketActions;

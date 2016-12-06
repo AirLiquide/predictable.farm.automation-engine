@@ -33,7 +33,10 @@ module.exports = function (RED) {
         var msg = {};
         msg.deviceid = this.deviceid;
 
-        if (!this.deviceid == ''){
+        if (!this.deviceid == ""){
+            this.status({fill:"gray",shape:"ring",text:"disconnected"});
+            var ws = new WebSocket('ws://localhost:8081/?role=node&sensorId='+node.deviceid);
+
             // respond to inputs....
             this.on('input', function (msg) {
                 node.warn("I saw a payload: " + msg.payload);
@@ -42,13 +45,19 @@ module.exports = function (RED) {
             });
 
             this.on("close", function () {
+
+                var _data ={
+                    type:SocketActions.NODE_DISCONNECT,
+                    data:{
+                        disconnected: true
+                    }
+                }
+                ws.send(JSON.stringify(_data));
                 // Called when the node is shutdown - eg on redeploy.
                 // Allows ports to be closed, connections dropped etc.
                 // eg: node.client.disconnect();
             });
 
-            //TODO: add a detection for the device id only activate websocket if there is a device id
-            var ws = new WebSocket('ws://localhost:8081/?role=node&sensorId='+node.deviceid);
             ws.on('open', function open() {
                 //ws.send(JSON.stringify({message: 'something'}));
                 console.log("connected to server")
@@ -61,8 +70,14 @@ module.exports = function (RED) {
                 var _data = {
                     payload : data
                 }
-
-                if(data.type == SocketActions.SENSOR_DISCONNECT){
+                if(data.type === SocketActions.SENSOR_DISCONNECT){
+                    console.log("Sensor disconnected")
+                    node.status({fill:"gray",shape:"ring",text:"disconnected"});
+                    node.send([null,null,_data]);
+                }
+                if(data.type === SocketActions.SENSOR_CONNECT){
+                    console.log("Sensor connected")
+                    node.status({fill:"green",shape:"ring",text:"connected"});
                     node.send([null,null,_data]);
                 }
                 else

@@ -6,7 +6,7 @@
  * Created by ilab on 01/12/16.
  */
 
-var SocketActions = require('./SocketActions')
+var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions')
 
 var url = require('url')
 
@@ -52,8 +52,15 @@ class SocketServer {
                 var sensors = Object.keys(_sensors);
                 sensors.forEach(function each(sensor) {
                     if (_sensors[sensor].sensorId == sensorId) { //id is the sensor id
-                        //TODO : send sensor information
-                        console.log("found sensor")
+                        var _data ={
+                            type:SocketActions.SENSOR_CONNECT,
+                            data:{
+                                connected: true
+                            },
+                            sensorId:sensorId,
+                            id:id
+                        }
+                        ws.send(JSON.stringify(_data));
                     }
                 });
                 console.log("Node " + id + " connected");
@@ -67,6 +74,17 @@ class SocketServer {
                 nodes.forEach(function each(node) {
                     if (_nodes[node].sensorId == sensorId) { //id is the sensor id
                         console.log("found node")
+
+                        var _data ={
+                            type:SocketActions.SENSOR_CONNECT,
+                            data:{
+                                connected: true
+                            },
+                            sensorId:sensorId,
+                            id:id
+                        }
+                        _nodes[node].socket.send(JSON.stringify(_data));
+
                         //TODO: send information about sensor connected
                         //TODO : send sensor information
                     }
@@ -79,12 +97,15 @@ class SocketServer {
 
         ws.on('message', function (message) {
 
-            //TODO : define an action pattern
-            //TODO : handle the actions
             var data = JSON.parse(message)
             if (role == 'node') {
-                //node should not send data to the server (at the time of writing 05/07/2016)
-                console.log("SERVER :", data)
+                if (data.type == SocketActions.NODE_DISCONNECT){
+                    delete _nodes[id];
+                    delete _clients[id];
+                    console.log("Node " + id + " disconnected or redeployed");
+                    ws.close(); //each time the node is moved or deleted a new one is created so we close the connexion
+                }
+                //console.log("SERVER :", data)
             }
             else if (role == 'sensor') {
 
@@ -94,16 +115,13 @@ class SocketServer {
 
 
             }
-            console.log('received: %s', message);
-            console.log('from:', id);
         });
 
         ws.on('close', function () {
-            //TODO :signal the nodes or sensors that a connexion has been lost
-            //TODO : important for the nodes, visual state as to change
             delete _clients[id];
             if (role == 'node') {
                 delete _nodes[id];
+                delete _clients[id];
                 console.log("Node " + id + " disconnected");
             }
             else {
@@ -124,6 +142,7 @@ class SocketServer {
                 });
 
                 delete _sensors[id];
+                delete _clients[id];
                 console.log("Sensor " + id + " disconnected");
             }
         })

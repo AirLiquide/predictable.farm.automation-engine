@@ -5,7 +5,7 @@ var WebSocket = require('ws');
 var ws = new WebSocket('ws://localhost:8081/?role=sensor&sensorId=1');
 
 ws.on('open', function open() {
-    ws.send(JSON.stringify({message:'something'}));
+    //ws.send(JSON.stringify({message:'something'}));
     console.log("TEST : connected to server")
 });
 
