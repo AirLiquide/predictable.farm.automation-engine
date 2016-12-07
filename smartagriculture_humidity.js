@@ -21,6 +21,8 @@ module.exports = function (RED) {
 
         // Store local copies of the node configuration (as defined in the .html)
         this.deviceid = n.deviceid;
+        this.timeout = n.timeout*1000;//convert seconds to milliseconds.
+        // maybe add an option to choose between milliseconds, seconds, minutes
 
         // copy "this" object in case we need it in context of callbacks of other functions.
         var node = this;
@@ -32,8 +34,6 @@ module.exports = function (RED) {
         // Note: this sample doesn't do anything much - it will only send
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
-        var msg = {};
-        msg.deviceid = this.deviceid;
 
         if (!this.deviceid == ''){
             this.status({fill:"gray",shape:"ring",text:"disconnected"});
@@ -57,44 +57,8 @@ module.exports = function (RED) {
                     }
                 }
                 ws.getSocket().send(JSON.stringify(_data));
-
             });
 
-
-
-
-
-/*            ws.on('open', function open() {
-                //ws.send(JSON.stringify({message: 'something'}));
-                console.log("connected to server")
-
-            });
-
-            ws.on('message', function (data, flags) {
-
-                var data = JSON.parse(data);
-                var _data = {
-                    payload : data
-                }
-                if(data.type === SocketActions.SENSOR_DISCONNECT){
-                    console.log("Sensor disconnected")
-                    node.status({fill:"gray",shape:"ring",text:"disconnected"});
-                    node.send([null,null,_data]);
-                }
-                if(data.type === SocketActions.SENSOR_CONNECT){
-                    console.log("Sensor connected")
-                    node.status({fill:"green",shape:"ring",text:"connected"});
-                    node.send([null,null,_data]);
-                }
-                else
-                    node.send([_data,null,null]);
-                // flags.binary will be set if a binary data is received.
-                // flags.masked will be set if the data was masked.
-            });
-
-            ws.on('close', function close() {
-                console.log("disconnected");
-            });*/
         }
         else{
             this.status({fill:"red",shape:"ring",text:"No ID specified"});

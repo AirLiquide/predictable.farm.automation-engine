@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b2e3cab4-16fd-4e59-a578-8eb6395a6773" name="Default" comment="" />
+    <list default="true" id="b2e3cab4-16fd-4e59-a578-8eb6395a6773" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartagriculture_humidity.html" afterPath="$PROJECT_DIR$/smartagriculture_humidity.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartagriculture_humidity.js" afterPath="$PROJECT_DIR$/smartagriculture_humidity.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/socketServer/SocketActions.js" afterPath="$PROJECT_DIR$/socketServer/SocketActions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/socketServer/SocketServer.js" afterPath="$PROJECT_DIR$/socketServer/SocketServer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/socketServer/WsEventHandler.js" afterPath="$PROJECT_DIR$/socketServer/WsEventHandler.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testwsclient/app.js" afterPath="$PROJECT_DIR$/testwsclient/app.js" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -21,102 +28,68 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="smartenvpro_ch4.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/smartenvpro_ch4.js">
+      <file leaf-file-name="smartagriculture_humidity.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartagriculture_humidity.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="57" column="9" lean-forward="false" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
+            <state relative-caret-position="258">
+              <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="smartenvpro_co.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/smartenvpro_co.js">
+      <file leaf-file-name="SocketServer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/socketServer/SocketServer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="57" column="9" lean-forward="false" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
+            <state relative-caret-position="201">
+              <caret line="112" column="9" lean-forward="false" selection-start-line="112" selection-start-column="9" selection-end-line="112" selection-end-column="9" />
+              <folding>
+                <element signature="e#54#93#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WsEventHandler.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/socketServer/WsEventHandler.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="245">
+              <caret line="100" column="26" lean-forward="true" selection-start-line="100" selection-start-column="26" selection-end-line="100" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#39#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="smartagriculture_humidity.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartagriculture_humidity.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="52" column="10" lean-forward="false" selection-start-line="52" selection-start-column="10" selection-end-line="52" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="smartenvpro_co2.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/smartenvpro_co2.js">
+      <file leaf-file-name="smartenvpro_co.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartenvpro_co.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="57" column="9" lean-forward="false" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
+            <state relative-caret-position="212">
+              <caret line="19" column="31" lean-forward="false" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="smartenvpro_humidity.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/smartenvpro_humidity.js">
+      <file leaf-file-name="SocketActions.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/socketServer/SocketActions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="57" column="9" lean-forward="false" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="smartenvpro_pressure.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/smartenvpro_pressure.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="57" column="9" lean-forward="false" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="smartenvpro_temperature.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/smartenvpro_temperature.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="57" column="9" lean-forward="false" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="smartwater_ec.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/smartwater_ec.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="57" column="9" lean-forward="false" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="smartwater_humidity.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/smartwater_humidity.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="57" column="9" lean-forward="false" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="smartwater_orp.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/smartwater_orp.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="492">
-              <caret line="57" column="9" lean-forward="false" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="smartwater_temperature.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/smartwater_temperature.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="57" column="9" lean-forward="true" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
-              <folding />
+            <state relative-caret-position="270">
+              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc;n#SocketActions#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -141,14 +114,15 @@
       <find>orp</find>
       <find>ws</find>
       <find>require</find>
-      <find>RED</find>
       <find>node</find>
       <find>server</find>
       <find>send</find>
-      <find>console</find>
       <find>node_type</find>
       <find>statu</find>
       <find>stat</find>
+      <find>RED</find>
+      <find>console.log</find>
+      <find>console</find>
     </findStrings>
     <replaceStrings>
       <replace>water</replace>
@@ -188,13 +162,8 @@
         <option value="$PROJECT_DIR$/smartwater_humidity.html" />
         <option value="$PROJECT_DIR$/smartwater_orp.html" />
         <option value="$PROJECT_DIR$/smartwater_temperature.html" />
-        <option value="$PROJECT_DIR$/smartagriculture_humidity.html" />
-        <option value="$PROJECT_DIR$/socketServer/SocketActions.js" />
-        <option value="$PROJECT_DIR$/socketServer/SocketServer.js" />
         <option value="$PROJECT_DIR$/smartagriculture_par.js" />
         <option value="$PROJECT_DIR$/smartagriculture_temperature.js" />
-        <option value="$PROJECT_DIR$/smartagriculture_humidity.js" />
-        <option value="$PROJECT_DIR$/socketServer/WsEventHandler.js" />
         <option value="$PROJECT_DIR$/smartenvpro_ch4.js" />
         <option value="$PROJECT_DIR$/smartenvpro_co.js" />
         <option value="$PROJECT_DIR$/smartenvpro_co2.js" />
@@ -205,6 +174,11 @@
         <option value="$PROJECT_DIR$/smartwater_humidity.js" />
         <option value="$PROJECT_DIR$/smartwater_orp.js" />
         <option value="$PROJECT_DIR$/smartwater_temperature.js" />
+        <option value="$PROJECT_DIR$/socketServer/SocketActions.js" />
+        <option value="$PROJECT_DIR$/smartagriculture_humidity.html" />
+        <option value="$PROJECT_DIR$/smartagriculture_humidity.js" />
+        <option value="$PROJECT_DIR$/socketServer/SocketServer.js" />
+        <option value="$PROJECT_DIR$/socketServer/WsEventHandler.js" />
       </list>
     </option>
   </component>
@@ -254,20 +228,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="testwsserver" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -405,16 +365,16 @@
       <workItem from="1480683884610" duration="11532000" />
       <workItem from="1480696208399" duration="1639000" />
       <workItem from="1480928360946" duration="20669000" />
-      <workItem from="1481016856730" duration="19671000" />
+      <workItem from="1481016856730" duration="34635000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79457000" />
+    <option name="totallyTimeSpent" value="94421000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="952" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19104804" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -424,7 +384,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22014052" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22014052" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -471,7 +431,7 @@
         <state relative-caret-position="378">
           <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
           <folding>
-            <element signature="e#0#39#0" expanded="false" />
+            <element signature="n#!!doc;n#SocketActions#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -597,13 +557,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/smartenvpro_co.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="46" column="17" lean-forward="false" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/smartenvpro_co2.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -660,56 +613,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/smartagriculture_humidity.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="41" column="78" lean-forward="true" selection-start-line="41" selection-start-column="78" selection-end-line="42" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/socketServer/SocketActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/smartagriculture_par.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="58" column="9" lean-forward="true" selection-start-line="30" selection-start-column="9" selection-end-line="58" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/socketServer/SocketServer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="19" column="57" lean-forward="false" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
-          <folding>
-            <element signature="e#54#93#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/socketServer/WsEventHandler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="708">
-          <caret line="45" column="11" lean-forward="true" selection-start-line="45" selection-start-column="11" selection-end-line="45" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartagriculture_humidity.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="37" column="34" lean-forward="false" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="34" />
           <folding />
         </state>
       </provider>
@@ -799,6 +706,60 @@
         <state relative-caret-position="353">
           <caret line="57" column="9" lean-forward="true" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/socketServer/SocketActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc;n#SocketActions#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartenvpro_co.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="19" column="31" lean-forward="false" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartagriculture_humidity.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="52" column="10" lean-forward="false" selection-start-line="52" selection-start-column="10" selection-end-line="52" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartagriculture_humidity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/socketServer/SocketServer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="112" column="9" lean-forward="false" selection-start-line="112" selection-start-column="9" selection-end-line="112" selection-end-column="9" />
+          <folding>
+            <element signature="e#54#93#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/socketServer/WsEventHandler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="100" column="26" lean-forward="true" selection-start-line="100" selection-start-column="26" selection-end-line="100" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -20,6 +20,13 @@
         <label for="node-input-deviceid"><i class="fa fa-tag"></i> DeviceID</label>
         <input type="text" id="node-input-deviceid" placeholder="DeviceID">
     </div>
+
+    </br>
+
+    <div class="form-row">
+        <label for="node-input-timeout"><i class="fa fa-tag"></i> Timeout (s)</label>
+        <input type="text" id="node-input-timeout" placeholder="Timeout">
+    </div>
 </script>
 
 
@@ -41,7 +48,8 @@
         category: 'Plant',      // the palette category
         defaults: {             // defines the editable properties of the node
             name: {value:""},   //  along with default values.
-            deviceid: {value:"", required:true} 
+            deviceid: {value:"", required:true},
+            timeout: {value:"", required:true}
         },
         inputs:0,               // set the number of inputs - only 0 or 1
         outputs:3,              // set the number of outputs - 0 to n
