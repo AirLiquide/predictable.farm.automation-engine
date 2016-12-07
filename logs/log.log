@@ -121,3 +121,12 @@
 {"type":"SENSOR_DISCONNECT","data":{"disconnected":true},"sensorId":"1","id":"b81218f5.fe34e8"}
 {"type":"SENSOR_DISCONNECT","data":{"disconnected":true},"sensorId":"1","id":"b81218f5.fe34e8"}
 {"type":"SENSOR_DISCONNECT","data":{"disconnected":true},"sensorId":"1","id":"b81218f5.fe34e8"}
+{"type":"SENSOR_CONNECT","data":{"connected":true},"sensorId":"1","id":"1c448904.b9e397"}
+{"type":"SENSOR_CONNECT","data":{"connected":true},"sensorId":"1","id":"1c448904.b9e397"}
+{"type":"SENSOR_CONNECT","data":{"connected":true},"sensorId":"1","id":"1c448904.b9e397"}
+{"type":"SENSOR_DISCONNECT","data":{"disconnected":true},"sensorId":"1","id":"1c448904.b9e397"}
+{"type":"SENSOR_DISCONNECT","data":{"disconnected":true},"sensorId":"1","id":"1c448904.b9e397"}
+{"type":"SENSOR_DISCONNECT","data":{"disconnected":true},"sensorId":"1","id":"1c448904.b9e397"}
+{"type":"SENSOR_CONNECT","data":{"connected":true},"sensorId":"1","id":"ceb40864.172c98"}
+{"type":"SENSOR_CONNECT","data":{"connected":true},"sensorId":"1","id":"ceb40864.172c98"}
+{"type":"SENSOR_CONNECT","data":{"connected":true},"sensorId":"1","id":"ceb40864.172c98"}

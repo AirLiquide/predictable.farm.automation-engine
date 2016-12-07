@@ -2,12 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2e3cab4-16fd-4e59-a578-8eb6395a6773" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/log.log" afterPath="$PROJECT_DIR$/logs/log.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartagriculture_humidity.html" afterPath="$PROJECT_DIR$/smartagriculture_humidity.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartagriculture_humidity.js" afterPath="$PROJECT_DIR$/smartagriculture_humidity.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/socketServer/SocketActions.js" afterPath="$PROJECT_DIR$/socketServer/SocketActions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/socketServer/SocketServer.js" afterPath="$PROJECT_DIR$/socketServer/SocketServer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/socketServer/WsEventHandler.js" afterPath="$PROJECT_DIR$/socketServer/WsEventHandler.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testwsclient/app.js" afterPath="$PROJECT_DIR$/testwsclient/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartagriculture_par.html" afterPath="$PROJECT_DIR$/smartagriculture_par.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartagriculture_temperature.html" afterPath="$PROJECT_DIR$/smartagriculture_temperature.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartenvpro_ch4.html" afterPath="$PROJECT_DIR$/smartenvpro_ch4.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartenvpro_co.html" afterPath="$PROJECT_DIR$/smartenvpro_co.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartenvpro_co2.html" afterPath="$PROJECT_DIR$/smartenvpro_co2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartenvpro_humidity.html" afterPath="$PROJECT_DIR$/smartenvpro_humidity.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartenvpro_pressure.html" afterPath="$PROJECT_DIR$/smartenvpro_pressure.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartenvpro_temperature.html" afterPath="$PROJECT_DIR$/smartenvpro_temperature.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartwater_ec.html" afterPath="$PROJECT_DIR$/smartwater_ec.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartwater_humidity.html" afterPath="$PROJECT_DIR$/smartwater_humidity.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartwater_orp.html" afterPath="$PROJECT_DIR$/smartwater_orp.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartwater_temperature.html" afterPath="$PROJECT_DIR$/smartwater_temperature.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,45 +36,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="smartagriculture_humidity.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/smartagriculture_humidity.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SocketServer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/socketServer/SocketServer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="112" column="9" lean-forward="false" selection-start-line="112" selection-start-column="9" selection-end-line="112" selection-end-column="9" />
-              <folding>
-                <element signature="e#54#93#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WsEventHandler.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/socketServer/WsEventHandler.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="100" column="26" lean-forward="true" selection-start-line="100" selection-start-column="26" selection-end-line="100" selection-end-column="26" />
-              <folding>
-                <element signature="e#0#39#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="smartagriculture_humidity.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/smartagriculture_humidity.html">
+      <file leaf-file-name="smartenvpro_ch4.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartenvpro_ch4.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="231">
-              <caret line="52" column="10" lean-forward="false" selection-start-line="52" selection-start-column="10" selection-end-line="52" selection-end-column="10" />
+              <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -75,21 +49,89 @@
       <file leaf-file-name="smartenvpro_co.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/smartenvpro_co.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="19" column="31" lean-forward="false" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+            <state relative-caret-position="231">
+              <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SocketActions.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/socketServer/SocketActions.js">
+      <file leaf-file-name="smartenvpro_co2.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartenvpro_co2.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding>
-                <element signature="n#!!doc;n#SocketActions#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="231">
+              <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="smartenvpro_humidity.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartenvpro_humidity.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="smartenvpro_pressure.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartenvpro_pressure.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="smartenvpro_temperature.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartenvpro_temperature.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="smartwater_ec.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartwater_ec.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="smartwater_humidity.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartwater_humidity.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="smartwater_orp.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartwater_orp.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="smartwater_temperature.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/smartwater_temperature.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -150,18 +192,6 @@
         <option value="$PROJECT_DIR$/TODO/smartwater_temperature.js" />
         <option value="$PROJECT_DIR$/TODO/smartwater_ec.html" />
         <option value="$PROJECT_DIR$/TODO/smartwater_ec.js" />
-        <option value="$PROJECT_DIR$/smartagriculture_par.html" />
-        <option value="$PROJECT_DIR$/smartagriculture_temperature.html" />
-        <option value="$PROJECT_DIR$/smartenvpro_ch4.html" />
-        <option value="$PROJECT_DIR$/smartenvpro_co.html" />
-        <option value="$PROJECT_DIR$/smartenvpro_co2.html" />
-        <option value="$PROJECT_DIR$/smartenvpro_humidity.html" />
-        <option value="$PROJECT_DIR$/smartenvpro_pressure.html" />
-        <option value="$PROJECT_DIR$/smartenvpro_temperature.html" />
-        <option value="$PROJECT_DIR$/smartwater_ec.html" />
-        <option value="$PROJECT_DIR$/smartwater_humidity.html" />
-        <option value="$PROJECT_DIR$/smartwater_orp.html" />
-        <option value="$PROJECT_DIR$/smartwater_temperature.html" />
         <option value="$PROJECT_DIR$/smartagriculture_par.js" />
         <option value="$PROJECT_DIR$/smartagriculture_temperature.js" />
         <option value="$PROJECT_DIR$/smartenvpro_ch4.js" />
@@ -175,10 +205,22 @@
         <option value="$PROJECT_DIR$/smartwater_orp.js" />
         <option value="$PROJECT_DIR$/smartwater_temperature.js" />
         <option value="$PROJECT_DIR$/socketServer/SocketActions.js" />
-        <option value="$PROJECT_DIR$/smartagriculture_humidity.html" />
         <option value="$PROJECT_DIR$/smartagriculture_humidity.js" />
         <option value="$PROJECT_DIR$/socketServer/SocketServer.js" />
         <option value="$PROJECT_DIR$/socketServer/WsEventHandler.js" />
+        <option value="$PROJECT_DIR$/smartagriculture_humidity.html" />
+        <option value="$PROJECT_DIR$/smartagriculture_par.html" />
+        <option value="$PROJECT_DIR$/smartagriculture_temperature.html" />
+        <option value="$PROJECT_DIR$/smartenvpro_ch4.html" />
+        <option value="$PROJECT_DIR$/smartenvpro_co.html" />
+        <option value="$PROJECT_DIR$/smartenvpro_co2.html" />
+        <option value="$PROJECT_DIR$/smartenvpro_humidity.html" />
+        <option value="$PROJECT_DIR$/smartenvpro_pressure.html" />
+        <option value="$PROJECT_DIR$/smartenvpro_temperature.html" />
+        <option value="$PROJECT_DIR$/smartwater_ec.html" />
+        <option value="$PROJECT_DIR$/smartwater_humidity.html" />
+        <option value="$PROJECT_DIR$/smartwater_orp.html" />
+        <option value="$PROJECT_DIR$/smartwater_temperature.html" />
       </list>
     </option>
   </component>
@@ -365,16 +407,16 @@
       <workItem from="1480683884610" duration="11532000" />
       <workItem from="1480696208399" duration="1639000" />
       <workItem from="1480928360946" duration="20669000" />
-      <workItem from="1481016856730" duration="34635000" />
+      <workItem from="1481016856730" duration="34928000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="94421000" />
+    <option name="totallyTimeSpent" value="94714000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="952" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19104804" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -384,7 +426,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22014052" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22014052" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -536,83 +578,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/smartagriculture_par.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="46" column="17" lean-forward="false" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartagriculture_temperature.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="46" column="17" lean-forward="false" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartenvpro_ch4.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="46" column="17" lean-forward="false" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartenvpro_co2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="46" column="17" lean-forward="false" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartenvpro_humidity.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="46" column="17" lean-forward="false" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartenvpro_pressure.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="46" column="17" lean-forward="false" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartenvpro_temperature.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="46" column="17" lean-forward="false" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartwater_ec.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="46" column="17" lean-forward="false" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartwater_humidity.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="46" column="17" lean-forward="false" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartwater_orp.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="46" column="17" lean-forward="false" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartwater_temperature.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="46" column="69" lean-forward="true" selection-start-line="46" selection-start-column="69" selection-end-line="46" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/smartagriculture_par.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
@@ -709,32 +674,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/socketServer/SocketActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc;n#SocketActions#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartenvpro_co.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="19" column="31" lean-forward="false" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartagriculture_humidity.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="52" column="10" lean-forward="false" selection-start-line="52" selection-start-column="10" selection-end-line="52" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/smartagriculture_humidity.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="258">
@@ -755,11 +694,125 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/socketServer/WsEventHandler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="100" column="26" lean-forward="true" selection-start-line="100" selection-start-column="26" selection-end-line="100" selection-end-column="26" />
+        <state relative-caret-position="227">
+          <caret line="99" column="35" lean-forward="true" selection-start-line="99" selection-start-column="35" selection-end-line="99" selection-end-column="35" />
           <folding>
             <element signature="e#0#39#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/socketServer/SocketActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc;n#SocketActions#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartagriculture_humidity.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="51" column="12" lean-forward="false" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartagriculture_par.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="50" column="47" lean-forward="true" selection-start-line="50" selection-start-column="47" selection-end-line="51" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartagriculture_temperature.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="50" column="47" lean-forward="false" selection-start-line="50" selection-start-column="47" selection-end-line="50" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartenvpro_ch4.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartenvpro_co.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartenvpro_co2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartenvpro_humidity.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartenvpro_pressure.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartenvpro_temperature.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartwater_ec.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartwater_humidity.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartwater_orp.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartwater_temperature.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="51" column="50" lean-forward="false" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
+          <folding />
         </state>
       </provider>
     </entry>
