@@ -102,7 +102,7 @@ class SocketServer {
                 delete _nodes[id];
                 delete _clients[id];
                 console.log("Node " + id + " disconnected or redeployed");
-                ws.close(); //each time the node is moved or deleted a new one is created so we close the connexion
+                ws.disconnect(); //each time the node is moved or deleted a new one is created so we close the connexion
             }
         });
 

@@ -43,12 +43,11 @@ module.exports = function(RED) {
                 // Allows ports to be closed, connections dropped etc.
                 // eg: node.client.disconnect();
                 var _data ={
-                    type:SocketActions.NODE_DISCONNECT,
                     data:{
                         disconnected: true
                     }
                 }
-                ws.getSocket().send(JSON.stringify(_data));
+                ws.getSocket().emit(SocketActions.NODE_DISCONNECT,_data);
             });
 
         }

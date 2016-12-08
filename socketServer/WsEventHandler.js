@@ -11,8 +11,6 @@ class WsEventHandler {
 
     constructor(node, address,params) {
 
-        console.log(address, {query :params})
-
         this.node = node;
 
         var _node = this.node;
@@ -65,7 +63,6 @@ class WsEventHandler {
                     }
                 }
                 else{
-                    console.log(weh.getTimeout());
                     if (weh.getTimeout()) {
                         clearTimeout(weh.getTimeout());
                     }

@@ -42,13 +42,12 @@ module.exports = function(RED) {
                 // Called when the node is shutdown - eg on redeploy.
                 // Allows ports to be closed, connections dropped etc.
                 // eg: node.client.disconnect();
-                var _data = {
-                    type: SocketActions.NODE_DISCONNECT,
-                    data: {
+                var _data ={
+                    data:{
                         disconnected: true
                     }
                 }
-                ws.getSocket().send(JSON.stringify(_data));
+                ws.getSocket().emit(SocketActions.NODE_DISCONNECT,_data);
             });
 
         }
