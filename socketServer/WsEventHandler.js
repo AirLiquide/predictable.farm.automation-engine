@@ -8,66 +8,71 @@ var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions');
 
 class WsEventHandler {
 
-    //TODO : add timeout handling
-    //TODO: method 1 : using setTimeout() / ClearTimeout()
-    //TODO: method 2 : using setTimeout() / Timestamp
 
+    constructor(node, address,params) {
 
-    constructor(node, address) {
-        this.ws = new WebSocket(address);
+        console.log(address, {query :params})
+
         this.node = node;
 
         var _node = this.node;
-        console.log(this.node.timeout)
         var weh = this;
 
-        this.ws.on('open', function open() {
-            //ws.send(JSON.stringify({message: 'something'}));
-            //console.log("connected to server")
+        this.ws = require('/root/.node-red/nodes/node_modules/socket.io-client')(address,{query :params});
+
+        //used to check all events
+        var onevent = this.ws.onevent;
+        this.ws.onevent = function (packet) {
+            var args = packet.data || [];
+            onevent.call (this, packet);    // original call
+            packet.data = ["*"].concat(args);
+            onevent.call(this, packet);      // additional call to catch-all
+        };
+
+        this.ws.on('connect', function(){
         });
 
-        this.ws.on('message', function (data, flags) {
+        this.ws.on('error', function(error){
+            console.log(error)
+        });
 
-            var data = JSON.parse(data);
-            var _data = {
-                payload: data
-            }
+        this.ws.on('disconnect', function(){
 
-            if (SocketActions.isValidAction(data.type) ) {
-                weh.setLastUpdate(Date.now());
+        });
 
-                if (!weh.getTimeout()&& data.type != SocketActions.SENSOR_DISCONNECT) {
-                    weh.setTO(setTimeout(checkTimeout, weh.getNode().timeout, weh));
-                    //weh.setTimeout(setTimeout(checkTimeout,5000,weh));
+        this.ws.on(SocketActions.SENSOR_DISCONNECT, function(data){
+            //console.log("Sensor disconnected")
+            _node.status({fill: "gray", shape: "ring", text: "disconnected"});
+            _node.send([null, null, data]);
+        });
+
+        this.ws.on(SocketActions.SENSOR_CONNECT, function(data){
+            //console.log("Sensor connected")
+            _node.status({fill: "green", shape: "dot", text: "connected"});
+            _node.send([null, null, data]);
+        });
+
+        this.ws.on(SocketActions.TEST_ACTION, function(data){
+            //console.log("Test action")
+        });
+
+        this.ws.on("*",function(event,data) {
+            if (SocketActions.isValidAction(event)) {
+                if (event != SocketActions.SENSOR_DISCONNECT) {
+                    weh.setLastUpdate(Date.now());
+                    if (!weh.getTimeout()) {
+                        weh.setTO(setTimeout(checkTimeout, weh.getNode().timeout, weh));
+                    }
                 }
-
-                if (data.type === SocketActions.SENSOR_DISCONNECT) {
-                    //console.log("Sensor disconnected")
-                    _node.status({fill: "gray", shape: "ring", text: "disconnected"});
-                    _node.send([null, null, _data]);
+                else{
+                    console.log(weh.getTimeout());
                     if (weh.getTimeout()) {
                         clearTimeout(weh.getTimeout());
                     }
-                }
+                    weh.setTO(undefined);
 
-                if (data.type === SocketActions.SENSOR_CONNECT) {
-                    //console.log("Sensor connected")
-                    _node.status({fill: "green", shape: "dot", text: "connected"});
-                    _node.send([null, null, _data]);
                 }
-                if (data.type === SocketActions.TEST_ACTION) {
-                    //console.log("Test action")
-                }
-                else
-                    _node.send([_data, null, null]);
-                // flags.binary will be set if a binary data is received.
-                // flags.masked will be set if the data was masked.
             }
-        });
-
-
-        this.ws.on('close', function close() {
-
         });
 
     }
@@ -104,7 +109,7 @@ var checkTimeout = function (weh) {
             //notify timeout
             weh.getNode().status({fill: "yellow", shape: "dot", text: "timeout"});
             weh.setTO(undefined);
-            console.log(weh.getTimeout())
+            //weh.setTO("timeout");
         }
         else {
             weh.setTO(setTimeout(checkTimeout, Date.now() - weh.getLastUpdate(), weh));
