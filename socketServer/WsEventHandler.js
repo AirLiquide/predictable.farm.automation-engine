@@ -41,18 +41,31 @@ class WsEventHandler {
         this.ws.on(SocketActions.SENSOR_DISCONNECT, function(data){
             //console.log("Sensor disconnected")
             _node.status({fill: "gray", shape: "ring", text: "disconnected"});
-            _node.send([null, null, data]);
+            var msg = {
+                payload:data
+            }
+            _node.send([null, null, msg]);
         });
 
         this.ws.on(SocketActions.SENSOR_CONNECT, function(data){
             //console.log("Sensor connected")
             _node.status({fill: "green", shape: "dot", text: "connected"});
-            _node.send([null, null, data]);
+            var msg = {
+                payload:data
+            }
+            _node.send([null, null, msg]);
         });
 
         this.ws.on(SocketActions.TEST_ACTION, function(data){
             //updateTimeout(weh,SocketActions.TEST_ACTION);
             //console.log("Test action")
+        });
+
+        this.ws.on(SocketActions.UPDATE_DATA, function(data){
+            var msg = {
+                payload:data
+            }
+            _node.send([msg, null, null]);
         });
 
         //TODO : this function is only called one time. Have to fix it
@@ -61,7 +74,7 @@ class WsEventHandler {
                 //prevent the timeout to be called when we disconnect/redeploy the node
                 if (event != SocketActions.SENSOR_DISCONNECT) {
                     weh.setLastUpdate(Date.now());
-                    console.log("lastUpdate edited", weh.getLastUpdate())
+                    //console.log("lastUpdate edited", weh.getLastUpdate())
                     if (!weh.getTimeout()) {
                         weh.setTO(setTimeout(checkTimeout, weh.getNode().timeout, weh));
                     }
@@ -109,6 +122,12 @@ var checkTimeout = function (weh) {
             //if ((Date.now()-weh.lastUpdate)>=5000){
             //notify timeout
             weh.getNode().status({fill: "yellow", shape: "dot", text: "timeout"});
+            var msg = {
+                payload:{
+                    timeout : true
+                }
+            }
+            weh.getNode().send([null, msg, null]);
             weh.setTO(undefined);
             //weh.setTO("timeout");
         }

@@ -28,6 +28,14 @@ class SocketActions{
         return "TEST_EMIT_ACTION";
     }
 
+    static get SENSOR_EMIT(){
+        return "sensor-emit";
+    }
+
+    static get UPDATE_DATA(){
+        return "UPDATE_DATA";
+    }
+
     static isValidAction(action){
         var properties = Object.getOwnPropertyNames(SocketActions);
         //remove the native properties

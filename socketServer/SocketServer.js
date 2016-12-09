@@ -22,6 +22,9 @@ var _sensors = {}; //might be removed to save memory, useful to fast iterate on 
 
 /*  * Setting up block level variable to store class state  * , set's to null by default.  */
 var instance = null;
+
+
+
 class SocketServer {
     constructor() {
         server = require('socket.io').listen(3000);
@@ -113,6 +116,113 @@ class SocketServer {
                         _nodes[node].socket.emit(SocketActions.TEST_ACTION,message);
                     }
                 })
+            }
+        });
+
+        ws.on(SocketActions.SENSOR_EMIT, function (message) {
+            if (role == 'sensor'){
+                var socket_io_data = {
+                    'device_id': null,
+                    'sensor_type': null,
+                    'sensor_id': null,
+                    'sensor_value': 0
+                }
+
+                var data = JSON.parse(message);
+                var  type = data['sensor_type'];
+
+                if (type == 'misthumidity'){
+                    nodes.forEach(function each(node) {
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'smartagriculture_humidity') { //id is the sensor id
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA,message);
+                        }
+                    })
+                }
+                else if (type == 'mistlux'){
+                    nodes.forEach(function each(node) {
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'smartagriculture_par') { //id is the sensor id
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA,message);
+                        }
+                    })
+                }
+                else if (type == 'misttemperature'){
+                    nodes.forEach(function each(node) {
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'smartagriculture_temperature') { //id is the sensor id
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA,message);
+                        }
+                    })
+                }
+                else if (type == 'ch4'){
+                    nodes.forEach(function each(node) {
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'smartenvpro_ch4') { //id is the sensor id
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA,message);
+                        }
+                    })
+                }
+                else if (type == 'o3' || type == 'co'){
+                    nodes.forEach(function each(node) {
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'smartenvpro_cO') { //id is the sensor id
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA,message);
+                        }
+                    })
+                }
+                else if (type == 'co2'){
+                    nodes.forEach(function each(node) {
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'smartenvpro_co2') { //id is the sensor id
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA,message);
+                        }
+                    })
+                }
+                else if (type == 'humidity'){
+                    nodes.forEach(function each(node) {
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'smartenvpro_humidity') { //id is the sensor id
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA,message);
+                        }
+                    })
+                }
+                else if (type == 'pressure'){
+                    nodes.forEach(function each(node) {
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'smartenvpro_pressure') { //id is the sensor id
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA,message);
+                        }
+                    })
+                }
+                else if (type == 'temperature'){
+                    nodes.forEach(function each(node) {
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'smartenvpro_temperature') { //id is the sensor id
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA,message);
+                        }
+                    })
+                }
+                else if (type == 'waterec'){
+                    nodes.forEach(function each(node) {
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'smartwater_ec') { //id is the sensor id
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA,message);
+                        }
+                    })
+                }
+                else if (type == 'waterhumidity'){
+                    nodes.forEach(function each(node) {
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'smartwater_humidity') { //id is the sensor id
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA,message);
+                        }
+                    })
+                }
+                else if (type == 'waterorp'){
+                    nodes.forEach(function each(node) {
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'smartwater_orp') { //id is the sensor id
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA,message);
+                        }
+                    })
+                }
+                else if (type == 'watertemperature'){
+                    nodes.forEach(function each(node) {
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'smartwater_temperature') { //id is the sensor id
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA,message);
+                        }
+                    })
+                }
+
             }
         });
 

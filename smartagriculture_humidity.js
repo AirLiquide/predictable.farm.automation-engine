@@ -11,7 +11,7 @@ module.exports = function (RED) {
     var nodeName = "smartagriculture_humidity";
 
     // The main node definition - most things happen in here
-    function SmartAgriculturehumidityNode(n) {
+    function SmartAgriculturehumidityDashboardNode(n) {
 
         //console.log(server)
 
@@ -67,6 +67,6 @@ module.exports = function (RED) {
 
     // Register the node by name. This must be called before overriding any of the
     // Node functions.
-    RED.nodes.registerType(nodeName, SmartAgriculturehumidityNode);
+    RED.nodes.registerType(nodeName, SmartAgriculturehumidityDashboardNode);
 
 }

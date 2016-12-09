@@ -1,4 +1,4 @@
-// node-red input binding for smartagriculture-humidity;
+// node-red input binding for smartagriculture-par;
 
 module.exports = function (RED) {
     "use strict";
@@ -6,11 +6,11 @@ module.exports = function (RED) {
     //var foo = require("foo-library");
 
     var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions');
-    var nodeName = "smartagriculture_humidity_dashboard";
+    var nodeName = "smartagriculture_par_dashboard";
 
 
     // The main node definition - most things happen in here
-    function SmartAgriculturehumidityDashboardNode(n) {
+    function SmartAgricultureParDashboardNode(n) {
 
         var socket = require('socket.io-client')('http://10.49.95.122:8080/');
         socket.emit("hello");
@@ -53,6 +53,6 @@ module.exports = function (RED) {
 
     // Register the node by name. This must be called before overriding any of the
     // Node functions.
-    RED.nodes.registerType(nodeName, SmartAgriculturehumidityDashboardNode);
+    RED.nodes.registerType(nodeName, SmartAgricultureParDashboardNode);
 
 }
