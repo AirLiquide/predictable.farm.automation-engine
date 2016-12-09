@@ -116,6 +116,10 @@ class SocketServer {
             }
         });
 
+        ws.on(SocketActions.TEST_EMIT_ACTION, function (message) {
+            console.log("sent")
+        });
+
 
         ws.on('disconnect', function () {
             delete _clients[id];

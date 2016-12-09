@@ -24,6 +24,10 @@ class SocketActions{
         return "TEST_ACTION";
     }
 
+    static get TEST_EMIT_ACTION(){
+        return "TEST_EMIT_ACTION";
+    }
+
     static isValidAction(action){
         var properties = Object.getOwnPropertyNames(SocketActions);
         //remove the native properties

@@ -6,12 +6,13 @@ module.exports = function (RED) {
     //var foo = require("foo-library");
 
     var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions');
-    var WsEventHandler = require('/root/.node-red/nodes/socketServer/WsEventHandler');
-    var SocketServer = require('/root/.node-red/nodes/socketServer/SocketServer');
     var nodeName = "smartagriculture_humidity_dashboard";
+
 
     // The main node definition - most things happen in here
     function SmartAgriculturehumidityNode(n) {
+
+        var socket = require('socket.io-client')('http://172.18.0.22:3000/',{ query: 'role=node&sensorId=10&node_type='+nodeName});
 
         //console.log(server)
 
@@ -33,6 +34,18 @@ module.exports = function (RED) {
         // Note: this sample doesn't do anything much - it will only send
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
+        this.on('input', function (msg) {
+            node.warn("I saw a payload: " + msg.payload);
+            socket.emit(SocketActions.TEST_EMIT_ACTION,msg.payload);
+            // in this example just send it straight on... should process it here really
+            //node.send(msg);
+        });
+
+        this.on("close", function () {
+            // Called when the node is shutdown - eg on redeploy.
+            // Allows ports to be closed, connections dropped etc.
+            // eg: node.client.disconnect();
+        });
 
 
     }
