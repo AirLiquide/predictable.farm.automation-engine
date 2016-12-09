@@ -9,7 +9,7 @@ module.exports = function(RED) {
     var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions');
     var WsEventHandler = require('/root/.node-red/nodes/socketServer/WsEventHandler');
     var SocketServer = require('/root/.node-red/nodes/socketServer/SocketServer');
-    var nodeName = "smartenvpro_cO";
+    var nodeName = "smartenvpro_co";
 
     // The main node definition - most things happen in here
     function SmartEnvProCONode(n) {
