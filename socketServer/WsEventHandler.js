@@ -9,7 +9,7 @@ var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions');
 class WsEventHandler {
 
 
-    constructor(node, address,params) {
+    constructor(/*node*/node,/*string*/ address,/*string*/params) {
 
         this.node = node;
 
@@ -18,7 +18,7 @@ class WsEventHandler {
 
         this.ws = require('/root/.node-red/nodes/node_modules/socket.io-client')(address,{query :params});
 
-        //used to check all events
+        //used to check all events at once. Useful for the timeout detection
         var onevent = this.ws.onevent;
         this.ws.onevent = function (packet) {
             var args = packet.data || [];
@@ -51,13 +51,17 @@ class WsEventHandler {
         });
 
         this.ws.on(SocketActions.TEST_ACTION, function(data){
+            //updateTimeout(weh,SocketActions.TEST_ACTION);
             //console.log("Test action")
         });
 
+        //TODO : this function is only called one time. Have to fix it
         this.ws.on("*",function(event,data) {
             if (SocketActions.isValidAction(event)) {
+                //prevent the timeout to be called when we disconnect/redeploy the node
                 if (event != SocketActions.SENSOR_DISCONNECT) {
                     weh.setLastUpdate(Date.now());
+                    console.log("lastUpdate edited", weh.getLastUpdate())
                     if (!weh.getTimeout()) {
                         weh.setTO(setTimeout(checkTimeout, weh.getNode().timeout, weh));
                     }
@@ -101,7 +105,7 @@ class WsEventHandler {
 
 var checkTimeout = function (weh) {
     if (weh.getSocket()) {
-        if ((Date.now() - weh.lastUpdate) >= weh.getNode().timeout) {
+        if ((Date.now() - weh.getLastUpdate()) >= weh.getNode().timeout) {
             //if ((Date.now()-weh.lastUpdate)>=5000){
             //notify timeout
             weh.getNode().status({fill: "yellow", shape: "dot", text: "timeout"});
@@ -112,6 +116,11 @@ var checkTimeout = function (weh) {
             weh.setTO(setTimeout(checkTimeout, Date.now() - weh.getLastUpdate(), weh));
         }
     }
+}
+
+var updateTimeout= function(weh,event){
+
+
 }
 
 module.exports = WsEventHandler;

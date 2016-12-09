@@ -110,7 +110,7 @@ class SocketServer {
             if (role == 'sensor') {
                 nodes.forEach(function each(node) {
                     if (_nodes[node].sensorId == sensorId) { //id is the sensor id
-                        _nodes[node].socket.send(message);
+                        _nodes[node].socket.emit(SocketActions.TEST_ACTION,message);
                     }
                 })
             }
@@ -146,133 +146,6 @@ class SocketServer {
             }
         })
     }
-
-
-    /*_oldhandleConnection(ws) {
-        console.log(ws.handshake.query)
-        do
-            var id = (1 + Math.random() * 4294967295).toString(16);
-        while (_clients.hasOwnProperty(id));
-        var location = url.parse(ws.upgradeReq.url, true);
-        var role = location.query.role;
-        var client = {
-            socket: ws,
-            role: role
-        }
-
-        //TODO: add a more secure way to log clients, maybe a private crypted code ?
-        if (role == 'node' || role == 'sensor') {
-            //TODO : refactor code to have something cleaner
-            if (role == 'node') {
-                var sensorId = location.query.sensorId;
-                var nodeType = location.query.node_type;
-                client.sensorId = sensorId;
-                client.nodeType = nodeType;
-                _nodes[id] = client;
-                _clients[id] = client;
-                var sensors = Object.keys(_sensors);
-                sensors.forEach(function each(sensor) {
-                    if (_sensors[sensor].sensorId == sensorId) { //id is the sensor id
-                        var _data = {
-                            type: SocketActions.SENSOR_CONNECT,
-                            data: {
-                                connected: true
-                            },
-                            sensorId: sensorId,
-                            id: id
-                        };
-                        ws.send(JSON.stringify(_data));
-                    }
-                });
-                console.log("Node " + id + " connected");
-            }
-            else {
-                var sensorId = location.query.sensorId;
-                client.sensorId = sensorId;
-                _sensors[id] = client;
-                _clients[id] = client;
-                var nodes = Object.keys(_nodes);
-                nodes.forEach(function each(node) {
-                    if (_nodes[node].sensorId == sensorId) { //id is the sensor id
-
-                        var _data = {
-                            type: SocketActions.SENSOR_CONNECT,
-                            data: {
-                                connected: true
-                            },
-                            sensorId: sensorId,
-                            id: id
-                        }
-                        _nodes[node].socket.send(JSON.stringify(_data));
-
-                    }
-                });
-                console.log("Sensor " + id + "(" + sensorId + ") connected");
-            }
-            //TODO : adapt to different node type with a detection for wrong node type
-            //TODO : maybe use scopes on login
-        }
-
-        ws.on('message', function (message) {
-
-            var data = JSON.parse(message);
-            if (role == 'node') {
-                if (data.type == SocketActions.NODE_DISCONNECT) {
-                    delete _nodes[id];
-                    delete _clients[id];
-                    console.log("Node " + id + " disconnected or redeployed");
-                    ws.close(); //each time the node is moved or deleted a new one is created so we close the connexion
-                }
-                //console.log("SERVER :", data)
-            }
-            else if (role == 'sensor') {
-
-                if (data.type == SocketActions.TEST_ACTION) {
-                    nodes.forEach(function each(node) {
-                        if (_nodes[node].sensorId == sensorId) { //id is the sensor id
-                            _nodes[node].socket.send(message);
-                        }
-                    })
-                }
-
-                var _data = JSON.stringify(data);
-                //maybe find a more optimized data structure for later use if we start to have a lot of nodes
-                //_nodes[node].socket.send(_data);
-
-
-            }
-        });
-
-        ws.on('close', function () {
-            delete _clients[id];
-            if (role == 'node') {
-                delete _nodes[id];
-                delete _clients[id];
-                console.log("Node " + id + " disconnected");
-            }
-            else {
-                var nodes = Object.keys(_nodes);
-                nodes.forEach(function each(node) {
-                    if (_nodes[node].sensorId == sensorId) { //id is the sensor id
-                        var _data = {
-                            type: SocketActions.SENSOR_DISCONNECT,
-                            data: {
-                                disconnected: true
-                            },
-                            sensorId: sensorId,
-                            id: id
-                        }
-                        _nodes[node].socket.send(JSON.stringify(_data));
-
-                    }
-                });
-
-                delete _sensors[id];
-                delete _clients[id];
-                console.log("Sensor " + id + " disconnected");
-            }
-        })
-    }*/
 }
 
 function getInstance() {
