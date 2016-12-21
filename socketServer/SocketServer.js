@@ -19,6 +19,7 @@ var server = null;
 var _clients = {};
 var _nodes = {}; //might be removed to save memory, useful to fast iterate on nodes
 var _sensors = {}; //might be removed to save memory, useful to fast iterate on sensors
+var _actionners = {}; //might be removed to save memory, useful to fast iterate on sensors
 
 /*  * Setting up block level variable to store class state  * , set's to null by default.  */
 var instance = null;
@@ -49,7 +50,7 @@ class SocketServer {
         }
 
         //TODO: add a more secure way to log clients, maybe a private crypted code ?
-        if (role == 'node' || role == 'sensor') {
+        if (role == 'node' || role == 'sensor' || role =='actionner') {
             //TODO : refactor code to have something cleaner
             if (role == 'node') {
                 var sensorId = ws.handshake.query.sensorId;
@@ -73,12 +74,13 @@ class SocketServer {
                 });
                 console.log("Node " + id + " connected");
             }
-            else {
+            else if (role == 'sensor'){
                 var sensorId = ws.handshake.query.sensorId;
                 client.sensorId = sensorId;
                 _sensors[id] = client;
                 _clients[id] = client;
                 var nodes = Object.keys(_nodes);
+
                 nodes.forEach(function each(node) {
                     if (_nodes[node].sensorId == sensorId) { //id is the sensor id
 
@@ -92,7 +94,46 @@ class SocketServer {
                         _nodes[node].socket.emit(SocketActions.SENSOR_CONNECT, _data);
                     }
                 });
+
+                var actionners = Object.keys(_actionners);
+                console.log(actionners)
+                actionners.forEach(function each(actionner) {
+                    if (_actionners[actionner].sensorId == sensorId) { //id is the sensor id
+                        var _data = {
+                            data: {
+                                connected: true
+                            },
+                            sensorId: sensorId,
+                            id: id
+                        };
+                        _actionners[actionner].socket.emit(SocketActions.SENSOR_CONNECT, _data);
+                        console.log("sensor connected")
+                    }
+                });
                 console.log("Sensor " + id + "(" + sensorId + ") connected");
+            }
+
+            else if (role == 'actionner'){
+                var sensorId = ws.handshake.query.sensorId;
+                var nodeType = ws.handshake.query.node_type;
+                client.sensorId = sensorId;
+                client.nodeType = nodeType;
+                _actionners[id] = client;
+                _clients[id] = client;
+                var sensors = Object.keys(_sensors);
+                sensors.forEach(function each(sensor) {
+                    if (_sensors[sensor].sensorId == sensorId) { //id is the sensor id
+                        var _data = {
+                            data: {
+                                connected: true
+                            },
+                            sensorId: sensorId,
+                            id: id
+                        };
+                        ws.emit(SocketActions.SENSOR_CONNECT, _data);
+                    }
+                });
+                console.log("Actionner " + id + "(" + sensorId + ") connected");
             }
             //TODO : adapt to different node type with a detection for wrong node type
             //TODO : maybe use scopes on login
@@ -247,6 +288,11 @@ class SocketServer {
                 delete _clients[id];
                 console.log("Node " + id + " disconnected");
             }
+            if (role == 'actionner') {
+                delete _actionners[id];
+                delete _clients[id];
+                console.log("Actionner " + id + " disconnected");
+            }
             else {
                 var nodes = Object.keys(_nodes);
                 nodes.forEach(function each(node) {
@@ -262,11 +308,34 @@ class SocketServer {
                     }
                 });
 
+                var actionners = Object.keys(_actionners);
+                actionners.forEach(function each(actionner) {
+                    if (_actionners[actionner].sensorId == sensorId) { //id is the sensor id
+                        var _data = {
+                            data: {
+                                disconnected: true
+                            },
+                            sensorId: sensorId,
+                            id: id
+                        }
+                        _actionners[actionner].socket.emit(SocketActions.SENSOR_DISCONNECT, _data);
+                    }
+                });
+
                 delete _sensors[id];
                 delete _clients[id];
                 console.log("Sensor " + id + " disconnected");
             }
-        })
+        });
+
+        ws.on('sensor-receive', function (data) {
+            var sensors = Object.keys(_sensors);
+            sensors.forEach(function each(sensor) {
+                if (_sensors[sensor].sensorId == sensorId) { //id is the sensor id
+                    _sensors[sensor].socket.emit('sensor-receive', data);
+                }
+            });
+        });
     }
 }
 
