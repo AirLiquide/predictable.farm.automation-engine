@@ -9,7 +9,7 @@ var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions');
 class WsEventHandler {
 
 
-    constructor(/*node*/node, /*string*/ address, /*string*/params) {
+    constructor(/*node*/node, /*string*/ address, /*    string*/params) {
 
         this.node = node;
 
@@ -61,10 +61,23 @@ class WsEventHandler {
             //console.log("Test action")
         });
 
+        /**
+         * var socket_io_data = {
+         * 'device_id': null,
+         * 'sensor_type': null,
+         * 'sensor_id': null,
+         * 'sensor_value': 0
+         * }
+         */
+
         this.ws.on(SocketActions.UPDATE_DATA, function (data) {
+
+            var data = JSON.parse(data)
+            var query = "INSERT INTO predictablefarm.sensorLog (sensorID, value, created_at)VALUES("+data.sensor_id+",\'" + data.sensor_value+"\',"+data.date*1000+" ) USING TIMESTAMP;";
             var msg = {
-                payload: data
-            }
+                payload: data,
+                topic: query
+            };
             _node.send([msg, null, null]);
         });
 
