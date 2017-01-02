@@ -4,7 +4,7 @@
 "use strict";
 
 var WebSocket = require('/usr/local/lib/node_modules/node-red/node_modules/ws');
-var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions');
+var SocketActions = require('/usr/local/lib/node_modules/node-red/nodes/socketServer/SocketActions');
 
 class WsEventHandler {
 
@@ -16,7 +16,7 @@ class WsEventHandler {
         var _node = this.node;
         var weh = this;
 
-        this.ws = require('/root/.node-red/nodes/node_modules/socket.io-client')(address, {query: params});
+        this.ws = require('/usr/local/lib/node_modules/node-red/nodes/node_modules/socket.io-client')(address, {query: params});
 
         //used to check all events at once. Useful for the timeout detection
         var onevent = this.ws.onevent;
@@ -73,7 +73,8 @@ class WsEventHandler {
         this.ws.on(SocketActions.UPDATE_DATA, function (data) {
 
             var data = JSON.parse(data)
-            var query = "INSERT INTO predictablefarm.sensorLog (sensorID, value, created_at)VALUES("+data.sensor_id+",\'" + data.sensor_value+"\',"+data.date*1000+" ) USING TIMESTAMP;";
+            //TODO : add a config file to remove the "predicatablefarm.sensorLog" from the hard code
+            var query = "INSERT INTO predictablefarm.sensorLog (sensorID, value, created_at)VALUES("+data.sensor_id+",\'" + data.sensor_value+"\', dateof(now()) ) USING TIMESTAMP;";
             var msg = {
                 payload: data,
                 topic: query

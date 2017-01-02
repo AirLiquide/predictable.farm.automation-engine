@@ -5,9 +5,9 @@ module.exports = function (RED) {
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
-    var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions');
-    var WsEventHandler = require('/root/.node-red/nodes/socketServer/WsEventHandler');
-    var SocketServer = require('/root/.node-red/nodes/socketServer/SocketServer');
+    var SocketActions = require('./socketServer/SocketActions');
+    var WsEventHandler = require('./socketServer/WsEventHandler');
+    var SocketServer = require('./socketServer/SocketServer');
     var nodeName = "global_actionner";
 
 
@@ -40,7 +40,7 @@ module.exports = function (RED) {
 
         if (!this.deviceid == '') {
             this.status({fill:"gray",shape:"ring",text:"disconnected"});
-            var ws = new WsEventHandler(node, 'http://localhost:3000', 'role=actionner&sensorId=' + node.deviceid + "&node_type=" + nodeName);
+            var ws = new WsEventHandler(node, 'http://localhost:8080', 'role=actionner&sensorId=' + node.deviceid + "&node_type=" + nodeName);
 
             this.on('input', function (msg) {
                 var socket_io_data = {

@@ -5,7 +5,7 @@ module.exports = function (RED) {
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
-    var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions');
+    var SocketActions = require('./socketServer/SocketActions');
     var nodeName = "global_sensor_dashboard";
 
 

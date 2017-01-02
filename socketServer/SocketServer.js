@@ -6,12 +6,12 @@
  * Created by ilab on 01/12/16.
  */
 
-var SocketActions = require('/root/.node-red/nodes/socketServer/SocketActions');
+var SocketActions = require('/usr/local/lib/node_modules/node-red/nodes/socketServer/SocketActions');
 
 var url = require('url');
 
 var WebSocketServer = require('/usr/local/lib/node_modules/node-red/node_modules/ws').Server;
-var io = require('/root/.node-red/nodes/node_modules/socket.io').Server;
+var io = require('/usr/local/lib/node_modules/node-red/nodes/node_modules/socket.io').Server;
 var RED = require('/usr/local/lib/node_modules/node-red');
 
 var server = null;
@@ -27,9 +27,7 @@ var instance = null;
 
 class SocketServer {
     constructor() {
-        server = require('socket.io').listen(3000);
-        // Create a WebSocket Server
-        //server = new WebSocketServer({port: 8081});
+        server = require('socket.io').listen(8080);
         _clients = {};
         _nodes = {};
         _sensors = {};
