@@ -1,0 +1,50 @@
+{
+  "name": "node-red-contrib-ilab",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "socket.io": "^1.7.1"
+  },
+  "devDependencies": {},
+  "keywords": [
+
+  ],
+   "node-red": {
+    "nodes": {
+      "global_actionner": "global_actionner.js",
+      "global_sensor": "global_sensor.js",
+      "global_sensor_dashboard": "global_sensor_dashboard.js",
+      "math_average": "math_average.js",
+      "math_equal": "math_equal.js",
+      "math_inferior": "math_inferior.js",
+      "math_superior": "math_superior.js",
+      "smartagriculture_humidity": "smartagriculture_humidity.js",
+      "smartagriculture_humidity_dashboard": "smartagriculture_humidity_dashboard.js",
+      "smartagriculture_par": "smartagriculture_par.js",
+      "smartagriculture_par_dashboard": "smartagriculture_par_dashboard.js",
+      "smartagriculture_temperature": "smartagriculture_temperature.js",
+      "smartagriculture_temperature_dashboard": "smartagriculture_temperature_dashboard.js",
+      "smartenvpro_ch4": "smartenvpro_ch4.js",
+      "smartenvpro_ch4_dashboard": "smartenvpro_ch4_dashboard.js",
+      "smartenvpro_co": "smartenvpro_co.js",
+      "smartenvpro_co2": "smartenvpro_co2.js",
+      "smartenvpro_co2_dashboard": "smartenvpro_co2_dashboard.js",
+      "smartenvpro_co_dashboard": "smartenvpro_co_dashboard.js",
+      "smartenvpro_humidity": "smartenvpro_humidity.js",
+      "smartenvpro_humidity_dashboard": "smartenvpro_humidity_dashboard.js",
+      "smartenvpro_pressure": "smartenvpro_pressure.js",
+      "smartenvpro_pressure_dashboard": "smartenvpro_pressure_dashboard.js",
+      "smartenvpro_temperature": "smartenvpro_temperature.js",
+      "smartenvpro_temperature_dashboard": "smartenvpro_temperature_dashboard.js",
+      "smartwater_ec": "smartwater_ec.js",
+      "smartwater_ec_dashboard": "smartwater_ec_dashboard.js",
+      "smartwater_humidity": "smartwater_humidity.js",
+      "smartwater_humidity_dashboard": "smartwater_humidity_dashboard.js",
+      "smartwater_orp": "smartwater_orp.js",
+      "smartwater_orp_dashboard": "smartwater_orp_dashboard.js",
+      "smartwater_temperature": "smartwater_temperature.js",
+      "smartwater_temperature_dashboard": "smartwater_temperature_dashboard.js",
+      "query_prepare": "query_prepare.js"
+    }
+  }
+}

@@ -94,7 +94,6 @@ class SocketServer {
                 });
 
                 var actionners = Object.keys(_actionners);
-                console.log(actionners)
                 actionners.forEach(function each(actionner) {
                     if (_actionners[actionner].sensorId == sensorId) { //id is the sensor id
                         var _data = {
@@ -105,7 +104,6 @@ class SocketServer {
                             id: id
                         };
                         _actionners[actionner].socket.emit(SocketActions.SENSOR_CONNECT, _data);
-                        console.log("sensor connected")
                     }
                 });
                 console.log("Sensor " + id + "(" + sensorId + ") connected");
@@ -286,7 +284,7 @@ class SocketServer {
                 delete _clients[id];
                 console.log("Node " + id + " disconnected");
             }
-            if (role == 'actionner') {
+            else if (role == 'actionner') {
                 delete _actionners[id];
                 delete _clients[id];
                 console.log("Actionner " + id + " disconnected");
@@ -330,7 +328,8 @@ class SocketServer {
             var sensors = Object.keys(_sensors);
             sensors.forEach(function each(sensor) {
                 if (_sensors[sensor].sensorId == sensorId) { //id is the sensor id
-                    _sensors[sensor].socket.emit('sensor-receive', data);
+                    console.log(JSON.stringify(data));
+                    _sensors[sensor].socket.emit('sensor-receive', JSON.stringify(data));
                 }
             });
         });

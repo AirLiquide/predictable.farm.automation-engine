@@ -51,11 +51,10 @@ module.exports = function (RED) {
                 }
                 var keys = Object.keys(socket_io_data);
                 var isValid = true;
-
                 for (var k in keys) {
                     if (!msg.payload.hasOwnProperty(k)) {
-                        break;
                         isValid = false;
+                        break;
                     }
                 }
                 if (isValid) {
