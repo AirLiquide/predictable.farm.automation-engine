@@ -5,7 +5,7 @@ module.exports = function (RED) {
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
-    var SocketActions = require('./socketServer/SocketActions');
+    var SocketActions = require(__dirname+'/socketServer/SocketActions');
     var nodeName = "global_sensor_dashboard";
 
 
@@ -17,7 +17,7 @@ module.exports = function (RED) {
 
         //console.log(server)
 
-        //var wss = require('./socketServer/SocketServer')(RED);
+        //var wss = require(__dirname+'/socketServer/SocketServer')(RED);
         // Create a RED node
         RED.nodes.createNode(this, n);
 

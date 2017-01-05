@@ -6,13 +6,11 @@
  * Created by ilab on 01/12/16.
  */
 
-var SocketActions = require('/usr/local/lib/node_modules/node-red/nodes/socketServer/SocketActions');
+var SocketActions = require(__dirname+'/SocketActions');
 
 var url = require('url');
 
-var WebSocketServer = require('/usr/local/lib/node_modules/node-red/node_modules/ws').Server;
 var io = require('/usr/local/lib/node_modules/node-red/nodes/node_modules/socket.io').Server;
-var RED = require('/usr/local/lib/node_modules/node-red');
 
 var server = null;
 
@@ -328,7 +326,6 @@ class SocketServer {
             var sensors = Object.keys(_sensors);
             sensors.forEach(function each(sensor) {
                 if (_sensors[sensor].sensorId == sensorId) { //id is the sensor id
-                    console.log(JSON.stringify(data));
                     _sensors[sensor].socket.emit('sensor-receive', JSON.stringify(data));
                 }
             });

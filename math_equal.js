@@ -10,7 +10,7 @@ module.exports = function (RED) {
 
         //console.log(server)
 
-        //var wss = require('./socketServer/SocketServer')(RED);
+        //var wss = require(__dirname+'/socketServer/SocketServer')(RED);
         // Create a RED node
         RED.nodes.createNode(this, n);
 

@@ -1,13 +1,12 @@
 // node-red input binding for smartagriculture-humidity;
-
 module.exports = function (RED) {
     "use strict";
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
-    var SocketActions = require('/usr/local/lib/node_modules/node-red/nodes/socketServer/SocketActions');
-    var WsEventHandler = require('/usr/local/lib/node_modules/node-red/nodes/socketServer/WsEventHandler');
-    var SocketServer = require('/usr/local/lib/node_modules/node-red/nodes/socketServer/SocketServer');
+    var SocketActions = require(__dirname+'/socketServer/SocketActions');
+    var WsEventHandler = require(__dirname+'/socketServer/WsEventHandler');
+    var SocketServer = require(__dirname+'/socketServer/SocketServer');
     var nodeName = "smartagriculture_humidity";
 
     // The main node definition - most things happen in here
@@ -15,7 +14,7 @@ module.exports = function (RED) {
 
         //console.log(server)
 
-        //var wss = require('./socketServer/SocketServer')(RED);
+        //var wss = require(__dirname+'/socketServer/SocketServer')(RED);
         // Create a RED node
         RED.nodes.createNode(this, n);
 

@@ -5,7 +5,7 @@ module.exports = function (RED) {
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
-    var SocketActions = require('/usr/local/lib/node_modules/node-red/nodes/socketServer/SocketActions');
+    var SocketActions = require(__dirname+'/socketServer/SocketActions');
     var nodeName = "smartenvpro_humidity_dashboard";
 
 
@@ -17,7 +17,7 @@ module.exports = function (RED) {
 
         //console.log(server)
 
-        //var wss = require('./socketServer/SocketServer')(RED);
+        //var wss = require(__dirname+'/socketServer/SocketServer')(RED);
         // Create a RED node
         RED.nodes.createNode(this, n);
 

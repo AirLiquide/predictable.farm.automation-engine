@@ -5,9 +5,9 @@ module.exports = function (RED) {
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
-    var SocketActions = require('./socketServer/SocketActions');
-    var WsEventHandler = require('./socketServer/WsEventHandler');
-    var SocketServer = require('./socketServer/SocketServer');
+    var SocketActions = require(__dirname+'/socketServer/SocketActions');
+    var WsEventHandler = require(__dirname+'/socketServer/WsEventHandler');
+    var SocketServer = require(__dirname+'/socketServer/SocketServer');
     var nodeName = "global_sensor";
 
     // The main node definition - most things happen in here
@@ -15,7 +15,7 @@ module.exports = function (RED) {
 
         //console.log(server)
 
-        //var wss = require('./socketServer/SocketServer')(RED);
+        //var wss = require(__dirname+'/socketServer/SocketServer')(RED);
         // Create a RED node
         RED.nodes.createNode(this, n);
 

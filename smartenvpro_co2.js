@@ -6,9 +6,9 @@ module.exports = function(RED) {
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
-    var SocketActions = require('/usr/local/lib/node_modules/node-red/nodes/socketServer/SocketActions');
-    var WsEventHandler = require('/usr/local/lib/node_modules/node-red/nodes/socketServer/WsEventHandler');
-    var SocketServer = require('/usr/local/lib/node_modules/node-red/nodes/socketServer/SocketServer');
+    var SocketActions = require(__dirname+'/socketServer/SocketActions');
+    var WsEventHandler = require(__dirname+'/socketServer/WsEventHandler');
+    var SocketServer = require(__dirname+'/socketServer/SocketServer');
     var nodeName = "smartenvpro_co2";
 
     // The main node definition - most things happen in here
