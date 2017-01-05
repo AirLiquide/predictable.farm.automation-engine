@@ -72,7 +72,7 @@ class WsEventHandler {
 
             var data = JSON.parse(data)
             //TODO : add a config file to remove the "predictablefarm.sensorLog" from the hard code
-            var query = "INSERT INTO predictablefarm.sensorLog (sensorID, value, created_at)VALUES("+data.sensor_id+",\'" + data.sensor_value+"\', dateof(now()) ) USING TIMESTAMP;";
+            var query = "INSERT INTO predictablefarm.sensorLog (device_id, sensor_id, sensor_type, sensor_value, created_at)VALUES(\'"+data.device_id+"\',\'"+data.sensor_id+"\',\'"+data.sensor_type+"\',\'" + data.sensor_value+"\', dateof(now()) ) USING TIMESTAMP;";
             var msg = {
                 payload: data,
                 topic: query
@@ -127,7 +127,7 @@ class WsEventHandler {
 
 var checkTimeout = function (weh) {
     if (weh.getSocket()) {
-        console.log((Date.now() - weh.getLastUpdate()) - weh.getNode().timeout);
+        //console.log((Date.now() - weh.getLastUpdate()) - weh.getNode().timeout);
         if ((Date.now() - weh.getLastUpdate()) >= weh.getNode().timeout) {
             //if ((Date.now()-weh.lastUpdate)>=5000){
             //notify timeout

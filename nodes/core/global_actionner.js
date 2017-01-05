@@ -48,19 +48,17 @@ module.exports = function (RED) {
                     'sensor_type': null,
                     'sensor_id': null,
                     'sensor_value': 0
-                }
-                var keys = Object.keys(socket_io_data);
-                var isValid = true;
-                for (var k in keys) {
-                    if (!msg.payload.hasOwnProperty(k)) {
-                        isValid = false;
-                        break;
-                    }
-                }
+                };
+
+                var aKeys = Object.keys(socket_io_data).sort();
+                var bKeys = Object.keys(msg.payload).sort();
+                var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
+
                 if (isValid) {
-                    msg.payload.sensorId ='relay'+this.actionid;
+                    msg.payload.sensor_id ='relay'+this.actionid;
                     msg.payload.value = this.value;
                     ws.getSocket().emit("sensor-receive", msg.payload);
+                    console.log("emit sensor-receive from node");
                 }
                 // in this example just send it straight on... should process it here really
                 //node.send(msg);

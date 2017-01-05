@@ -8,9 +8,10 @@ module.exports = function (RED) {
 
     // The main node definition - most things happen in here
     function QueryPrepareNode(n) {
-        var table ={
-            "get-switch": "SELECT * FROM predictablefarm.switchData WHERE device_id=\'%device_id%\' AND sensor_type = \'%sensor_type%\';",
-            "save-switch": "INSERT INTO predictablefarm.switchData (device_id, sensor_type, sensor_id, sensor_value, last_update)VALUES( %device_id%,%sensor_type%, %sensor_id%,%sensor_value%, dateof(now()) ) USING TIMESTAMP;"
+        var table = {
+            "get-switch": "SELECT * FROM predictablefarm.relaystate WHERE device_id=\'%device_id%\' AND sensor_type = \'%sensor_type%\';",
+            "save-switch": "INSERT INTO predictablefarm.relaystate (device_id, sensor_type,sensor_id, sensor_value, last_update)VALUES( \'%device_id%\',\'%sensor_type%\', \'%sensor_id%\',%sensor_value%, dateof(now()) ) USING TIMESTAMP;",
+            "save-sensor": "INSERT INTO predictablefarm.sensorLog (device_id, sensor_id, sensor_type, sensor_value, created_at)VALUES(\' %device_id%\',\',%sensor_id%\',\',%sensor_type%\',\'%sensor_value%\', dateof(now()) ) USING TIMESTAMP;"
         };
 
         // Create a RED node
@@ -29,21 +30,26 @@ module.exports = function (RED) {
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
 
-        if (!this.query == ''){
+        if (!this.query == '') {
             this.on('input', function (msg) {
                 var socket_io_data = {
                     'device_id': null,
                     'sensor_type': null,
                     'sensor_id': null,
-                    'sensor_value': 0
-                }
-                try{
-                    if (msg.payload instanceof String){
+                    'sensor_value': null
+                };
+                var isJSON = true;
+                try {
+                    if (msg.payload instanceof String) {
                         msg.payload = JSON.parse(msg.payload);
                     }
+                }
+                catch (e) {
+                    node.error("ERROR : The given JSON isn't correctly formatted : " + msg);
+                    var isJSON = false;
+                }
 
-                    var keys = Object.keys(socket_io_data);
-
+                if (isJSON) {
                     var aKeys = Object.keys(socket_io_data).sort();
                     var bKeys = Object.keys(msg.payload).sort();
                     var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
@@ -59,12 +65,9 @@ module.exports = function (RED) {
                         msg.topic = str;
                         node.send(msg);
                     }
-                    else{
+                    else {
                         node.error("ERROR : wrong object given")
                     }
-                }
-                catch(e){
-                    node.error("ERROR : The given JSON isn't correctly formatted : " +msg);
                 }
             });
 
@@ -74,7 +77,7 @@ module.exports = function (RED) {
                 // eg: node.client.disconnect();
             });
         }
-        else{
+        else {
 
         }
 
