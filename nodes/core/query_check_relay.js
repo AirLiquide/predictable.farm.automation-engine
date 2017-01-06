@@ -55,7 +55,7 @@ module.exports = function (RED) {
                         check = 0;
                     }
 
-                    if ( (sensor == check) && (1-value == check) ){
+                    if ( (1-sensor == check) && (value == check) ){
                         msg.payload = msg.payload[0];
                         msg.payload = JSON.parse(JSON.stringify(msg.payload));//used to remove the type 'Row'
                         msg.payload.sensor_value = 1-value;

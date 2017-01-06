@@ -55,8 +55,8 @@ module.exports = function (RED) {
                 var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
 
                 if (isValid) {
-                    msg.payload.sensor_id ='relay'+this.actionid;
-                    msg.payload.value = this.value;
+                    msg.payload.sensor_type ='relay'+node.actionid;
+                    msg.payload.sensor_value = node.value;
                     ws.getSocket().emit("sensor-receive", msg.payload);
                 }
                 // in this example just send it straight on... should process it here really
