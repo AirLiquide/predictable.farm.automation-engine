@@ -271,7 +271,7 @@ class SocketServer {
         });
 
         ws.on(SocketActions.TEST_EMIT_ACTION, function (message) {
-            console.log("sent")
+            //console.log("sent")
         });
 
 

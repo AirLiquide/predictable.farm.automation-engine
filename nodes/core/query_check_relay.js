@@ -7,7 +7,7 @@ module.exports = function (RED) {
 
 
     // The main node definition - most things happen in here
-    function QueryPrepareNode(n) {
+    function QueryCheckRelayNode(n) {
         var table = {
             "get-switch": "SELECT * FROM predictablefarm.relaystate WHERE device_id=\'%device_id%\' AND sensor_type = \'%sensor_type%\';",
             "save-switch": "INSERT INTO predictablefarm.relaystate (device_id, sensor_type,sensor_id, sensor_value, last_update)VALUES( \'%device_id%\',\'%sensor_type%\', \'%sensor_id%\',%sensor_value%, dateof(now()) ) USING TIMESTAMP;",
@@ -18,7 +18,7 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, n);
 
         // Store local copies of the node configuration (as defined in the .html)
-        this.query = n.query;
+        this.check = n.check;
 
         // copy "this" object in case we need it in context of callbacks of other functions.
         var node = this;
@@ -30,44 +30,38 @@ module.exports = function (RED) {
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
 
-        if (!this.query == '') {
+        if (!this.check == '') {
+            var socket_io_data = {
+                'device_id': null,
+                'sensor_type': null,
+                'sensor_id': null,
+                'sensor_value': null
+            };
             this.on('input', function (msg) {
-                var socket_io_data = {
-                    'device_id': null,
-                    'sensor_type': null,
-                    'sensor_id': null,
-                    'sensor_value': null
-                };
-                var isJSON = true;
-                try {
-                    if (msg.payload instanceof String) {
-                        msg.payload = JSON.parse(msg.payload);
+                if (Array.isArray(msg.payload) && msg.payload.length ==1){
+                    var value = msg.payload[0].sensor_value;
+                    var sensor;
+                    if (msg.sensor_value == 2){
+                        sensor = 1;
                     }
-                }
-                catch (e) {
-                    node.error("ERROR : The given JSON isn't correctly formatted : " + msg);
-                    var isJSON = false;
-                }
+                    else if(msg.sensor_value < 2){
+                        sensor = 0;
+                    }
+                    var check;
+                    if (node.check == 'auto'){
+                        check = 1;
+                    }
+                    else if (node.check == 'manual'){
+                        check = 0;
+                    }
 
-                if (isJSON) {
-                    var aKeys = Object.keys(socket_io_data).sort();
-                    var bKeys = Object.keys(msg.payload).sort();
-                    var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
-
-                    if (isValid) {
-                        //replace the values according to the query.
-                        //TODO : find a more optimized way maybe
-                        var str = table[this.query];
-                        str = str.replace(/%device_id%/, msg.payload['device_id'])
-                            .replace(/%sensor_type%/, msg.payload['sensor_type'])
-                            .replace(/%sensor_id%/, msg.payload['sensor_id'])
-                            .replace(/%sensor_value%/, msg.payload['sensor_value']);
-                        msg.topic = str;
-                        msg.sensor_value = msg.payload['sensor_value'];
+                    if ( (sensor == check) && (1-value == check) ){
+                        msg.payload = msg.payload[0];
+                        msg.payload = JSON.parse(JSON.stringify(msg.payload));//used to remove the type 'Row'
+                        msg.payload.sensor_value = 1-value;
+                        delete msg.payload.last_update; //not useful and will create problems
+                        delete msg.topic;
                         node.send(msg);
-                    }
-                    else {
-                        node.error("ERROR : wrong object given")
                     }
                 }
             });
@@ -86,6 +80,6 @@ module.exports = function (RED) {
 
     // Register the node by name. This must be called before overriding any of the
     // Node functions.
-    RED.nodes.registerType("query_prepare", QueryPrepareNode);
+    RED.nodes.registerType("query_check_relay", QueryCheckRelayNode);
 
 }

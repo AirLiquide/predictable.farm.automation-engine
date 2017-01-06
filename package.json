@@ -44,7 +44,8 @@
       "smartwater_orp_dashboard": "nodes/core/smartwater_orp_dashboard.js",
       "smartwater_temperature": "nodes/core/smartwater_temperature.js",
       "smartwater_temperature_dashboard": "nodes/core/smartwater_temperature_dashboard.js",
-      "query_prepare": "nodes/core/query_prepare.js"
+      "query_prepare": "nodes/core/query_prepare.js",
+      "query_check_relay": "nodes/core/query_check_relay.js"
     }
   }
 }

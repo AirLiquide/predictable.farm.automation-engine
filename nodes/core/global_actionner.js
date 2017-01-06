@@ -58,7 +58,6 @@ module.exports = function (RED) {
                     msg.payload.sensor_id ='relay'+this.actionid;
                     msg.payload.value = this.value;
                     ws.getSocket().emit("sensor-receive", msg.payload);
-                    console.log("emit sensor-receive from node");
                 }
                 // in this example just send it straight on... should process it here really
                 //node.send(msg);
@@ -77,4 +76,4 @@ module.exports = function (RED) {
     // Node functions.
     RED.nodes.registerType(nodeName, GlobalActionner);
 
-}
+};
