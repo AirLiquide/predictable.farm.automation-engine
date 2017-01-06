@@ -4,10 +4,10 @@ module.exports = function (RED) {
     "use strict";
     // require any external libraries we may need....
     //var foo = require("foo-library");
-    var table = [];
+
 
     // The main node definition - most things happen in here
-    function MathInferiorNode(n) {
+    function MathAverageNode(n) {
 
         // Create a RED node
         RED.nodes.createNode(this, n);
@@ -26,6 +26,7 @@ module.exports = function (RED) {
         // Look at other real nodes for some better ideas of what to do....
 
         if (!this.amount == ''){
+            var table = [];
             this.on('input', function (msg) {
                 if (typeof msg.payload == 'number'){
                     table.push(msg.payload);
@@ -78,6 +79,6 @@ module.exports = function (RED) {
 
     // Register the node by name. This must be called before overriding any of the
     // Node functions.
-    RED.nodes.registerType("math_average", MathInferiorNode);
+    RED.nodes.registerType("math_average", MathAverageNode);
 
 }

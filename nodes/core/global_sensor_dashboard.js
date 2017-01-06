@@ -10,7 +10,7 @@ module.exports = function (RED) {
 
 
     // The main node definition - most things happen in here
-    function SmartAgriculturehumidityDashboardNode(n) {
+    function GlobalSensorDashboardNode(n) {
 
         var socket = require('socket.io-client')('http://10.49.95.122:8080/');
         socket.emit("hello");
@@ -53,6 +53,6 @@ module.exports = function (RED) {
 
     // Register the node by name. This must be called before overriding any of the
     // Node functions.
-    RED.nodes.registerType(nodeName, SmartAgriculturehumidityDashboardNode);
+    RED.nodes.registerType(nodeName, GlobalSensorDashboardNode);
 
 }
