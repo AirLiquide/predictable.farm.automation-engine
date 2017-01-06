@@ -16,16 +16,14 @@
    <!-- This content appears in the Info sidebar when a node is selected     -->
    <!-- The first <p> is used as the pop-up tool tip when hovering over a    -->
    <!-- node in the palette.                                                 -->
-   <p>Smartagriculture devices with humidity input node. Tries to connect smartagriculture device and send humidity value when available</p>
-   <p>Outputs an object called <code>msg</code> containing <code>msg.topic=humidity</code> and
-   <code>msg.payload</code>. msg.payload is a String containing humidity value (unsigned integer in %).</p>
+
 </script>
 
 <!-- Finally, the node type is registered along with all of its properties   -->
 <!-- The example below shows a small subset of the properties that can be set-->
 <script type="text/javascript">
     RED.nodes.registerType('query_check_relay',{
-        category: 'Cassandra query',      // the palette category
+        category: 'storage',      // the palette category
         defaults: {             // defines the editable properties of the node
             check: {value:"",required:true},
         },
