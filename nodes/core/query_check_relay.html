@@ -16,7 +16,7 @@
    <!-- This content appears in the Info sidebar when a node is selected     -->
    <!-- The first <p> is used as the pop-up tool tip when hovering over a    -->
    <!-- node in the palette.                                                 -->
-<p> Must be used after a request to the storage where the query prepare node was used. Check if the flow control is in automatic or manual mode</p>
+<p> Must be used after a request to the storage where a Storage action node was used. Check if the flow control is in automatic or manual mode</p>
 </script>
 
 <!-- Finally, the node type is registered along with all of its properties   -->
@@ -31,7 +31,7 @@
         outputs:1,              // set the number of outputs - 0 to n
         // set the icon (held in icons dir below where you save the node)
         icon: "query_check.png",     // saved in  icons/myicon.png
-        paletteLabel:"Query Check",
+        paletteLabel:"Check auto/manual",
         color: "#E2D96E",
 	label: function() {     // sets the default label contents
             return this.check?("Check if : " + this.check):"Select an option";
