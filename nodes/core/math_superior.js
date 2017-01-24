@@ -1,4 +1,4 @@
-// node-red input binding for smartagriculture-humidity;
+// node-red input binding for math_superior;
 
 module.exports = function (RED) {
     "use strict";

@@ -1,4 +1,4 @@
-<script type="text/x-red" data-template-name="global_sensor">
+<script type="text/x-red" data-template-name="sensor_co2">
    <!-- data-template-name identifies the node type this is for              -->
 
    <!-- Each of the following divs creates a field in the edit dialog.       -->
@@ -31,18 +31,20 @@
 
 
 <!-- Next, some simple help text is provided for the node.                   -->
-<script type="text/x-red" data-help-name="global_sensor">
+<script type="text/x-red" data-help-name="sensor_co2">
    <!-- data-help-name identifies the node type this help is for             -->
    <!-- This content appears in the Info sidebar when a node is selected     -->
    <!-- The first <p> is used as the pop-up tool tip when hovering over a    -->
    <!-- node in the palette.                                                 -->
-    <p>Global device. Tries to connect device and send any value when available</p>
+   <p>sensor devices with CO2 input node. Tries to connect sensor device and send co2 value when available</p>
+   <p>Outputs an object called <code>msg</code> containing <code>msg.topic=CO2</code> and
+   <code>msg.payload</code>. msg.payload is a String containing CO2 value (unsigned integer in PPM).</p>
 </script>
 
 <!-- Finally, the node type is registered along with all of its properties   -->
 <!-- The example below shows a small subset of the properties that can be set-->
 <script type="text/javascript">
-    RED.nodes.registerType('global_sensor',{
+    RED.nodes.registerType('sensor_co2',{
         category: 'Sensor',      // the palette category
         defaults: {             // defines the editable properties of the node
             name: {value:""},   //  along with default values.
@@ -53,10 +55,10 @@
         outputs:3,              // set the number of outputs - 0 to n
         // set the icon (held in icons dir below where you save the node)
         icon: "sensor.png",     // saved in  icons/myicon.png
-        paletteLabel:"Sensor",
-        color: "#87A980",
+        paletteLabel:"CO2",
+        color: "#C0DEED",
 	label: function() {     // sets the default label contents
-            return this.name||"global_sensor";
+            return this.name||"sensor_co2";
         },
         labelStyle: function() { // sets the class to apply to the label
             return this.name?"node_label_italic":"";

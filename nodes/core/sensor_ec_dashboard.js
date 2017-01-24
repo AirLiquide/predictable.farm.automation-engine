@@ -1,12 +1,19 @@
-// node-red input binding for math_equal;
+// node-red input binding for sensor-ec;
 
 module.exports = function (RED) {
     "use strict";
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
+    var SocketActions = require(__dirname+'/socketServer/SocketActions');
+    var nodeName = "sensor_ec_dashboard";
+
+
     // The main node definition - most things happen in here
-    function MathEqualNode(n) {
+    function sensorEcDashboardNode(n) {
+
+        var socket = require('socket.io-client')('http://10.49.95.122:8080/');
+        socket.emit("hello");
 
         //console.log(server)
 
@@ -15,10 +22,12 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, n);
 
         // Store local copies of the node configuration (as defined in the .html)
-        this.value = n.value;
+
+        // maybe add an option to choose between milliseconds, seconds, minutes
 
         // copy "this" object in case we need it in context of callbacks of other functions.
         var node = this;
+
         node.path = n.path;
         node.wholemsg = (n.wholemsg === "true");
 
@@ -26,32 +35,24 @@ module.exports = function (RED) {
         // Note: this sample doesn't do anything much - it will only send
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
+        this.on('input', function (msg) {
+            node.warn("I saw a payload: " + msg.payload);
+            socket.emit("sensor-emit",msg.payload);
+            // in this example just send it straight on... should process it here really
+            //node.send(msg);
+        });
 
-        if (!this.value == ''){
-            this.on('input', function (msg) {
-                if (msg.payload == this.value ){
-                    node.send(msg);
-                }
-                else{
-                    node.send(null);
-                }
+        this.on("close", function () {
+            // Called when the node is shutdown - eg on redeploy.
+            // Allows ports to be closed, connections dropped etc.
+            // eg: node.client.disconnect();
+        });
 
-            });
-
-            this.on("close", function () {
-                // Called when the node is shutdown - eg on redeploy.
-                // Allows ports to be closed, connections dropped etc.
-                // eg: node.client.disconnect();
-            });
-        }
-        else{
-
-        }
 
     }
 
     // Register the node by name. This must be called before overriding any of the
     // Node functions.
-    RED.nodes.registerType("math_equal", MathEqualNode);
+    RED.nodes.registerType(nodeName, sensorEcDashboardNode);
 
 }
