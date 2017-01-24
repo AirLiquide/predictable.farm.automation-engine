@@ -1,0 +1,42 @@
+
+<script type="text/x-red" data-template-name="query_save_relay">
+    <div class="form-row">
+        <label for="node-input-check"><i class="fa fa-tag"></i> Check if</label>
+        <select  id="node-input-check">
+            <option value="auto" data-i18n="auto"></option>
+            <option value="manual" data-i18n="manual"></option>
+        </select>
+    </div>
+</script>
+
+
+<!-- Next, some simple help text is provided for the node.                   -->
+<script type="text/x-red" data-help-name="query_save_relay">
+   <!-- data-help-name identifies the node type this help is for             -->
+   <!-- This content appears in the Info sidebar when a node is selected     -->
+   <!-- The first <p> is used as the pop-up tool tip when hovering over a    -->
+   <!-- node in the palette.                                                 -->
+<p> Check if the flow control is in automatic or manual mode. Must be used after a request to the storage where a Storage action node was used.</p>
+</script>
+
+<!-- Finally, the node type is registered along with all of its properties   -->
+<!-- The example below shows a small subset of the properties that can be set-->
+<script type="text/javascript">
+    RED.nodes.registerType('query_save_relay',{
+        category: 'storage',      // the palette category
+        defaults: {             // defines the editable properties of the node
+        },
+        inputs:1,               // set the number of inputs - only 0 or 1
+        outputs:0,              // set the number of outputs - 0 to n
+        // set the icon (held in icons dir below where you save the node)
+        icon: "query_save.png",     // saved in  icons/myicon.png
+        paletteLabel:"Save relay mode",
+        color: "#E2D96E",
+	label: function() {     // sets the default label contents
+            return "Save relay mode";
+        },
+        labelStyle: function() { // sets the class to apply to the label
+            return this.name?"node_label_italic":"";
+        },
+    });
+</script>

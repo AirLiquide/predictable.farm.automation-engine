@@ -39,6 +39,7 @@
       "smartwater_orp_dashboard": "nodes/core/smartwater_orp_dashboard.js",
       "query_prepare": "nodes/core/query_prepare.js",
       "query_check_relay": "nodes/core/query_check_relay.js",
+      "query_saverelay": "nodes/core/query_save_relay.js",
       "global_dashboard_actionner": "nodes/core/global_dashboard_actionner.js"
     }
   }
