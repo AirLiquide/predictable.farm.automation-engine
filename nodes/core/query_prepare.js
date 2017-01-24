@@ -79,9 +79,7 @@ module.exports = function (RED) {
             });
         }
         else {
-
         }
-
     }
 
     // Register the node by name. This must be called before overriding any of the

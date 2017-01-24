@@ -5,6 +5,7 @@ module.exports = function (RED) {
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
+    var CassandraConnection = require(__dirname+'/socketServer/CassandraConnection');
 
     // The main node definition - most things happen in here
     function QueryCheckRelayNode(n) {
@@ -37,33 +38,44 @@ module.exports = function (RED) {
                 'sensor_id': null,
                 'sensor_value': null
             };
-            this.on('input', function (msg) {
-                if (Array.isArray(msg.payload) && msg.payload.length ==1){
-                    var value = msg.payload[0].sensor_value;
-                    var sensor;
-                    if (msg.sensor_value == 2){
-                        sensor = 1;
-                    }
-                    else if(msg.sensor_value < 2){
-                        sensor = 0;
-                    }
-                    var check;
-                    if (node.check == 'auto'){
-                        check = 1;
-                    }
-                    else if (node.check == 'manual'){
-                        check = 0;
-                    }
 
-                    if ( (1-sensor == check) && (value == check) ){
-                        msg.payload = msg.payload[0];
-                        msg.payload = JSON.parse(JSON.stringify(msg.payload));//used to remove the type 'Row'
-                        msg.payload.sensor_value = 1-value;
-                        delete msg.payload.last_update; //not useful and will create problems
-                        delete msg.topic;
-                        node.send(msg);
+            this.on('input', function (msg) {
+                var m = msg;
+
+                var checkRes = function(res){
+
+                    if (Array.isArray(res) && res.length ==1){
+                        var value = res[0].sensor_value;
+                        var sensor;
+                        if (m.payload.sensor_value == 2){
+                            sensor = 1;
+                        }
+                        else if(m.payload.sensor_value < 2){
+                            sensor = 0;
+                        }
+                        var check;
+                        if (node.check == 'auto'){
+                            check = 1;
+                        }
+                        else if (node.check == 'manual'){
+                            check = 0;
+                        }
+
+                        if ( (sensor == check) && (1-value == check) ){
+                            m.payload.sensor_value = check;
+                            node.send(m);
+                        }
                     }
-                }
+                };
+
+                var query = "SELECT * FROM predictablefarm.relaystate WHERE device_id=\'%device_id%\' AND sensor_type = \'%sensor_type%\';";
+                query = query.replace(/%device_id%/, msg.payload['device_id'])
+                    .replace(/%sensor_type%/, msg.payload['sensor_type'])
+                    .replace(/%sensor_id%/, msg.payload['sensor_id'])
+                    .replace(/%sensor_value%/, msg.payload['sensor_value']);
+
+                CassandraConnection.exectQuery(query, m, checkRes);
+
             });
 
             this.on("close", function () {

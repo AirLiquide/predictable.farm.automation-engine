@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
-    "socket.io": "^1.7.1"
+    "socket.io": "^1.7.1",
+    "cassandra-driver": "^3.0.1"
   },
   "devDependencies": {},
   "keywords": [
@@ -30,20 +31,12 @@
       "smartenvpro_co2": "nodes/core/smartenvpro_co2.js",
       "smartenvpro_co2_dashboard": "nodes/core/smartenvpro_co2_dashboard.js",
       "smartenvpro_co_dashboard": "nodes/core/smartenvpro_co_dashboard.js",
-      "smartenvpro_humidity": "nodes/core/smartenvpro_humidity.js",
-      "smartenvpro_humidity_dashboard": "nodes/core/smartenvpro_humidity_dashboard.js",
       "smartenvpro_pressure": "nodes/core/smartenvpro_pressure.js",
       "smartenvpro_pressure_dashboard": "nodes/core/smartenvpro_pressure_dashboard.js",
-      "smartenvpro_temperature": "nodes/core/smartenvpro_temperature.js",
-      "smartenvpro_temperature_dashboard": "nodes/core/smartenvpro_temperature_dashboard.js",
       "smartwater_ec": "nodes/core/smartwater_ec.js",
       "smartwater_ec_dashboard": "nodes/core/smartwater_ec_dashboard.js",
-      "smartwater_humidity": "nodes/core/smartwater_humidity.js",
-      "smartwater_humidity_dashboard": "nodes/core/smartwater_humidity_dashboard.js",
       "smartwater_orp": "nodes/core/smartwater_orp.js",
       "smartwater_orp_dashboard": "nodes/core/smartwater_orp_dashboard.js",
-      "smartwater_temperature": "nodes/core/smartwater_temperature.js",
-      "smartwater_temperature_dashboard": "nodes/core/smartwater_temperature_dashboard.js",
       "query_prepare": "nodes/core/query_prepare.js",
       "query_check_relay": "nodes/core/query_check_relay.js",
       "global_dashboard_actionner": "nodes/core/global_dashboard_actionner.js"
