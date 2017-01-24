@@ -64,6 +64,9 @@ module.exports = function (RED) {
 
                 CassandraConnection.exectQuery(query, msg, checkRes);
             }
+            else{
+                node.error("Invalid data given, please check your flow.")
+            }
 
         });
 
