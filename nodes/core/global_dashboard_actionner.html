@@ -29,31 +29,24 @@
    <!-- This content appears in the Info sidebar when a node is selected     -->
    <!-- The first <p> is used as the pop-up tool tip when hovering over a    -->
    <!-- node in the palette.                                                 -->
-<p> Actionner node which receive actions from the dashboard.</p>
-<p>Outputs an object called <code>msg</code> containing <code>msg.payload</code>.
-msg.payload is an object containing <code>
-                device_id: String</code>,
-                <code>sensor_type: String</code>,
-                <code>sensor_id: String</code>,
-                <code>sensor_value: String
-            </code>.</p>
+<p> Receive data from the dashboard to open or close a relay on a device</p>
 </script>
 
 <!-- Finally, the node type is registered along with all of its properties   -->
 <!-- The example below shows a small subset of the properties that can be set-->
 <script type="text/javascript">
     RED.nodes.registerType('global_dashboard_actionner',{
-        category: 'Actionner',      // the palette category
+        category: 'Dashboard',      // the palette category
         defaults: {             // defines the editable properties of the node
             name: {value:""},   //  along with default values.
-            deviceid: {value:"", required:true},
+            deviceid: {value:"", required:true}
         },
         inputs:0,               // set the number of inputs - only 0 or 1
         outputs:1,              // set the number of outputs - 0 to n
         // set the icon (held in icons dir below where you save the node)
-        icon: "from-dash.png",     // saved in  icons/myicon.png
-        paletteLabel:"Actionner",
-        color: "#87A980",
+        icon: "action.png",     // saved in  icons/myicon.png
+        paletteLabel:"Relay",
+        color: "#6d8fc6",
 	label: function() {     // sets the default label contents
             return this.name||"global_dashboard_actionner";
         },

@@ -43,14 +43,14 @@
    <!-- This content appears in the Info sidebar when a node is selected     -->
    <!-- The first <p> is used as the pop-up tool tip when hovering over a    -->
    <!-- node in the palette.                                                 -->
-<p> Actionner node connect to a sensor device and send an action when a valid input is received</p>
+<p> Open or close a relay on the device</p>
 </script>
 
 <!-- Finally, the node type is registered along with all of its properties   -->
 <!-- The example below shows a small subset of the properties that can be set-->
 <script type="text/javascript">
     RED.nodes.registerType('global_actionner',{
-        category: 'Actionner',      // the palette category
+        category: 'Sensor',      // the palette category
         defaults: {             // defines the editable properties of the node
             name: {value:""},   //  along with default values.
             deviceid: {value:"", required:true},
@@ -60,9 +60,9 @@
         inputs:1,               // set the number of inputs - only 0 or 1
         outputs:0,              // set the number of outputs - 0 to n
         // set the icon (held in icons dir below where you save the node)
-        icon: "to-dash.png",     // saved in  icons/myicon.png
-        paletteLabel:"Actionner",
-        color: "#87A980",
+        icon: "action.png",     // saved in  icons/myicon.png
+        paletteLabel:"Relay",
+        color: "#6d8fc6",
 	label: function() {     // sets the default label contents
             return this.name||"global_actionner";
         },

@@ -37,7 +37,6 @@
       "sensor_ec_dashboard": "nodes/core/sensor_ec_dashboard.js",
       "sensor_orp": "nodes/core/sensor_orp.js",
       "sensor_orp_dashboard": "nodes/core/sensor_orp_dashboard.js",
-      "query_prepare": "nodes/core/query_prepare.js",
       "query_check_relay": "nodes/core/query_check_relay.js",
       "query_save_relay": "nodes/core/query_save_relay.js",
       "query_save_sensor": "nodes/core/query_save_sensor.js",
