@@ -22,7 +22,7 @@ module.exports = function (RED) {
 
         // Store local copies of the node configuration (as defined in the .html)
         this.deviceid = n.deviceid;
-        this.actionid = n.actionid;
+        this.relaynumber = n.relaynumber;
         this.value = n.value;
         // maybe add an option to choose between milliseconds, seconds, minutes
 
@@ -54,13 +54,18 @@ module.exports = function (RED) {
                 var bKeys = Object.keys(msg.payload).sort();
                 var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
 
-                if (isValid) {
-                    msg.payload.sensor_type ='relay'+node.actionid;
-                    msg.payload.sensor_value = node.value;
-                    ws.getSocket().emit("sensor-receive", msg.payload);
-                }
+                if (/*isValid*/true) {
+                console.log("actuator command valid :)");
+                  var mymsg = {device_id:this.deviceid,sensor_type:'relay'+node.relaynumber, sensor_value:this.value };
+		  //  msg.payload.sensor_type ='relay1';//'relay'+node.relaynumber;
+                   // msg.payload.sensor_value =0; //node.value;
+                    console.log(JSON.stringify(mymsg));
+		    ws.getSocket().emit("sensor-receive",mymsg/* msg.payload*/);
+                }else{
+console.log("actuator command invalid");
+}
                 // in this example just send it straight on... should process it here really
-                //node.send(msg);
+                node.send(msg);
             });
 
             this.on("close", function () {
