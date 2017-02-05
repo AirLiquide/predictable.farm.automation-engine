@@ -8,11 +8,11 @@ module.exports = function (RED) {
     var SocketActions = require(__dirname+'/socketServer/SocketActions');
     var WsEventHandler = require(__dirname+'/socketServer/WsEventHandler');
     var SocketServer = require(__dirname+'/socketServer/SocketServer');
-    var nodeName = "global_dashboard_actionner";
+    var nodeName = "global_dashboard_actuator";
 
 
     // The main node definition - most things happen in here
-    function GlobalDashboardActionner(n) {
+    function GlobalDashboardActuator(n) {
 
         //console.log(server)
 
@@ -72,6 +72,6 @@ module.exports = function (RED) {
 
     // Register the node by name. This must be called before overriding any of the
     // Node functions.
-    RED.nodes.registerType(nodeName, GlobalDashboardActionner);
+    RED.nodes.registerType(nodeName, GlobalDashboardActuator);
 
 };

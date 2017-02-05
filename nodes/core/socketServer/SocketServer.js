@@ -17,7 +17,7 @@ var server = null;
 var _clients = {};
 var _nodes = {}; //might be removed to save memory, useful to fast iterate on nodes
 var _sensors = {}; //might be removed to save memory, useful to fast iterate on sensors
-var _actionners = {}; //might be removed to save memory, useful to fast iterate on sensors
+var _actuators = {}; //might be removed to save memory, useful to fast iterate on sensors
 
 /*  * Setting up block level variable to store class state  * , set's to null by default.  */
 var instance = null;
@@ -46,7 +46,7 @@ class SocketServer {
         }
 
         //TODO: add a more secure way to log clients, maybe a private crypted code ?
-        if (role == 'node' || role == 'sensor' || role =='actionner') {
+        if (role == 'node' || role == 'sensor' || role =='actuator') {
             //TODO : refactor code to have something cleaner
             if (role == 'node') {
                 var sensorId = ws.handshake.query.sensorId;
@@ -91,9 +91,9 @@ class SocketServer {
                     }
                 });
 
-                var actionners = Object.keys(_actionners);
-                actionners.forEach(function each(actionner) {
-                    if (_actionners[actionner].sensorId == sensorId) { //id is the sensor id
+                var actuators = Object.keys(_actuators);
+                actuators.forEach(function each(actuator) {
+                    if (_actuators[actuator].sensorId == sensorId) { //id is the sensor id
                         var _data = {
                             data: {
                                 connected: true
@@ -101,18 +101,18 @@ class SocketServer {
                             sensorId: sensorId,
                             id: id
                         };
-                        _actionners[actionner].socket.emit(SocketActions.SENSOR_CONNECT, _data);
+                        _actuators[actuator].socket.emit(SocketActions.SENSOR_CONNECT, _data);
                     }
                 });
                 console.log("Sensor " + id + "(" + sensorId + ") connected");
             }
 
-            else if (role == 'actionner'){
+            else if (role == 'actuator'){
                 var sensorId = ws.handshake.query.sensorId;
                 var nodeType = ws.handshake.query.node_type;
                 client.sensorId = sensorId;
                 client.nodeType = nodeType;
-                _actionners[id] = client;
+                _actuators[id] = client;
                 _clients[id] = client;
                 var sensors = Object.keys(_sensors);
                 sensors.forEach(function each(sensor) {
@@ -127,7 +127,7 @@ class SocketServer {
                         ws.emit(SocketActions.SENSOR_CONNECT, _data);
                     }
                 });
-                console.log("Actionner " + id + "(" + sensorId + ") connected");
+                console.log("Actuator " + id + "(" + sensorId + ") connected");
             }
             //TODO : adapt to different node type with a detection for wrong node type
             //TODO : maybe use scopes on login
@@ -175,91 +175,91 @@ class SocketServer {
 
 
 
-                if (type == 'misthumidity') {
+                if (type == 'air_humidity') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_humidity') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
-                else if (type == 'mistlux') {
+                else if (type == 'light_lux') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_par') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
-                else if (type == 'misttemperature') {
+                else if (type == 'air_temperature') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_temperature') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
-                else if (type == 'ch4') {
+                else if (type == 'air_ch4') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_ch4') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
-                else if (type == 'o3' || type == 'co') {
+                else if (type == 'air_o3' || type == 'air_co') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_cO') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
-                else if (type == 'co2') {
+                else if (type == 'air_co2') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_co2') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
-                else if (type == 'humidity') {
+                else if (type == 'soil_moisture') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_humidity') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
-                else if (type == 'pressure') {
+                else if (type == 'air_pressure') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_pressure') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
-                else if (type == 'temperature') {
+                else if (type == 'mist_temperature') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_temperature') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
-                else if (type == 'waterec') {
+                else if (type == 'water_ec') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_ec') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
-                else if (type == 'waterhumidity') {
+                else if (type == 'soil_humidity') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_humidity') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
-                else if (type == 'waterorp') {
+                else if (type == 'water_orp') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_orp') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
-                else if (type == 'watertemperature') {
+                else if (type == 'water_temperature') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_temperature') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
@@ -282,10 +282,10 @@ class SocketServer {
                 delete _clients[id];
                 console.log("Node " + id + " disconnected");
             }
-            else if (role == 'actionner') {
-                delete _actionners[id];
+            else if (role == 'actuator') {
+                delete _actuators[id];
                 delete _clients[id];
-                console.log("Actionner " + id + " disconnected");
+                console.log("Actuator " + id + " disconnected");
             }
             else {
                 var nodes = Object.keys(_nodes);
@@ -302,9 +302,9 @@ class SocketServer {
                     }
                 });
 
-                var actionners = Object.keys(_actionners);
-                actionners.forEach(function each(actionner) {
-                    if (_actionners[actionner].sensorId == sensorId) { //id is the sensor id
+                var actuators = Object.keys(_actuators);
+                actuators.forEach(function each(actuator) {
+                    if (_actuators[actuator].sensorId == sensorId) { //id is the sensor id
                         var _data = {
                             data: {
                                 disconnected: true
@@ -312,7 +312,7 @@ class SocketServer {
                             sensorId: sensorId,
                             id: id
                         }
-                        _actionners[actionner].socket.emit(SocketActions.SENSOR_DISCONNECT, _data);
+                        _actuators[actuator].socket.emit(SocketActions.SENSOR_DISCONNECT, _data);
                     }
                 });
 

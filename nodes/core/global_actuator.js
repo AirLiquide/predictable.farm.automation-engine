@@ -8,11 +8,11 @@ module.exports = function (RED) {
     var SocketActions = require(__dirname+'/socketServer/SocketActions');
     var WsEventHandler = require(__dirname+'/socketServer/WsEventHandler');
     var SocketServer = require(__dirname+'/socketServer/SocketServer');
-    var nodeName = "global_actionner";
+    var nodeName = "global_actuator";
 
 
     // The main node definition - most things happen in here
-    function GlobalActionner(n) {
+    function GlobalActuator(n) {
 
         //console.log(server)
 
@@ -40,7 +40,7 @@ module.exports = function (RED) {
 
         if (!this.deviceid == '') {
             this.status({fill:"gray",shape:"ring",text:"disconnected"});
-            var ws = new WsEventHandler(node, 'http://localhost:8080', 'role=actionner&sensorId=' + node.deviceid + "&node_type=" + nodeName);
+            var ws = new WsEventHandler(node, 'http://localhost:8080', 'role=actuator&sensorId=' + node.deviceid + "&node_type=" + nodeName);
 
             this.on('input', function (msg) {
                 var socket_io_data = {
@@ -74,6 +74,6 @@ module.exports = function (RED) {
 
     // Register the node by name. This must be called before overriding any of the
     // Node functions.
-    RED.nodes.registerType(nodeName, GlobalActionner);
+    RED.nodes.registerType(nodeName, GlobalActuator);
 
 };
