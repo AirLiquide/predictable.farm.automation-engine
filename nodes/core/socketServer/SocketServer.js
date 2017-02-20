@@ -25,7 +25,7 @@ var instance = null;
 
 class SocketServer {
     constructor() {
-        server = require('socket.io').listen(8080);
+        server = require('socket.io').listen(3000);
         _clients = {};
         _nodes = {};
         _sensors = {};

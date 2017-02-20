@@ -40,7 +40,7 @@ module.exports = function (RED) {
 
         if (!this.deviceid == '') {
             this.status({fill:"gray",shape:"ring",text:"disconnected"});
-            var ws = new WsEventHandler(node, 'http://localhost:8080', 'role=actuator&sensorId=' + node.deviceid + "&node_type=" + nodeName);
+            var ws = new WsEventHandler(node, 'http://localhost:3000', 'role=actuator&sensorId=' + node.deviceid + "&node_type=" + nodeName);
 
             this.on('input', function (msg) {
                 var socket_io_data = {

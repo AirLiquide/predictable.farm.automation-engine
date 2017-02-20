@@ -47,7 +47,7 @@ class WsEventHandler {
 
         this.ws.on(SocketActions.SENSOR_CONNECT, function (data) {
             //console.log("Sensor connected")
-            _node.status({fill: "green", shape: "dot", text: "connected"});
+
             var msg = {
                 payload: data
             }
@@ -69,13 +69,11 @@ class WsEventHandler {
          */
 
         this.ws.on(SocketActions.UPDATE_DATA, function (data) {
+            _node.status({fill: "green", shape: "dot", text: "connected"});
 
             var data = JSON.parse(data)
-            //TODO : add a config file to remove the "predictablefarm.sensorLog" from the hard code
-            var query = "INSERT INTO predictablefarm.sensorLog (device_id, sensor_id, sensor_type, sensor_value, created_at)VALUES(\'"+data.device_id+"\',\'"+data.sensor_id+"\',\'"+data.sensor_type+"\',\'" + data.sensor_value+"\', dateof(now()) ) USING TIMESTAMP;";
             var msg = {
-                payload: data,
-                topic: query
+                payload: data
             };
             _node.send([msg, null, null]);
         });
@@ -83,7 +81,7 @@ class WsEventHandler {
         this.ws.on("*", function (event, data) {
             if (SocketActions.isValidAction(event)) {
                 //prevent the timeout to be called when we disconnect/redeploy the node
-                if (event != SocketActions.SENSOR_DISCONNECT) {
+                if (event != SocketActions.SENSOR_DISCONNECT && event != SocketActions.SENSOR_CONNECT ) {
                     weh.setLastUpdate(Date.now());
                     //console.log("lastUpdate edited", weh.getLastUpdate())
                     if (!weh.getTimeout()) {
