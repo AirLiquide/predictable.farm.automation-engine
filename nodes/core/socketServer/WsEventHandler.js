@@ -4,6 +4,15 @@
 "use strict";
 var SocketActions = require(__dirname+'/SocketActions');
 
+var STATE ={
+    notFound : "Not found",
+    connected : "Connected",
+    timeout : "Timeout",
+    disconnected : "Disconnected",
+    discoTO: "Disconnected after Timeout"
+};
+
+
 class WsEventHandler {
 
 
@@ -13,7 +22,7 @@ class WsEventHandler {
 
         var _node = this.node;
         var weh = this;
-        var detected = false;
+        this.state = STATE.notFound;
 
         this.ws = require('socket.io-client')(address, {query: params});
 
@@ -39,7 +48,13 @@ class WsEventHandler {
 
         this.ws.on(SocketActions.SENSOR_DISCONNECT, function (data) {
             //console.log("Sensor disconnected")
-            if (detected){
+            
+            if (weh.getState() == STATE.timeout){
+                weh.setState(STATE.discoTO);
+                _node.status({fill: "red", shape: "ring", text: "disconnected after timeout"});
+            }
+            else if (weh.getState() == STATE.connected){
+                weh.setState(STATE.disconnected);
                 _node.status({fill: "gray", shape: "ring", text: "disconnected"});
             }
             else{
@@ -75,8 +90,8 @@ class WsEventHandler {
          */
 
         this.ws.on(SocketActions.UPDATE_DATA, function (data) {
-            if (!detected){
-                detected = true;
+            if (weh.getState() != STATE.connected){
+                weh.setState(STATE.connected);
             }
             _node.status({fill: "green", shape: "dot", text: "connected"});
 
@@ -130,6 +145,14 @@ class WsEventHandler {
     setLastUpdate(lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
+
+    getState(){
+        return this.state;
+    }
+
+    setState(state){
+        this.state = state;
+    }
 }
 
 var checkTimeout = function (weh) {
@@ -138,7 +161,8 @@ var checkTimeout = function (weh) {
         if ((Date.now() - weh.getLastUpdate()) >= weh.getNode().timeout) {
             //if ((Date.now()-weh.lastUpdate)>=5000){
             //notify timeout
-            weh.getNode().status({fill: "yellow", shape: "dot", text: "timeout"});
+            weh.setState(STATE.timeout);
+            weh.getNode().status({fill: "red", shape: "dot", text: "timeout"});
             var msg = {
                 payload: {
                     timeout: true
