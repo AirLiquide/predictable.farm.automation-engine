@@ -36,7 +36,7 @@ module.exports = function (RED) {
         // Look at other real nodes for some better ideas of what to do....
 
         if (!this.deviceid == ''){
-            this.status({fill:"gray",shape:"ring",text:"disconnected"});
+            this.status({fill:"gray",shape:"ring",text:"not found"});
             var ws = new WsEventHandler(node,'http://localhost:3000', 'role=node&sensorId='+node.deviceid+"&node_type="+nodeName);
 
             // respond to inputs....

@@ -173,8 +173,6 @@ class SocketServer {
                 });
 
 
-
-
                 if (type == 'air_humidity') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_humidity') { //id is the sensor id

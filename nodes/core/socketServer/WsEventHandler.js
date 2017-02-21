@@ -13,6 +13,7 @@ class WsEventHandler {
 
         var _node = this.node;
         var weh = this;
+        var detected = false;
 
         this.ws = require('socket.io-client')(address, {query: params});
 
@@ -38,7 +39,12 @@ class WsEventHandler {
 
         this.ws.on(SocketActions.SENSOR_DISCONNECT, function (data) {
             //console.log("Sensor disconnected")
-            _node.status({fill: "gray", shape: "ring", text: "disconnected"});
+            if (detected){
+                _node.status({fill: "gray", shape: "ring", text: "disconnected"});
+            }
+            else{
+                _node.status({fill: "gray", shape: "ring", text: "not found"});
+            }
             var msg = {
                 payload: data
             }
@@ -69,6 +75,9 @@ class WsEventHandler {
          */
 
         this.ws.on(SocketActions.UPDATE_DATA, function (data) {
+            if (!detected){
+                detected = true;
+            }
             _node.status({fill: "green", shape: "dot", text: "connected"});
 
             var data = JSON.parse(data)
