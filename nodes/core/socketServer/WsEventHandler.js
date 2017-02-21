@@ -7,9 +7,9 @@ var SocketActions = require(__dirname+'/SocketActions');
 var STATE ={
     notFound : "Not found",
     connected : "Connected",
-    timeout : "Timeout",
+    timeout : "Timeout", //Important to send alerts
     disconnected : "Disconnected",
-    discoTO: "Disconnected after Timeout"
+    discoTO: "Disconnected after Timeout" //Important to send alerts
 };
 
 
@@ -48,7 +48,7 @@ class WsEventHandler {
 
         this.ws.on(SocketActions.SENSOR_DISCONNECT, function (data) {
             //console.log("Sensor disconnected")
-            
+
             if (weh.getState() == STATE.timeout){
                 weh.setState(STATE.discoTO);
                 _node.status({fill: "red", shape: "ring", text: "disconnected after timeout"});
