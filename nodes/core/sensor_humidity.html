@@ -27,9 +27,6 @@
         <label for="node-input-timeout"><i class="fa fa-tag"></i> Timeout (s)</label>
         <input type="text" id="node-input-timeout" placeholder="Timeout">
     </div>
-    <p>sensor devices with PAR (photosynthetic active radiation) input node. Tries to connect sensor device and send PAR value when available</p>
-   <p>Outputs an object called <code>msg</code> containing <code>msg.topic=par</code> and
-   <code>msg.payload</code>. msg.payload is a String containing humidity value (unsigned integer in %).</p>
 </script>
 
 
@@ -62,7 +59,7 @@
         paletteLabel:"Humidity",
         color: "#87A980",
 	label: function() {     // sets the default label contents
-            return this.name||"sensor_humidity";
+            return this.name||"RH";
         },
         labelStyle: function() { // sets the class to apply to the label
             return this.name?"node_label_italic":"";

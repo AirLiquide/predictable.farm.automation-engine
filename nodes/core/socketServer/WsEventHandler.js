@@ -93,12 +93,12 @@ class WsEventHandler {
             if (weh.getState() != STATE.connected){
                 weh.setState(STATE.connected);
             }
-            _node.status({fill: "green", shape: "dot", text: "connected"});
 
             var data = JSON.parse(data)
             var msg = {
                 payload: data
             };
+            _node.status({fill: "green", shape: "dot", text: "Last value : " + data.sensor_value});
             _node.send([msg, null, null]);
         });
 
