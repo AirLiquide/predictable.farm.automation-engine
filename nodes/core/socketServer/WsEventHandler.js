@@ -16,7 +16,7 @@ var STATE ={
 class WsEventHandler {
 
 
-    constructor(/*node*/node, /*string*/ address, /*    string*/params) {
+    constructor(/*node*/node, /*string*/ address, /*string*/params, /*string*/nodeType ="") {
 
         this.node = node;
 
@@ -98,7 +98,13 @@ class WsEventHandler {
             var msg = {
                 payload: data
             };
-            _node.status({fill: "green", shape: "dot", text: "Last value : " + data.sensor_value});
+            if (nodeType !="global_sensor"){
+                _node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + data.sensor_value});
+            }
+            else {
+                _node.status({fill: "green", shape: "dot", text: "Connected"});
+            }
+
             _node.send([msg, null, null]);
         });
 
