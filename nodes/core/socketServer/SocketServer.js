@@ -179,98 +179,98 @@ class SocketServer {
 
                 if (type == 'air_humidity') {
                     nodes.forEach(function each(node) {
-                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_humidity') { //id is the sensor id
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_air_humidity') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
                 else if (type == 'light_lux') {
                     nodes.forEach(function each(node) {
-                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_par') { //id is the sensor id
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_light_par') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
                 else if (type == 'air_temperature') {
                     nodes.forEach(function each(node) {
-                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_temperature') { //id is the sensor id
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_air_temperature') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
                 else if (type == 'air_ch4') {
                     nodes.forEach(function each(node) {
-                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_ch4') { //id is the sensor id
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_air_ch4') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
                 else if (type == 'air_o3' || type == 'air_co') {
                     nodes.forEach(function each(node) {
-                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_cO') { //id is the sensor id
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_air_co') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
                 else if (type == 'air_co2') {
                     nodes.forEach(function each(node) {
-                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_co2') { //id is the sensor id
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_air_co2') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
                 else if (type == 'moisture') {
                     nodes.forEach(function each(node) {
-                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_humidity') { //id is the sensor id
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_air_humidity') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
                 else if (type == 'air_pressure') {
                     nodes.forEach(function each(node) {
-                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_pressure') { //id is the sensor id
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_air_pressure') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
                 else if (type == 'mist_temperature') {
                     nodes.forEach(function each(node) {
-                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_temperature') { //id is the sensor id
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_air_temperature') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
                 else if (type == 'water_ec') {
                     nodes.forEach(function each(node) {
-                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_ec') { //id is the sensor id
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_water_ec') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
                 else if (type == 'soil_humidity') {
                     nodes.forEach(function each(node) {
-                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_humidity') { //id is the sensor id
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_air_humidity') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
                 else if (type == 'water_orp') {
                     nodes.forEach(function each(node) {
-                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_orp') { //id is the sensor id
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_water_orp') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
                 else if (type == 'water_temperature') {
                     nodes.forEach(function each(node) {
-                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_temperature') { //id is the sensor id
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_air_temperature') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
                 else if (type == 'water_ph') {
                     nodes.forEach(function each(node) {
-                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_ph') { //id is the sensor id
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_water_ph') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
