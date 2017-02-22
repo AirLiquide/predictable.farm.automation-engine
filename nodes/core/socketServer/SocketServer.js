@@ -110,6 +110,10 @@ class SocketServer {
             else if (role == 'actuator'){
                 var sensorId = ws.handshake.query.sensorId;
                 var nodeType = ws.handshake.query.node_type;
+                var relayId = ws.handshake.query.relayId;
+
+                client.relayId = relayId;
+
                 client.sensorId = sensorId;
                 client.nodeType = nodeType;
                 _actuators[id] = client;
@@ -215,7 +219,7 @@ class SocketServer {
                         }
                     });
                 }
-                else if (type == 'soil_moisture') {
+                else if (type == 'moisture') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_humidity') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
@@ -261,6 +265,69 @@ class SocketServer {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_temperature') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
+                        }
+                    });
+                }
+                else if (type == 'water_ph') {
+                    nodes.forEach(function each(node) {
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_ph') { //id is the sensor id
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
+                        }
+                    });
+                }
+                else if (type == 'relay1') {
+                    actuators.forEach(function each(actuator) {
+                        if (_actuators[actuator].sensorId == sensorId && _actuators[actuator].nodeType == 'global_actuator' && _actuators[actuator].relayId == 1) { //id is the sensor id
+                            _actuators[actuator].socket.emit(SocketActions.UPDATE_DATA, message);
+                        }
+                    });
+                }
+                else if (type == 'relay2') {
+                    actuators.forEach(function each(actuator) {
+                        if (_actuators[actuator].sensorId == sensorId && _actuators[actuator].nodeType == 'global_actuator' && _actuators[actuator].relayId == 2) { //id is the sensor id
+                            _actuators[actuator].socket.emit(SocketActions.UPDATE_DATA, message);
+                        }
+                    });
+                }
+                else if (type == 'relay3') {
+                    actuators.forEach(function each(actuator) {
+                        if (_actuators[actuator].sensorId == sensorId && _actuators[actuator].nodeType == 'global_actuator' && _actuators[actuator].relayId == 3) { //id is the sensor id
+                            _actuators[actuator].socket.emit(SocketActions.UPDATE_DATA, message);
+                        }
+                    });
+                }
+                else if (type == 'relay4') {
+                    actuators.forEach(function each(actuator) {
+                        if (_actuators[actuator].sensorId == sensorId && _actuators[actuator].nodeType == 'global_actuator' && _actuators[actuator].relayId == 4) { //id is the sensor id
+                            _actuators[actuator].socket.emit(SocketActions.UPDATE_DATA, message);
+                        }
+                    });
+                }
+                else if (type == 'relay5') {
+                    actuators.forEach(function each(actuator) {
+                        if (_actuators[actuator].sensorId == sensorId && _actuators[actuator].nodeType == 'global_actuator' && _actuators[actuator].relayId == 5) { //id is the sensor id
+                            _actuators[actuator].socket.emit(SocketActions.UPDATE_DATA, message);
+                        }
+                    });
+                }
+                else if (type == 'relay6') {
+                    actuators.forEach(function each(actuator) {
+                        if (_actuators[actuator].sensorId == sensorId && _actuators[actuator].nodeType == 'global_actuator' && _actuators[actuator].relayId == 6) { //id is the sensor id
+                            _actuators[actuator].socket.emit(SocketActions.UPDATE_DATA, message);
+                        }
+                    });
+                }
+                else if (type == 'relay7') {
+                    actuators.forEach(function each(actuator) {
+                        if (_actuators[actuator].sensorId == sensorId && _actuators[actuator].nodeType == 'global_actuator' && _actuators[actuator].relayId == 7) { //id is the sensor id
+                            _actuators[actuator].socket.emit(SocketActions.UPDATE_DATA, message);
+                        }
+                    });
+                }
+                else if (type == 'relay8') {
+                    actuators.forEach(function each(actuator) {
+                        if (_actuators[actuator].sensorId == sensorId && _actuators[actuator].nodeType == 'global_actuator' && _actuators[actuator].relayId == 8) { //id is the sensor id
+                            _actuators[actuator].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }

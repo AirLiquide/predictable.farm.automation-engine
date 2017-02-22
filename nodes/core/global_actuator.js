@@ -5,14 +5,16 @@ module.exports = function (RED) {
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
-    var SocketActions = require(__dirname+'/socketServer/SocketActions');
-    var WsEventHandler = require(__dirname+'/socketServer/WsEventHandler');
-    var SocketServer = require(__dirname+'/socketServer/SocketServer');
+    var SocketActions = require(__dirname + '/socketServer/SocketActions');
+    var WsEventHandler = require(__dirname + '/socketServer/WsEventHandler');
+    var SocketServer = require(__dirname + '/socketServer/SocketServer');
     var nodeName = "global_actuator";
 
 
     // The main node definition - most things happen in here
     function GlobalActuator(n) {
+
+        //TODO: add a timeout field and get the value to enable the detection of crashes
 
         //console.log(server)
 
@@ -24,6 +26,7 @@ module.exports = function (RED) {
         this.deviceid = n.deviceid;
         this.relaynumber = n.relaynumber;
         this.value = n.value;
+        this.timeout = n.timeout*1000;//convert seconds to milliseconds.
         // maybe add an option to choose between milliseconds, seconds, minutes
 
         // copy "this" object in case we need it in context of callbacks of other functions.
@@ -39,8 +42,8 @@ module.exports = function (RED) {
         // Look at other real nodes for some better ideas of what to do....
 
         if (!this.deviceid == '') {
-            this.status({fill:"gray",shape:"ring",text:"disconnected"});
-            var ws = new WsEventHandler(node, 'http://localhost:3000', 'role=actuator&sensorId=' + node.deviceid + "&node_type=" + nodeName);
+            this.status({fill: "gray", shape: "ring", text: "disconnected"});
+            var ws = new WsEventHandler(node, 'http://localhost:3000', 'role=actuator&sensorId=' + node.deviceid + "&node_type=" + nodeName + "&relayId="+ node.relaynumber);
 
             this.on('input', function (msg) {
                 var socket_io_data = {
@@ -55,15 +58,19 @@ module.exports = function (RED) {
                 var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
 
                 if (/*isValid*/true) {
-                console.log("actuator command valid :)");
-                  var mymsg = {device_id:this.deviceid,sensor_type:'relay'+node.relaynumber, sensor_value:this.value };
-		  //  msg.payload.sensor_type ='relay1';//'relay'+node.relaynumber;
-                   // msg.payload.sensor_value =0; //node.value;
+                    console.log("actuator command valid :)");
+                    var mymsg = {
+                        device_id: this.deviceid,
+                        sensor_type: 'relay' + node.relaynumber,
+                        sensor_value: this.value
+                    };
+                    //  msg.payload.sensor_type ='relay1';//'relay'+node.relaynumber;
+                    // msg.payload.sensor_value =0; //node.value;
                     console.log(JSON.stringify(mymsg));
-		    ws.getSocket().emit("sensor-receive",mymsg/* msg.payload*/);
-                }else{
-console.log("actuator command invalid");
-}
+                    ws.getSocket().emit("sensor-receive", mymsg/* msg.payload*/);
+                } else {
+                    console.log("actuator command invalid");
+                }
                 // in this example just send it straight on... should process it here really
                 node.send(msg);
             });
