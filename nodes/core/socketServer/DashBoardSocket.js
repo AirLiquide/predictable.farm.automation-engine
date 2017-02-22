@@ -6,7 +6,6 @@
 class DashBoardSocket{
 
     constructor(type){
-        console.log("go")
         this.socket = require('socket.io-client')('http://127.0.0.1:80/');
         this.socket.on('connect', function(){
             console.log(type+" node connected to dashboard");
