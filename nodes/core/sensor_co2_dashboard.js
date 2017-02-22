@@ -12,7 +12,14 @@ module.exports = function (RED) {
     // The main node definition - most things happen in here
     function sensorCo2DashboardNode(n) {
 
-        var socket = require('socket.io-client')('http://10.49.95.122:8080/');
+        var socket = require('socket.io-client')('http://127.0.0.1:80/');
+        socket.on('connect', function(){
+            console.log("CO2 node connected to dashboard");
+        });
+
+        socket.on('connect_error', function(error){
+            console.log(error);
+        });
         socket.emit("hello");
 
         //console.log(server)

@@ -12,7 +12,14 @@ module.exports = function (RED) {
     // The main node definition - most things happen in here
     function GlobalSensorDashboardNode(n) {
 
-        var socket = require('socket.io-client')('http://10.49.95.122:8080/');
+        var socket = require('socket.io-client')('http://127.0.0.1:80/');
+        socket.on('connect', function(){
+            console.log("Global node connected to dashboard");
+        });
+
+        socket.on('connect_error', function(error){
+            console.log(error);
+        });
         socket.emit("hello");
 
         //console.log(server)
@@ -36,7 +43,6 @@ module.exports = function (RED) {
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
         this.on('input', function (msg) {
-            node.warn("I saw a payload: " + msg.payload);
             socket.emit("sensor-emit",msg.payload);
             // in this example just send it straight on... should process it here really
             //node.send(msg);

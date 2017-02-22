@@ -37,7 +37,7 @@ module.exports = function (RED) {
         // Look at other real nodes for some better ideas of what to do....
 
         if (!this.deviceid == '') {
-            var socket = require('socket.io-client')('http://10.49.95.122:8080/');
+            var socket = require('socket.io-client')('http://localhost:8080/');
             socket.emit("hello");
 
             socket.on('update-relay', function (msg) {

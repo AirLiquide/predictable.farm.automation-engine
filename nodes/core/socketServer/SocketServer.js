@@ -31,7 +31,7 @@ class SocketServer {
         _sensors = {};
         //server.on('connection', this.handleConnection);
         server.on('connection', this.handleConnection);
-        console.log("Socket Server started!")
+        console.log("Socket Server started!");
         return this;
     }
 
