@@ -6,21 +6,14 @@ module.exports = function (RED) {
     //var foo = require("foo-library");
 
     var SocketActions = require(__dirname+'/socketServer/SocketActions');
+    var DashBoardSocket = require(__dirname+'/socketServer/DashBoardSocket');
     var nodeName = "sensor_air_ch4_dashboard";
 
 
     // The main node definition - most things happen in here
     function sensorAirCh4DashboardNode(n) {
 
-        var socket = require('socket.io-client')('http://127.0.0.1:80/');
-        socket.on('connect', function(){
-            console.log("CH4 node connected to dashboard");
-        });
-
-        socket.on('connect_error', function(error){
-            console.log(error);
-        });
-        socket.emit("hello");
+        var socket = new DashBoardSocket("Air CH4");
 
         //console.log(server)
 
@@ -50,6 +43,7 @@ module.exports = function (RED) {
         });
 
         this.on("close", function () {
+            socket.close();
             // Called when the node is shutdown - eg on redeploy.
             // Allows ports to be closed, connections dropped etc.
             // eg: node.client.disconnect();

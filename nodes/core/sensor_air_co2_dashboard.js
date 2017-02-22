@@ -6,21 +6,14 @@ module.exports = function (RED) {
     //var foo = require("foo-library");
 
     var SocketActions = require(__dirname+'/socketServer/SocketActions');
+    var DashBoardSocket = require(__dirname+'/socketServer/DashBoardSocket');
     var nodeName = "sensor_air_co2_dashboard";
 
 
     // The main node definition - most things happen in here
     function sensorAirCo2DashboardNode(n) {
 
-        var socket = require('socket.io-client')('http://127.0.0.1:80/');
-        socket.on('connect', function(){
-            console.log("CO2 node connected to dashboard");
-        });
-
-        socket.on('connect_error', function(error){
-            console.log(error);
-        });
-        socket.emit("hello");
+        var socket = new DashBoardSocket("Air CO2");
 
         //console.log(server)
 
