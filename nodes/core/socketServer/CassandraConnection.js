@@ -56,7 +56,7 @@ class CassandraConnection {
             this.connecting = false;
             if (err) {
                 this.tick = setTimeout(doConnect, 30000);
-                console.log(err);
+                //console.log(err);
             } else {
                 this.connected = true;
                 console.log("Connection to cassandra database done")
