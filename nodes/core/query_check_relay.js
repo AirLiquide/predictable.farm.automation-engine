@@ -66,9 +66,20 @@ module.exports = function (RED) {
                             node.send(m);
                         }
                     }
+                    else if (Array.isArray(res) && res.length ==0){ //relaystate not found before
+                        var query = "INSERT INTO predictablefarm.relaystate (device_id, sensor_type,sensor_id, sensor_value, last_update)VALUES( \'%device_id%\',\'%sensor_type%\', \'%sensor_id%\',1, dateof(now()) ) USING TIMESTAMP;";
+                        query = query.replace(/%device_id%/, msg.payload['device_id'])
+                            .replace(/%sensor_type%/, msg.payload['sensor_type'])
+                            .replace(/%sensor_id%/, msg.payload['sensor_id'])
+                            .replace(/%sensor_value%/, 1);//by default, set the value to auto
+                        CassandraConnection.exectQuery(query, m, function (res) {
+                            node.send(m);
+                        });
+                    }
                 };
 
                 var query = "SELECT * FROM predictablefarm.relaystate WHERE device_id=\'%device_id%\' AND sensor_type = \'%sensor_type%\';";
+
                 query = query.replace(/%device_id%/, msg.payload['device_id'])
                     .replace(/%sensor_type%/, msg.payload['sensor_type'])
                     .replace(/%sensor_id%/, msg.payload['sensor_id'])

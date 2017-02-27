@@ -26,8 +26,15 @@ module.exports = function (RED) {
 
         if (!this.value == ''){
             this.on('input', function (msg) {
-                if (typeof msg.payload == 'number'){
-                    if (msg.payload < this.value ){
+                var data;
+
+                if (msg.payload.sensor_value)
+                    data = msg.payload.sensor_value;
+                else
+                    data = msg.payload;
+
+                if (typeof data == 'number'){
+                    if (data < this.value ){
                         node.send(msg);
                     }
                     else{

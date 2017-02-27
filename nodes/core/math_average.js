@@ -28,19 +28,27 @@ module.exports = function (RED) {
         if (!this.amount == ''){
             var table = [];
             this.on('input', function (msg) {
-                if (typeof msg.payload == 'number'){
-                    table.push(msg.payload);
+
+                var data;
+
+                if (msg.payload.sensor_value)
+                    data = msg.payload.sensor_value;
+                else
+                    data = msg.payload;
+
+                if (typeof data == 'number'){
+                    table.push(data);
                 }
-                else if(Array.isArray(msg.payload)){
+                else if(Array.isArray(data)){
                     var valid = true;
-                    msg.payload.forEach(function (m){
-                        if (!typeof msg.payload == 'number')
+                    data.forEach(function (m){
+                        if (!typeof data == 'number')
                         {
                             valid = false;
                         }
                     });
                     if (valid){
-                        msg.payload.forEach(function (m){
+                        data.forEach(function (m){
                             table.push(m);
                         });
                     }

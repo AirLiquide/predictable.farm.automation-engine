@@ -29,7 +29,15 @@ module.exports = function (RED) {
 
         if (!this.value == ''){
             this.on('input', function (msg) {
-                if (msg.payload == this.value ){
+
+                var data;
+
+                if (msg.payload.sensor_value)
+                    data = msg.payload.sensor_value;
+                else
+                    data = msg.payload;
+
+                if (data == this.value ){
                     node.send(msg);
                 }
                 else{
