@@ -184,7 +184,7 @@ class Weather {
 
         var w = this;
 
-        setTimeout(function(){w.checkWeather()},5000);
+        setTimeout(function(){w.checkWeather()},1000*60*5);
 
 
     }
