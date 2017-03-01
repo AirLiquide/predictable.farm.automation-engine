@@ -1,4 +1,4 @@
-<script type="text/x-red" data-template-name="global_sensor_dashboard">
+<script type="text/x-red" data-template-name="global_all_sensor">
    <!-- data-template-name identifies the node type this is for              -->
 
    <!-- Each of the following divs creates a field in the edit dialog.       -->
@@ -13,34 +13,36 @@
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
+
+    </br>
 </script>
 
 
 <!-- Next, some simple help text is provided for the node.                   -->
-<script type="text/x-red" data-help-name="global_sensor_dashboard">
+<script type="text/x-red" data-help-name="global_all_sensor">
    <!-- data-help-name identifies the node type this help is for             -->
    <!-- This content appears in the Info sidebar when a node is selected     -->
    <!-- The first <p> is used as the pop-up tool tip when hovering over a    -->
    <!-- node in the palette.                                                 -->
-   <p> Send sensor information to the dashboard</p>
+    <p>Global device. Tries to connect device and send any value when available</p>
 </script>
 
 <!-- Finally, the node type is registered along with all of its properties   -->
 <!-- The example below shows a small subset of the properties that can be set-->
 <script type="text/javascript">
-    RED.nodes.registerType('global_sensor_dashboard',{
-        category: 'Dashboard',      // the palette category
+    RED.nodes.registerType('global_all_sensor',{
+        category: 'IO',      // the palette category
         defaults: {             // defines the editable properties of the node
-            name: {value:""}   //  along with default values.
+            name: {value:""},   //  along with default values.
         },
-        inputs:1,               // set the number of inputs - only 0 or 1
-        outputs:0,              // set the number of outputs - 0 to n
+        inputs:0,               // set the number of inputs - only 0 or 1
+        outputs:1,              // set the number of outputs - 0 to n
         // set the icon (held in icons dir below where you save the node)
-        icon: "dash.png",     // saved in  icons/myicon.png
-        paletteLabel:"All IO",
+        icon: "sensor.png",     // saved in  icons/myicon.png
+        paletteLabel:"All IO node",
         color: "#888888",
 	label: function() {     // sets the default label contents
-            return this.name||"All IO Dashboard";
+            return this.name||"All IO";
         },
         labelStyle: function() { // sets the class to apply to the label
             return this.name?"node_label_italic":"";

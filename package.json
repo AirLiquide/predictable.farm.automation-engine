@@ -14,6 +14,7 @@
     "nodes": {
       "global_actuator": "nodes/core/global_actuator.js",
       "global_sensor": "nodes/core/global_sensor.js",
+      "global_all_sensor": "nodes/core/global_all_sensor.js",
       "global_sensor_dashboard": "nodes/core/global_sensor_dashboard.js",
       "math_average": "nodes/core/math_average.js",
       "math_equal": "nodes/core/math_equal.js",

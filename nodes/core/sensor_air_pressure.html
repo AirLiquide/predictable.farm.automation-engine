@@ -43,14 +43,14 @@
 <!-- The example below shows a small subset of the properties that can be set-->
 <script type="text/javascript">
     RED.nodes.registerType('sensor_air_pressure',{
-        category: 'Sensor',      // the palette category
+        category: 'IO',      // the palette category
         defaults: {             // defines the editable properties of the node
             name: {value:""},   //  along with default values.
             deviceid: {value:"", required:true},
             timeout: {value:"5", required:true}
         },
         inputs:0,               // set the number of inputs - only 0 or 1
-        outputs:3,              // set the number of outputs - 0 to n
+        outputs:1,              // set the number of outputs - 0 to n
         // set the icon (held in icons dir below where you save the node)
         icon: "sensor.png",     // saved in  icons/myicon.png
         paletteLabel:"Air Pressure",

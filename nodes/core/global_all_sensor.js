@@ -8,10 +8,10 @@ module.exports = function (RED) {
     var SocketActions = require(__dirname+'/socketServer/SocketActions');
     var WsEventHandler = require(__dirname+'/socketServer/WsEventHandler');
     var SocketServer = require(__dirname+'/socketServer/SocketServer');
-    var nodeName = "global_sensor";
+    var nodeName = "global_all_sensor";
 
     // The main node definition - most things happen in here
-    function GlobalSensoryNode(n) {
+    function GlobalAllSensoryNode(n) {
 
         //console.log(server)
 
@@ -35,7 +35,6 @@ module.exports = function (RED) {
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
 
-        if (!this.deviceid == ''){
             this.status({fill:"gray",shape:"ring",text:"not found"});
             var ws = new WsEventHandler(node,'http://localhost:3000', 'role=node&sensorId='+node.deviceid+"&node_type="+nodeName,nodeName);
 
@@ -58,15 +57,10 @@ module.exports = function (RED) {
                 ws.getSocket().emit(SocketActions.NODE_DISCONNECT,_data);
             });
 
-        }
-        else{
-            this.status({fill:"red",shape:"ring",text:"No ID specified"});
-        }
-
     }
 
     // Register the node by name. This must be called before overriding any of the
     // Node functions.
-    RED.nodes.registerType(nodeName, GlobalSensoryNode);
+    RED.nodes.registerType(nodeName, GlobalAllSensoryNode);
 
 }

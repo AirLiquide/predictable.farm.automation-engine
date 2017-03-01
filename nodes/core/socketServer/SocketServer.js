@@ -171,6 +171,12 @@ class SocketServer {
                 var nodes = Object.keys(_nodes);
 
                 nodes.forEach(function each(node) {
+                    if (_nodes[node].nodeType == 'global_all_sensor') { //id is the sensor id
+                        _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
+                    }
+                });
+
+                nodes.forEach(function each(node) {
                     if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'global_sensor') { //id is the sensor id
                         _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                     }

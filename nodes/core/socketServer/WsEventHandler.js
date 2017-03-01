@@ -63,7 +63,7 @@ class WsEventHandler {
             var msg = {
                 payload: data
             }
-            _node.send([null, null, msg]);
+            //_node.send([null, null, msg]);
         });
 
         this.ws.on(SocketActions.SENSOR_CONNECT, function (data) {
@@ -72,7 +72,7 @@ class WsEventHandler {
             var msg = {
                 payload: data
             }
-            _node.send([null, null, msg]);
+            //_node.send([null, null, msg]);
         });
 
         this.ws.on(SocketActions.TEST_ACTION, function (data) {
@@ -98,14 +98,14 @@ class WsEventHandler {
             var msg = {
                 payload: data
             };
-            if (nodeType !="global_sensor"){
+            if (nodeType !="global_sensor" && nodeType != "global_all_sensor"){
                 _node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + data.sensor_value});
             }
             else {
                 _node.status({fill: "green", shape: "dot", text: "Connected"});
             }
 
-            _node.send([msg, null, null]);
+            _node.send(msg);
         });
 
         this.ws.on("*", function (event, data) {
@@ -174,7 +174,7 @@ var checkTimeout = function (weh) {
                     timeout: true
                 }
             }
-            weh.getNode().send([null, msg, null]);
+            //weh.getNode().send([null, msg, null]);
             weh.setTO(undefined);
             //weh.setTO("timeout");
         }

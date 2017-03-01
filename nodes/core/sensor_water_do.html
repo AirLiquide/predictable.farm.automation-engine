@@ -36,27 +36,27 @@
    <!-- This content appears in the Info sidebar when a node is selected     -->
    <!-- The first <p> is used as the pop-up tool tip when hovering over a    -->
    <!-- node in the palette.                                                 -->
-   <p>sensor devices with Water Do input node. Tries to connect sensor device and send water do value when available</p>
+   <p>sensor devices with Water DO input node. Tries to connect sensor device and send water do value when available</p>
 </script>
 
 <!-- Finally, the node type is registered along with all of its properties   -->
 <!-- The example below shows a small subset of the properties that can be set-->
 <script type="text/javascript">
     RED.nodes.registerType('sensor_water_do',{
-        category: 'Sensor',      // the palette category
+        category: 'IO',      // the palette category
         defaults: {             // defines the editable properties of the node
             name: {value:""},   //  along with default values.
             deviceid: {value:"", required:true},
             timeout: {value:"5", required:true}
         },
         inputs:0,               // set the number of inputs - only 0 or 1
-        outputs:3,              // set the number of outputs - 0 to n
+        outputs:1,              // set the number of outputs - 0 to n
         // set the icon (held in icons dir below where you save the node)
         icon: "sensor.png",     // saved in  icons/myicon.png
-        paletteLabel:"Water Do",
+        paletteLabel:"Water DO",
         color: "#87A980",
 	label: function() {     // sets the default label contents
-            return this.name||"Do : mg/l";
+            return this.name||"DO : mg/l";
         },
         labelStyle: function() { // sets the class to apply to the label
             return this.name?"node_label_italic":"";

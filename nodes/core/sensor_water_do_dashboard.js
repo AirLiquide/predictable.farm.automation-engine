@@ -13,7 +13,7 @@ module.exports = function (RED) {
     // The main node definition - most things happen in here
     function sensorWaterDoDashboardNode(n) {
 
-        var socket = new DashBoardSocket("Water Do");
+        var socket = new DashBoardSocket("Water DO");
 
         //console.log(server)
 
