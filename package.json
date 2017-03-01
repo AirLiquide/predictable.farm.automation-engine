@@ -55,7 +55,13 @@
       "query_check_relay": "nodes/core/query_check_relay.js",
       "query_save_relay": "nodes/core/query_save_relay.js",
       "query_save_sensor": "nodes/core/query_save_sensor.js",
-      "global_dashboard_actuator": "nodes/core/global_dashboard_actuator.js"
+      "global_dashboard_actuator": "nodes/core/global_dashboard_actuator.js",
+      "weather_cloud_cover": "nodes/core/weather_cloud_cover.js",
+      "weather_dew_point": "nodes/core/weather_dew_point.js",
+      "weather_humidity": "nodes/core/weather_humidity.js",
+      "weather_o3": "nodes/core/weather_o3.js",
+      "weather_pressure": "nodes/core/weather_pressure.js",
+      "weather_temperature": "nodes/core/weather_temperature.js"
     }
   }
 }
