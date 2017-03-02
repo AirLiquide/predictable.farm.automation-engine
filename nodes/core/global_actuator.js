@@ -58,7 +58,7 @@ module.exports = function (RED) {
                 var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
 
                 if (/*isValid*/true) {
-                    console.log("actuator command valid :)");
+                    //console.log("actuator command valid :)");
                     var mymsg = {
                         device_id: this.deviceid,
                         sensor_type: 'relay' + node.relaynumber,
@@ -69,7 +69,7 @@ module.exports = function (RED) {
                     console.log(JSON.stringify(mymsg));
                     ws.getSocket().emit("sensor-receive", mymsg/* msg.payload*/);
                 } else {
-                    console.log("actuator command invalid");
+                    //console.log("actuator command invalid");
                 }
                 // in this example just send it straight on... should process it here really
                 node.send(msg);
