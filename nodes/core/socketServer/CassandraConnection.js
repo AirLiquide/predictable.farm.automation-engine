@@ -5,7 +5,7 @@
 var cassandra = require('cassandra-driver');
 var dbConfig = {
     defaults: {
-        hosts: {value: "iMac-de-admin-6"}, //don't use localhost or 127.0.0.1
+        hosts: {value: "predictable-server"}, //don't use localhost or 127.0.0.1
         port: {value: "9042"},
         keyspace: {value: "predictablefarm"}
     },
