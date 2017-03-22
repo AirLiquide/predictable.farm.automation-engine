@@ -27,17 +27,31 @@ class Geoloc {
 
         var geo = this;
 
-        var req = http.request(options, function(res) {
-            res.setEncoding('utf8');
-            res.on('data', function (chunk) {
-                var data = JSON.parse(chunk);
-                geo.setLatitude(data.latitude);
-                geo.setLongitude(data.longitude);
-                callback();
-                //console.log(lat,long);
+        function getGeoloc() {
+            var req = http.request(options, function(res) {
+                res.setEncoding('utf8');
+                res.on('data', function (chunk) {
+                    console.log(chunk)
+                    try {
+                        var data = JSON.parse(chunk);
+                        geo.setLatitude(data.latitude);
+                        geo.setLongitude(data.longitude);
+                        callback();
+                        //console.log(lat,long);
+                    }
+                    catch(e){
+                        console.log("Can't reach geoloc service, retrying in 30s")
+                        setTimeout(getGeoloc, 30000)
+                    }
+
+                });
             });
-        });
-        req.end();
+            if (req)
+                req.end();
+        }
+
+
+
         return this;
     }
 

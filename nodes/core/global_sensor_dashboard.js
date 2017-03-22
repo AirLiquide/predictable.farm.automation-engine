@@ -13,7 +13,7 @@ module.exports = function (RED) {
     // The main node definition - most things happen in here
     function GlobalSensorDashboardNode(n) {
 
-        var socket = new DashBoardSocket("Global");
+        DashBoardSocket.registerNode(this, nodeName);
 
         //console.log(server)
 
@@ -36,7 +36,7 @@ module.exports = function (RED) {
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
         this.on('input', function (msg) {
-            socket.emit("sensor-emit",msg.payload);
+            DashBoardSocket.emit("sensor-emit",msg.payload);
             // in this example just send it straight on... should process it here really
             //node.send(msg);
         });

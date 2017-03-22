@@ -8,6 +8,8 @@ module.exports = function (RED) {
     var SocketActions = require(__dirname+'/socketServer/SocketActions');
     var WsEventHandler = require(__dirname+'/socketServer/WsEventHandler');
     var SocketServer = require(__dirname+'/socketServer/SocketServer');
+    var ActuatorDashBoardSocket = require(__dirname+'/socketServer/ActuatorDashBoardSocket');
+    var DashBoardSocket = require(__dirname+'/socketServer/DashBoardSocket');
     var nodeName = "global_dashboard_actuator";
 
 
@@ -37,31 +39,10 @@ module.exports = function (RED) {
         // Look at other real nodes for some better ideas of what to do....
 
         if (!this.deviceid == '') {
-            var socket = require('socket.io-client')('http://localhost:8080/');
-            socket.emit("hello");
-
-            socket.on('update-relay', function (msg) {
-                var socket_io_data = {
-                    'device_id': null,
-                    'sensor_type': null,
-                    'sensor_id': null,
-                    'sensor_value': 0
-                };
-
-                var aKeys = Object.keys(socket_io_data).sort();
-                var bKeys = Object.keys(msg).sort();
-                var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
-
-                if (isValid && msg.sensor_value == node.deviceid) {
-                    node.send({
-                        payload:msg
-                    });
-                }
-                // in this example just send it straight on... should process it here really
-                //node.send(msg);
-            });
+            DashBoardSocket.registerNode(this,nodeName);
 
             this.on("close", function () {
+                DashBoardSocket.removeNode(this,nodeName);
                 // Called when the node is shutdown - eg on redeploy.
                 // Allows ports to be closed, connections dropped etc.
                 // eg: node.client.disconnect();
