@@ -55,6 +55,7 @@ class DashBoardSocket {
             var actuators = Object.keys(_actuators);
 
             actuators.forEach(function each(actuator) {
+
                 var node = _actuators[actuator];
 
                 console.log(isValid, ":", node.deviceid, "/", msg.device_id);
