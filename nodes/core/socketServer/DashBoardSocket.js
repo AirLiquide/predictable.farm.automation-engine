@@ -58,8 +58,6 @@ class DashBoardSocket {
 
                 var node = _actuators[actuator];
 
-                console.log(isValid, ":", node.deviceid, "/", msg.device_id);
-
                 if (isValid && node.deviceid == msg.device_id){
                     node.send({
                         payload: msg
@@ -96,8 +94,6 @@ class DashBoardSocket {
                     'sensor_id': null,
                     'sensor_value': 0
                 };
-
-                console.log("hey");
 
                 var aKeys = Object.keys(socket_io_data).sort();
                 var bKeys = Object.keys(msg).sort();
@@ -156,8 +152,6 @@ class DashBoardSocket {
 
         emit(event, data)
         {
-
-            console.log(event, data);
             this.socket.emit(event, data);
             this.cloudSocket.emit(event, data);
         }
