@@ -8,7 +8,6 @@ module.exports = function (RED) {
     var SocketActions = require(__dirname+'/socketServer/SocketActions');
     var WsEventHandler = require(__dirname+'/socketServer/WsEventHandler');
     var SocketServer = require(__dirname+'/socketServer/SocketServer');
-    var ActuatorDashBoardSocket = require(__dirname+'/socketServer/ActuatorDashBoardSocket');
     var DashBoardSocket = require(__dirname+'/socketServer/DashBoardSocket');
     var nodeName = "global_dashboard_actuator";
 
