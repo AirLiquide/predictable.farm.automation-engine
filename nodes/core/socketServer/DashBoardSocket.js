@@ -5,7 +5,8 @@
 
 const crypto = require('crypto');
 var socketClient = require('socket.io-client');
-var cloudAddress = 'http://35.158.65.142:80';
+//var cloudAddress = 'http://bridge.predictable.farm';
+var cloudAddress = 'http://35.158.65.142:3001';
 
 var farmID = process.env.FARM_ID || "";
 var secretKey = process.env.PREDICTABLE_KEY || "";
