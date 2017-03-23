@@ -83,16 +83,21 @@ class DashBoardSocket {
 
             });
             cs.on("authenticated", function (msg) {
-                console.log("Node-RED connected to cloud dashboard");
+                console.log("Node-RED connected to Bridge");
+            });
+            cs.on("authenticated", function (msg) {
+                console.log("Node-RED connected to Cloud Dashboard");
             });
 
-            cs.on('update-relay', function (msg) {
+            cs.on('sensor-receive', function (msg) {
                 var socket_io_data = {
                     'device_id': null,
                     'sensor_type': null,
                     'sensor_id': null,
                     'sensor_value': 0
                 };
+
+                console.log("hey");
 
                 var aKeys = Object.keys(socket_io_data).sort();
                 var bKeys = Object.keys(msg).sort();
@@ -151,6 +156,8 @@ class DashBoardSocket {
 
         emit(event, data)
         {
+
+            console.log(event, data);
             this.socket.emit(event, data);
             this.cloudSocket.emit(event, data);
         }
