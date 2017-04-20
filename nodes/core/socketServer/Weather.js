@@ -27,8 +27,6 @@ class Weather {
             weather.checkWeather()
         });
 
-        console.log("loc",this.Geoloc);
-
         return this;
     }
 
