@@ -45,7 +45,9 @@ module.exports = function (RED) {
             this.status({fill: "gray", shape: "ring", text: "disconnected"});
             var ws = new WsEventHandler(node, 'http://localhost:3000', 'role=actuator&sensorId=' + node.deviceid + "&node_type=" + nodeName + "&relayId="+ node.relaynumber);
 
+
             this.on('input', function (msg) {
+
                 var socket_io_data = {
                     'device_id': null,
                     'sensor_type': null,
@@ -53,9 +55,9 @@ module.exports = function (RED) {
                     'sensor_value': 0
                 };
 
-                var aKeys = Object.keys(socket_io_data).sort();
-                var bKeys = Object.keys(msg.payload).sort();
-                var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
+                //var aKeys = Object.keys(socket_io_data).sort();
+                //var bKeys = Object.keys(msg.payload).sort();
+                //var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
 
                 if (/*isValid*/true) {
                     //console.log("actuator command valid :)");
@@ -66,8 +68,9 @@ module.exports = function (RED) {
                     };
                     //  msg.payload.sensor_type ='relay1';//'relay'+node.relaynumber;
                     // msg.payload.sensor_value =0; //node.value;
-                    console.log(JSON.stringify(mymsg));
-                    ws.getSocket().emit("sensor-receive", mymsg/* msg.payload*/);
+                    //console.log(JSON.stringify(mymsg));
+                    ws.getSocket().emit('sensor-receive', mymsg/* msg.payload*/);
+
                 } else {
                     //console.log("actuator command invalid");
                 }

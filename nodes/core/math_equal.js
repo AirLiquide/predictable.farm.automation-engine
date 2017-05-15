@@ -38,6 +38,7 @@ module.exports = function (RED) {
                     data = msg.payload;
 
                 if (data == this.value ){
+                    msg.sender = node.id;
                     node.send(msg);
                 }
                 else{

@@ -67,6 +67,7 @@ module.exports = function (RED) {
                     var avg = total / table.length;
                     msg.payload = avg;
                     table =[];
+                    msg.sender = node.id;
                     node.send(msg)
                 }
 

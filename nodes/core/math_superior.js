@@ -36,6 +36,7 @@ module.exports = function (RED) {
 
                 if (typeof data == 'number'){
                     if (data > this.value ){
+                        msg.sender = node.id;
                         node.send(msg);
                     }
                     else{

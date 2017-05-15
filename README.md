@@ -46,6 +46,6 @@ Use Weather station
 
     Weather.registerNode(this, nodeName);
 
-Documentation complète :  https://docs.google.com/document/d/1_SxayDKO30vMWrVTCxJiv7SGgChcJP5q2pF0UntlBh4/edit
-
 Penser à faire un "npm install" après avoir clone
+
+Documentation complète :  https://docs.google.com/document/d/1_SxayDKO30vMWrVTCxJiv7SGgChcJP5q2pF0UntlBh4/
