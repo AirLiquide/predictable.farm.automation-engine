@@ -1,4 +1,4 @@
-<script type="text/x-red" data-template-name="logic_and">
+<script type="text/x-red" data-template-name="logic_or">
    <!-- data-template-name identifies the node type this is for              -->
 
    <!-- Each of the following divs creates a field in the edit dialog.       -->
@@ -17,7 +17,7 @@
 
 
 <!-- Next, some simple help text is provided for the node.                   -->
-<script type="text/x-red" data-help-name="logic_and">
+<script type="text/x-red" data-help-name="logic_or">
    <!-- data-help-name identifies the node type this help is for             -->
    <!-- This content appears in the Info sidebar when a node is selected     -->
    <!-- The first <p> is used as the pop-up tool tip when hovering over a    -->
@@ -30,7 +30,7 @@
 <p> Math node which calculate the average value of a given amount of number when it is reached.</p>
 
 <script type="text/javascript">
-    RED.nodes.registerType('logic_and',{
+    RED.nodes.registerType('logic_or',{
         category: 'function',      // the palette category
         defaults: {             // defines the editable properties of the node
             name: {value:""},   //  along with default values.
@@ -38,11 +38,11 @@
         inputs:1,               // set the number of inputs - only 0 or 1
         outputs:1,              // set the number of outputs - 0 to n
         // set the icon (held in icons dir below where you save the node)
-        icon: "and.png",     // saved in  icons/myicon.png
-        paletteLabel:"AND",
+        icon: "or.png",     // saved in  icons/myicon.png
+        paletteLabel:"OR",
         color: "#E2D96E",
 	label: function() {     // sets the default label contents
-            return this.name||"AND";
+            return this.name||"OR";
         },
         labelStyle: function() { // sets the class to apply to the label
             return this.name?"node_label_italic":"";
