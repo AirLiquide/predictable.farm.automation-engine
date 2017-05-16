@@ -39,10 +39,11 @@ module.exports = function (RED) {
 
                 if (data == this.value ){
                     msg.sender = node.id;
+                    msg.valid = true;
                     node.send(msg);
                 }
                 else{
-                    node.send(null);
+                    node.send({valid:false});
                 }
 
             });

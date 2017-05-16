@@ -43,25 +43,28 @@ module.exports = function (RED) {
 
                 //console.log(node.lastData[msg.sender])
                 if (msg.sender && node.entries.indexOf(msg.sender) !=-1){
-                    node.lastData[msg.sender] = msg.payload;
+                    if (msg.valid){
+                        node.lastData[msg.sender] = msg.payload;
 
-                    var update = true;
-                    for (var member in node.lastData) {
-                        if (node.lastData[member] == null)
-                            update = false;
-                    }
-
-                    if (update){
+                        var update = true;
                         for (var member in node.lastData) {
-                            node.lastData[member] = null;
+                            if (node.lastData[member] == null)
+                                update = false;
                         }
-                        node.send({
-                            sender:node.id
-                        });
 
+                        if (update){
+                            for (var member in node.lastData) {
+                                node.lastData[member] = null;
+                            }
+                            node.send({
+                                sender:node.id
+                            });
+
+                        }
                     }
-
-                    console.log(update)
+                    else{
+                        node.lastData[msg.sender] = null;
+                    }
                 }
                 if (!msg.sender){
                     node.alert("Invalid tool linked with " + node.type + " !");

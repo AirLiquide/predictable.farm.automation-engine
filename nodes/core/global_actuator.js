@@ -59,6 +59,10 @@ module.exports = function (RED) {
                 //var bKeys = Object.keys(msg.payload).sort();
                 //var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
 
+                if (this.value == -1){
+                    console.log("toto");
+                }
+
                 if (/*isValid*/true) {
                     //console.log("actuator command valid :)");
                     var mymsg = {

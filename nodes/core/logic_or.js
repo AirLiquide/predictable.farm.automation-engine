@@ -40,8 +40,7 @@ module.exports = function (RED) {
             this.on('input', function (msg) {
 
                 //console.log(node.lastData[msg.sender])
-                if (msg.sender && node.entries.indexOf(msg.sender) !=-1){
-
+                if (msg.sender && msg.valid && node.entries.indexOf(msg.sender) !=-1){
                         node.send({
                             sender:node.id
                         });
