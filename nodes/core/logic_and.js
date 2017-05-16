@@ -63,6 +63,9 @@ module.exports = function (RED) {
 
                     console.log(update)
                 }
+                if (!msg.sender){
+                    node.alert("Invalid tool linked with " + node.type + " !");
+                }
                 //console.log(msg)
             });
 
