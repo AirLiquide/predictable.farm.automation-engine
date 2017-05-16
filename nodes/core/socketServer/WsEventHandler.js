@@ -96,7 +96,6 @@ class WsEventHandler {
 
             var data = JSON.parse(data)
             var msg = {
-                sender : _node.id,
                 payload: data
             };
             if (nodeType !="global_sensor" && nodeType != "global_all_sensor"){
