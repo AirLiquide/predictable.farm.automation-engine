@@ -63,7 +63,8 @@
       "weather_pressure": "nodes/core/weather_pressure.js",
       "weather_temperature": "nodes/core/weather_temperature.js",
       "logic_and": "nodes/core/logic_and.js",
-      "logic_or": "nodes/core/logic_or.js"
+      "logic_or": "nodes/core/logic_or.js",
+      "scheduler": "nodes/core/scheduler.js"
     }
   }
 }
