@@ -58,28 +58,38 @@ module.exports = function (RED) {
                 //var aKeys = Object.keys(socket_io_data).sort();
                 //var bKeys = Object.keys(msg.payload).sort();
                 //var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
-
+                var mymsg = {
+                    device_id: this.deviceid,
+                    sensor_type: 'relay' + node.relaynumber,
+                    sensor_value: null
+                };
                 if (this.value == -1){
-                    console.log("toto");
+                    if (msg.payload.relayValue){
+                        mymsg.sensor_value= msg.payload.relayValue;
+                        ws.getSocket().emit('sensor-receive', mymsg/* msg.payload*/);
+                    }
+                    else{
+                        node.alert("No value to send");
+                    }
+
+                }
+                else{
+                    if (/*isValid*/true) {
+                        //console.log("actuator command valid :)");
+                        mymsg.sensor_value= this.value;
+                        //  msg.payload.sensor_type ='relay1';//'relay'+node.relaynumber;
+                        // msg.payload.sensor_value =0; //node.value;
+                        //console.log(JSON.stringify(mymsg));
+                        ws.getSocket().emit('sensor-receive', mymsg/* msg.payload*/);
+
+                    } else {
+                        //console.log("actuator command invalid");
+                    }
                 }
 
-                if (/*isValid*/true) {
-                    //console.log("actuator command valid :)");
-                    var mymsg = {
-                        device_id: this.deviceid,
-                        sensor_type: 'relay' + node.relaynumber,
-                        sensor_value: this.value
-                    };
-                    //  msg.payload.sensor_type ='relay1';//'relay'+node.relaynumber;
-                    // msg.payload.sensor_value =0; //node.value;
-                    //console.log(JSON.stringify(mymsg));
-                    ws.getSocket().emit('sensor-receive', mymsg/* msg.payload*/);
 
-                } else {
-                    //console.log("actuator command invalid");
-                }
                 // in this example just send it straight on... should process it here really
-                node.send(msg);
+                //node.send(msg);
             });
 
             this.on("close", function () {
