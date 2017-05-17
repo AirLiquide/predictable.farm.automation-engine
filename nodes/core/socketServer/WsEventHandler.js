@@ -98,7 +98,11 @@ class WsEventHandler {
             var msg = {
                 payload: data
             };
-            if (nodeType !="global_sensor" && nodeType != "global_all_sensor" && nodeType != "global_actuator"){
+
+            if (nodeType == "global_actuator"){
+                _node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + ((data.sensor_value ==0)? "ON":"OFF")});
+            }
+            else if (nodeType !="global_sensor" && nodeType != "global_all_sensor"){
                 _node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + data.sensor_value});
             }
             else {
@@ -112,6 +116,7 @@ class WsEventHandler {
             if (SocketActions.isValidAction(event)) {
                 //prevent the timeout to be called when we disconnect/redeploy the node
                 if (event != SocketActions.SENSOR_DISCONNECT && event != SocketActions.SENSOR_CONNECT ) {
+                    //console.log(data);
                     weh.setLastUpdate(Date.now());
                     //console.log("lastUpdate edited", weh.getLastUpdate())
                     if (!weh.getTimeout()) {

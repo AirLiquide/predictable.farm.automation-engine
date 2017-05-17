@@ -43,7 +43,7 @@ module.exports = function (RED) {
 
         if (!this.deviceid == '') {
             this.status({fill: "gray", shape: "ring", text: "disconnected"});
-            var ws = new WsEventHandler(node, 'http://localhost:3000', 'role=actuator&sensorId=' + node.deviceid + "&node_type=" + nodeName + "&relayId="+ node.relaynumber);
+            var ws = new WsEventHandler(node, 'http://localhost:3000', 'role=actuator&sensorId=' + node.deviceid + "&node_type=" + nodeName + "&relayId="+ node.relaynumber,nodeName);
 
 
             this.on('input', function (msg) {
