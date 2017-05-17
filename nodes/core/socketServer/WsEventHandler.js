@@ -98,7 +98,7 @@ class WsEventHandler {
             var msg = {
                 payload: data
             };
-            if (nodeType !="global_sensor" && nodeType != "global_all_sensor"){
+            if (nodeType !="global_sensor" && nodeType != "global_all_sensor" && nodeType != "global_actuator"){
                 _node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + data.sensor_value});
             }
             else {

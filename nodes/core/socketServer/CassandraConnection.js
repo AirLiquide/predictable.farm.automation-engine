@@ -5,7 +5,8 @@
 var cassandra = require('cassandra-driver');
 var dbConfig = {
     defaults: {
-        hosts: {value: "predictable-server"}, //don't use localhost or 127.0.0.1
+        //hosts: {value: "predictable-server"}, //don't use localhost or 127.0.0.1
+        hosts: {value: '91.90.97.226'}, //don't use localhost or 127.0.0.1
         port: {value: "9042"},
         keyspace: {value: "predictablefarm"}
     },
@@ -48,15 +49,14 @@ class CassandraConnection {
         // TODO: Support other port, default is 9042
         this.connection = new cassandra.Client({
             contactPoints: dbConfig.defaults.hosts.value.replace(/ /g, "").split(","),
-            keyspace: dbConfig.defaults.keyspace.value,
-            authProvider: authProvider
+            keyspace: dbConfig.defaults.keyspace.value
         });
 
         this.connection.connect(function (err) {
             this.connecting = false;
             if (err) {
                 this.tick = setTimeout(doConnect, 30000);
-                console.log(err);
+                //console.log(err);
             } else {
                 this.connected = true;
                 console.log("Connection to cassandra database done")
