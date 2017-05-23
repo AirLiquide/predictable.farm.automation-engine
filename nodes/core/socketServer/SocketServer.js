@@ -10,7 +10,7 @@ var SocketActions = require(__dirname+'/SocketActions');
 
 var url = require('url');
 
-var io = require('/usr/local/lib/node_modules/node-red/nodes/node_modules/socket.io').Server;
+var io = require('socket.io').Server;
 
 var server = null;
 
