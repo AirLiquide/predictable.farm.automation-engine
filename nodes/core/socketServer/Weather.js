@@ -24,7 +24,8 @@ class Weather {
         var weather = this;
 
         loc = require(__dirname + '/Geoloc')(function(){
-            weather.checkWeather()
+            weather.checkWeather();
+            console.log("Weather station started")
         });
 
         return this;

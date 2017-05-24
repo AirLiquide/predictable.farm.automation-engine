@@ -32,11 +32,12 @@ class Geoloc {
             var req = http.request(options, function(res) {
                 res.setEncoding('utf8');
                 res.on('data', function (chunk) {
-                    console.log(chunk)
+                    //console.log(chunk)
                     try {
                         var data = JSON.parse(chunk);
                         geo.setLatitude(data.latitude);
                         geo.setLongitude(data.longitude);
+                        console.log("Geoloc started. Located in : lat",data.latitude,"/ long :", data.longitude);
                         callback();
                         //console.log(lat,long);
                     }

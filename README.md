@@ -11,7 +11,6 @@ Expected format structure for Sensor nodes and dashboard nodes :
 
     {
       'device_id': String
-      'sensor_type': String
       'sensor_id': String
       'sensor_value': Float
     }
