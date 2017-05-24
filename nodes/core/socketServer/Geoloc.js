@@ -25,6 +25,7 @@ class Geoloc {
         this.latitude = null;
         this.longitude = null;
 
+
         var geo = this;
 
         function getGeoloc() {
@@ -49,8 +50,7 @@ class Geoloc {
             if (req)
                 req.end();
         }
-
-
+        getGeoloc();
 
         return this;
     }

@@ -25,6 +25,13 @@ Function nodes available :
  - Is less than
  - Is egual to
 
+Logic nodes available :
+
+  - AND
+  - OR
+
+Logic nodes have auto detection of all the nodes connected to them.
+
 Dashboard nodes are only forwarding value to the dashboard to be stored and displayed
 
 Weather nodes are based on DarkSky API : https://darksky.net/dev/
