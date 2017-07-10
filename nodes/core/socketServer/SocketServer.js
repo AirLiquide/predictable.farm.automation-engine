@@ -312,6 +312,13 @@ class SocketServer {
                         }
                     });
                 }
+                else if (type == 'soil_temperature') {
+                    nodes.forEach(function each(node) {
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_soil_temperature') { //id is the sensor id
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
+                        }
+                    });
+                }
 
                 /**
                  * RELAY

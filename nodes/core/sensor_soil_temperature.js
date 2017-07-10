@@ -9,10 +9,10 @@ module.exports = function (RED) {
     var SocketActions = require(__dirname+'/socketServer/SocketActions');
     var WsEventHandler = require(__dirname+'/socketServer/WsEventHandler');
     var SocketServer = require(__dirname+'/socketServer/SocketServer');
-    var nodeName = "sensor_soil_moisture";
+    var nodeName = "sensor_soil_temperature";
 
     // The main node definition - most things happen in here
-    function sensorSoilMoistureNode(n) {
+    function sensorSoilTemperatureNode(n) {
         // Create a RED node
         RED.nodes.createNode(this, n);
 
@@ -58,6 +58,6 @@ module.exports = function (RED) {
 
     // Register the node by name. This must be called before overriding any of the
     // Node functions.
-    RED.nodes.registerType(nodeName, sensorSoilMoistureNode);
+    RED.nodes.registerType(nodeName, sensorSoilTemperatureNode);
 
 }
