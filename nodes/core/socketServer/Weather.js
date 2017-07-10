@@ -10,8 +10,6 @@ var https = require("https");
 /*  * Setting up block level variable to store class state  * , set's to null by default.  */
 var instance = null;
 
-var loc;
-
 class Weather {
     constructor() {
 
@@ -21,9 +19,10 @@ class Weather {
         this.cloudCoverNodes = [];
         this.pressureNodes = [];
         this.ozoneNodes = [];
+        this.geolocNodes = [];
         var weather = this;
 
-        loc = require(__dirname + '/Geoloc')(function(){
+        this.loc = require(__dirname + '/Geoloc')(function(){
             weather.checkWeather();
             console.log("Weather station started")
         });
@@ -55,6 +54,10 @@ class Weather {
         return this.ozoneNodes;
     }
 
+    getGeoLocNodes(){
+        return this.geolocNodes;
+    }
+
     registerNode(node, name){
 
         if (name == "weather_temperature"){
@@ -74,6 +77,9 @@ class Weather {
         }
         else if (name == "weather_o3"){
             this.ozoneNodes.push(node);
+        }
+        else if (name == "weather_geoloc"){
+            this.geolocNodes.push(node);
         }
 
     }
@@ -104,6 +110,10 @@ class Weather {
             var i =this.ozoneNodes.indexOf(node);
             this.ozoneNodes.splice(i,1);
         }
+        else if (name == "weather_geoloc"){
+            var i =this.geolocNodes.indexOf(node);
+            this.geolocNodes.splice(i,1);
+        }
     }
 
     checkWeather(){
@@ -120,8 +130,12 @@ class Weather {
 
         var req = https.request(this.options, (res) => {
 
-            res.on('data', (d) => {
-                var data = JSON.parse(d);
+            var buffers = [];
+
+            res.on('end', () => {
+                var b = Buffer.concat(buffers);
+
+                var data = JSON.parse(b);
 
                 this.getTemperatureNodes().forEach(function(node){
                     var msg = {
@@ -170,6 +184,20 @@ class Weather {
 
                     node.send(msg);
                 });
+
+                this.getGeoLocNodes().forEach(function(node){
+                    var msg = {
+                        payload : this.loc.getCity()
+                    };
+
+                    node.send(msg);
+                });
+
+            });
+
+            res.on('data', (d) => {
+
+                buffers.push(d);
 
                 //console.log(JSON.parse(d));
             });

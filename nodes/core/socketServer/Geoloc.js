@@ -37,18 +37,20 @@ class Geoloc {
                         var data = JSON.parse(chunk);
                         geo.setLatitude(data.latitude);
                         geo.setLongitude(data.longitude);
+                        geo.setCity(data.city);
                         console.log("Geoloc started. Located in : lat",data.latitude,"/ long :", data.longitude);
                         callback();
                         //console.log(lat,long);
                     }
                     catch(e){
-                        console.log("Can't reach geoloc service, retrying in 30s")
+                        console.log("Can't reach geoloc service, retrying in 30s");
                         setTimeout(getGeoloc, 30000)
                     }
 
                 });
             });
             if (req)
+                req.write('');
                 req.end();
         }
         getGeoloc();
@@ -64,6 +66,10 @@ class Geoloc {
         return this.longitude;
     }
 
+    getCity(){
+        return this.city;
+    }
+
     setLatitude(latitude){
         this.latitude = latitude;
     }
@@ -72,9 +78,9 @@ class Geoloc {
         this.longitude = longitude
     }
 
-
-
-
+    setCity(city){
+        this.city = city
+    }
 
 }
 
