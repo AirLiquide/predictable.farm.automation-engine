@@ -323,14 +323,22 @@ class SocketServer {
                 /**
                  * RELAY
                 **/
-                else if (type == 'relay1') {
-                    actuators.forEach(function each(actuator) {
-                        if (_actuators[actuator].sensorId == sensorId && _actuators[actuator].nodeType == 'global_actuator' && _actuators[actuator].relayId == 1) { //id is the sensor id
-                            _actuators[actuator].socket.emit(SocketActions.UPDATE_DATA, message);
+
+                //TODO not working to detect the relaynumber
+                else if (type.match(/^relay(\d+)$/g)) {
+                    var relayId = Number.parseInt(type.match(/\d+/g));
+                    nodes.forEach(function each(node) {
+                        var node = _nodes[node];
+
+                        console.log(node);
+                        //console.log(node.sensorId ,sensorId , node.nodeType,node.relayId,relayId);
+                        if (node.sensorId == sensorId && node.nodeType == 'sensor_actuator' && node.relaynumber == relayId) { //id is the relay id
+                            console.log("sensor :", id);
+                            _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
                 }
-                else if (type == 'relay2') {
+                /*else if (type == 'relay2') {
                     actuators.forEach(function each(actuator) {
                         if (_actuators[actuator].sensorId == sensorId && _actuators[actuator].nodeType == 'global_actuator' && _actuators[actuator].relayId == 2) { //id is the sensor id
                             _actuators[actuator].socket.emit(SocketActions.UPDATE_DATA, message);
@@ -378,7 +386,7 @@ class SocketServer {
                             _actuators[actuator].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
-                }
+                }*/
 
             }
         });
