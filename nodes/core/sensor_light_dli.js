@@ -9,7 +9,9 @@ module.exports = function(RED) {
     var SocketActions = require(__dirname+'/socketServer/SocketActions');
     var WsEventHandler = require(__dirname+'/socketServer/WsEventHandler');
     var SocketServer = require(__dirname+'/socketServer/SocketServer');
+    var schedule = require('node-schedule');
     var nodeName = "sensor_light_dli";
+
 
     // The main node definition - most things happen in here
     function sensorLightDliNode(n) {
@@ -22,6 +24,13 @@ module.exports = function(RED) {
 
         // copy "this" object in case we need it in context of callbacks of other functions.
         var node = this;
+        this.dli = 0;
+
+        this.addDLI = function(message){
+            var value = message.sensor_value;
+
+            this.dli = this.dli + value;
+        }
 
         // Do whatever you need to do in here - declare callbacks etc
         // Note: this sample doesn't do anything much - it will only send
@@ -30,6 +39,10 @@ module.exports = function(RED) {
         if (!this.deviceid == ''){
             this.status({fill:"gray",shape:"ring",text:"not found"});
             var ws = new WsEventHandler(node,'http://localhost:3000/','role=node&sensorId='+node.deviceid+"&node_type="+nodeName,nodeName);
+
+            schedule.scheduleJob('0 0 * * *', () => {
+                node.dli = 0;
+            })
 
             // respond to inputs....
             this.on('input', function (msg) {

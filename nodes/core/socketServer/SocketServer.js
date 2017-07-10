@@ -243,15 +243,18 @@ class SocketServer {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_light_lux') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
+                        if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_light_dli') { //id is the sensor id
+                            _nodes[node].addDLI(message);
+                        }
                     });
                 }
-                else if (type == 'light_dli') {
+                /*else if (type == 'light_dli') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_light_dli') { //id is the sensor id
                             _nodes[node].socket.emit(SocketActions.UPDATE_DATA, message);
                         }
                     });
-                }
+                }*/
                 else if (type == 'light_uv') {
                     nodes.forEach(function each(node) {
                         if (_nodes[node].sensorId == sensorId && _nodes[node].nodeType == 'sensor_light_uv') { //id is the sensor id
