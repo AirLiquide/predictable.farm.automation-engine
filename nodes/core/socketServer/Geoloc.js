@@ -39,12 +39,15 @@ class Geoloc {
                         geo.setLongitude(data.longitude);
                         geo.setCity(data.city);
                         console.log("Geoloc started. Located in : lat",data.latitude,"/ long :", data.longitude);
-                        callback();
                         //console.log(lat,long);
                     }
                     catch(e){
+                        console.log(e);
                         console.log("Can't reach geoloc service, retrying in 30s");
                         setTimeout(getGeoloc, 30000)
+                    }
+                    finally {
+                        callback();
                     }
 
                 });

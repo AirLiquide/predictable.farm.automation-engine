@@ -121,7 +121,7 @@ class Weather {
             this.options = {
                 hostname: 'api.darksky.net',
                 port: 443,
-                path: '/forecast/89b2a0b6f79ddb91d895bba63ad56abc/'+loc.getLatitude()+','+ loc.getLongitude()+'?exclude=[minutely,daily,alerts,flags]&units=si',
+                path: '/forecast/89b2a0b6f79ddb91d895bba63ad56abc/'+this.loc.getLatitude()+','+ this.loc.getLongitude()+'?exclude=[minutely,daily,alerts,flags]&units=si',
                 method: 'GET'
             };
         }
