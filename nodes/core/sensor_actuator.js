@@ -19,7 +19,7 @@ module.exports = function(RED) {
         // Store local copies of the node configuration (as defined in the .html)
         this.deviceid = n.deviceid;
         this.timeout = n.timeout*1000;//convert seconds to milliseconds.
-        this.relaynumber = n.relaynumber;
+        this.relayId = n.relayId;
 
         // copy "this" object in case we need it in context of callbacks of other functions.
         var node = this;
@@ -30,7 +30,7 @@ module.exports = function(RED) {
         // Look at other real nodes for some better ideas of what to do....
         if (!this.deviceid == '') {
             this.status({fill: "gray", shape: "ring", text: "not found"});
-            var ws = new WsEventHandler(node, 'http://localhost:3000/','role=node&sensorId=' + node.deviceid + "&node_type=" + nodeName,nodeName);
+            var ws = new WsEventHandler(node, 'http://localhost:3000/','role=node&sensorId=' + node.deviceid + "&node_type=" + nodeName+"&relayId="+node.relayId,nodeName);
 
             // respond to inputs....
             this.on('input', function (msg) {

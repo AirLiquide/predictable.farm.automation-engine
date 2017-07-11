@@ -25,8 +25,8 @@
     </br>
 
     <div class="form-row">
-        <label for="node-input-relaynumber"><i class="fa fa-tag"></i> Relay </label>
-        <input type="number" id="node-input-relaynumber" min=1 max=8 placeholder="Relay number">
+        <label for="node-input-relayId"><i class="fa fa-tag"></i> Relay </label>
+        <input type="number" id="node-input-relayId" min=1 max=8 placeholder="Relay ID">
     </div>
 
     </br>
@@ -44,7 +44,7 @@
    <!-- This content appears in the Info sidebar when a node is selected     -->
    <!-- The first <p> is used as the pop-up tool tip when hovering over a    -->
    <!-- node in the palette.                                                 -->
-   <p>Sensor devices with Air CO input node. Tries to connect sensor device and send air CO value when available</p>
+   <p>Sensor devices with relay input node. Tries to connect sensor device and send relay value when available</p>
 </script>
 
 <!-- Finally, the node type is registered along with all of its properties   -->
@@ -55,7 +55,8 @@
         defaults: {             // defines the editable properties of the node
             name: {value:""},   //  along with default values.
             deviceid: {value:"", required:true},
-            timeout: {value:"5", required:true}
+            relayId: {value:"", required:true},
+            timeout: {value:"5", required:true},
         },
         inputs:0,               // set the number of inputs - only 0 or 1
         outputs:1,              // set the number of outputs - 0 to n
@@ -65,7 +66,7 @@
         color: "#6d8fc6",
 	label: function() {     // sets the default label contents
         if (this.relaynumber)
-            return this.name||"Relay " + this.relaynumber;
+            return this.name||"Relay " + this.relayId;
         else
             return this.name||"Relay";
         },
