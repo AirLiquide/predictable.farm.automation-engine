@@ -68,7 +68,8 @@
       "weather_city": "nodes/core/weather_city.js",
       "logic_and": "nodes/core/logic_and.js",
       "logic_or": "nodes/core/logic_or.js",
-      "scheduler": "nodes/core/scheduler.js"
+      "scheduler": "nodes/core/scheduler.js",
+      "predictable_email": "nodes/core/predictable_email.js"
     }
   }
 }

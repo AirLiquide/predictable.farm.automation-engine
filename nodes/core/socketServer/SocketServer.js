@@ -327,7 +327,6 @@ class SocketServer {
                  * RELAY
                 **/
 
-                //TODO not working to detect the relaynumber
                 else if (type.match(/^relay(\d+)$/g)) {
                     var relayId = Number.parseInt(type.match(/\d+/g));
                     nodes.forEach(function each(node) {
