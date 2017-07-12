@@ -22,7 +22,7 @@ Function nodes available :
  - Average
  - Is more than
  - Is less than
- - Is egual to
+ - Is equal to
 
 Logic nodes available :
 

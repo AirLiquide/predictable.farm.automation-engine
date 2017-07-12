@@ -7,10 +7,12 @@
     "cassandra-driver": "^3.0.1"
   },
   "devDependencies": {},
+  "scripts": {
+    "postinstall": "./install.sh"
+  },
   "keywords": [
-
   ],
-   "node-red": {
+  "node-red": {
     "nodes": {
       "global_actuator": "nodes/sensors/actuator/action/global_actuator.js",
       "global_sensor": "nodes/sensors/sensor/global_sensor.js",

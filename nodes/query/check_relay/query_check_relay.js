@@ -1,6 +1,6 @@
 // node-red input binding for sensor-humidity;
 
-module.exports = function (RED) {
+module.exports = function(RED) {
     "use strict";
     // require any external libraries we may need....
     //var foo = require("foo-library");
@@ -39,40 +39,37 @@ module.exports = function (RED) {
                 'sensor_value': null
             };
 
-            this.on('input', function (msg) {
+            this.on('input', function(msg) {
                 var m = msg;
 
-                var checkRes = function(res){
+                var checkRes = function(res) {
 
-                    if (Array.isArray(res) && res.length ==1){
+                    if (Array.isArray(res) && res.length == 1) {
                         var value = res[0].sensor_value;
                         var sensor;
-                        if (m.payload.sensor_value == 2){
+                        if (m.payload.sensor_value == 2) {
                             sensor = 1;
-                        }
-                        else if(m.payload.sensor_value < 2){
+                        } else if (m.payload.sensor_value < 2) {
                             sensor = 0;
                         }
                         var check;
-                        if (node.check == 'auto'){
+                        if (node.check == 'auto') {
                             check = 1;
-                        }
-                        else if (node.check == 'manual'){
+                        } else if (node.check == 'manual') {
                             check = 0;
                         }
 
-                        if ( (sensor == check) && (1-value == check) ){
+                        if ((sensor == check) && (1 - value == check)) {
                             m.payload.sensor_value = check;
                             node.send(m);
                         }
-                    }
-                    else if (Array.isArray(res) && res.length ==0){ //relaystate not found before
+                    } else if (Array.isArray(res) && res.length == 0) { //relaystate not found before
                         var query = "INSERT INTO predictablefarm.relaystate (device_id, sensor_type,sensor_id, sensor_value, last_update)VALUES( \'%device_id%\',\'%sensor_type%\', \'%sensor_id%\',1, dateof(now()) ) USING TIMESTAMP;";
                         query = query.replace(/%device_id%/, msg.payload['device_id'])
                             .replace(/%sensor_type%/, msg.payload['sensor_type'])
                             .replace(/%sensor_id%/, msg.payload['sensor_id'])
-                            .replace(/%sensor_value%/, 1);//by default, set the value to auto
-                        CassandraConnection.exectQuery(query, m, function (res) {
+                            .replace(/%sensor_value%/, 1); //by default, set the value to auto
+                        CassandraConnection.exectQuery(query, m, function(res) {
                             node.send(m);
                         });
                     }
@@ -89,13 +86,12 @@ module.exports = function (RED) {
 
             });
 
-            this.on("close", function () {
+            this.on("close", function() {
                 // Called when the node is shutdown - eg on redeploy.
                 // Allows ports to be closed, connections dropped etc.
                 // eg: node.client.disconnect();
             });
-        }
-        else {
+        } else {
 
         }
 

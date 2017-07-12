@@ -1,6 +1,6 @@
 // node-red input binding for sensor-humidity;
 
-module.exports = function (RED) {
+module.exports = function(RED) {
     "use strict";
     // require any external libraries we may need....
     //var foo = require("foo-library");
@@ -21,7 +21,7 @@ module.exports = function (RED) {
 
         // Store local copies of the node configuration (as defined in the .html)
         this.deviceid = n.deviceid;
-        this.timeout = n.timeout*1000;//convert seconds to milliseconds.
+        this.timeout = n.timeout * 1000; //convert seconds to milliseconds.
         // maybe add an option to choose between milliseconds, seconds, minutes
 
         // copy "this" object in case we need it in context of callbacks of other functions.
@@ -35,27 +35,27 @@ module.exports = function (RED) {
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
 
-            this.status({fill:"gray",shape:"ring",text:"not found"});
-            var ws = new WsEventHandler(node,'http://localhost:3000', 'role=node&sensorId='+node.deviceid+"&node_type="+nodeName,nodeName);
+        this.status({ fill: "gray", shape: "ring", text: "not found" });
+        var ws = new WsEventHandler(node, 'http://localhost:3000', 'role=node&sensorId=' + node.deviceid + "&node_type=" + nodeName, nodeName);
 
-            // respond to inputs....
-            this.on('input', function (msg) {
-                //node.warn("I saw a payload: " + msg.payload);
-                // in this example just send it straight on... should process it here really
-                //node.send(msg);
-            });
+        // respond to inputs....
+        this.on('input', function(msg) {
+            //node.warn("I saw a payload: " + msg.payload);
+            // in this example just send it straight on... should process it here really
+            //node.send(msg);
+        });
 
-            this.on("close", function () {
-                // Called when the node is shutdown - eg on redeploy.
-                // Allows ports to be closed, connections dropped etc.
-                // eg: node.client.disconnect();
-                var _data ={
-                    data:{
-                        disconnected: true
-                    }
+        this.on("close", function() {
+            // Called when the node is shutdown - eg on redeploy.
+            // Allows ports to be closed, connections dropped etc.
+            // eg: node.client.disconnect();
+            var _data = {
+                data: {
+                    disconnected: true
                 }
-                ws.getSocket().emit(SocketActions.NODE_DISCONNECT,_data);
-            });
+            }
+            ws.getSocket().emit(SocketActions.NODE_DISCONNECT, _data);
+        });
 
     }
 
