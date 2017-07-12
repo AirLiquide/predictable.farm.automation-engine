@@ -12,14 +12,14 @@ module.exports = function (RED) {
     // The main node definition - most things happen in here
     function sensorAirHumidityNode(n) {
 
-        //console.log(server)
-
         //var wss = require(__dirname+'/../../src/utils/SocketServer')(RED);
         // Create a RED node
         RED.nodes.createNode(this, n);
 
+        this.nodeType = nodeName;
+
         // Store local copies of the node configuration (as defined in the .html)
-        this.deviceid = n.deviceid;
+        this.deviceId = n.deviceid;
         this.timeout = n.timeout*1000;//convert seconds to milliseconds.
         // maybe add an option to choose between milliseconds, seconds, minutes
 
@@ -34,9 +34,9 @@ module.exports = function (RED) {
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
 
-        if (!this.deviceid == ''){
+        if (!this.deviceId == ''){
             this.status({fill:"gray",shape:"ring",text:"not found"});
-            var ws = new WsEventHandler(node,'http://localhost:3000', 'role=node&sensorId='+node.deviceid+"&node_type="+nodeName,nodeName);
+            var ws = new WsEventHandler(node,'http://localhost:3000', 'role=node&sensorId='+node.deviceId+"&node_type="+nodeName,nodeName);
 
             // respond to inputs....
             this.on('input', function (msg) {

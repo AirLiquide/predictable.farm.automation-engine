@@ -16,8 +16,10 @@ module.exports = function(RED) {
         // Create a RED node
         RED.nodes.createNode(this,n);
 
+        this.nodeType = nodeName;
+
         // Store local copies of the node configuration (as defined in the .html)
-        this.deviceid = n.deviceid;
+        this.deviceId = n.deviceid;
         this.timeout = n.timeout*1000;//convert seconds to milliseconds.
 
         // copy "this" object in case we need it in context of callbacks of other functions.
@@ -27,9 +29,9 @@ module.exports = function(RED) {
         // Note: this sample doesn't do anything much - it will only send
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
-        if (!this.deviceid == '') {
+        if (!this.deviceId == '') {
             this.status({fill: "gray", shape: "ring", text: "not found"});
-            var ws = new WsEventHandler(node, 'http://localhost:3000/','role=node&sensorId=' + node.deviceid + "&node_type=" + nodeName,nodeName);
+            var ws = new WsEventHandler(node, 'http://localhost:3000/','role=node&sensorId=' + node.deviceId + "&node_type=" + nodeName,nodeName);
 
             // respond to inputs....
             this.on('input', function (msg) {

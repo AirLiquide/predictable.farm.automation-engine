@@ -22,7 +22,7 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, n);
 
         // Store local copies of the node configuration (as defined in the .html)
-        this.deviceid = n.deviceid;
+        this.deviceId = n.deviceid;
         // maybe add an option to choose between milliseconds, seconds, minutes
 
         // copy "this" object in case we need it in context of callbacks of other functions.
@@ -37,7 +37,7 @@ module.exports = function (RED) {
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
 
-        if (!this.deviceid == '') {
+        if (!this.deviceId == '') {
             DashBoardSocket.registerNode(this,nodeName);
 
             this.on("close", function () {

@@ -8,6 +8,7 @@ module.exports = function (RED) {
     var SocketActions = require('../../../../src/utils/SocketActions');
     var WsEventHandler = require('../../../../src/utils/WsEventHandler');
     var SocketServer = require('../../../../src/utils/SocketServer');
+    var NodeRegister = require('../../../../src/utils/NodeRegister');
     var nodeName = "global_actuator";
 
 
@@ -16,14 +17,13 @@ module.exports = function (RED) {
 
         //TODO: add a timeout field and get the value to enable the detection of crashes
 
-        //console.log(server)
-
-        //var wss = require(__dirname+'/../../src/utils/SocketServer')(RED);
         // Create a RED node
         RED.nodes.createNode(this, n);
 
+        this.nodeType = nodeName;
+
         // Store local copies of the node configuration (as defined in the .html)
-        this.deviceid = n.deviceid;
+        this.deviceId = n.deviceid;
         this.relaynumber = n.relaynumber;
         this.value = n.value;
         this.timeout = n.timeout*1000;//convert seconds to milliseconds.
@@ -41,12 +41,15 @@ module.exports = function (RED) {
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
 
-        if (!this.deviceid == '') {
-            this.status({fill: "gray", shape: "ring", text: "disconnected"});
-            var ws = new WsEventHandler(node, 'http://localhost:3000', 'role=actuator&sensorId=' + node.deviceid + "&node_type=" + nodeName + "&relayId="+ node.relaynumber,nodeName);
+        console.log(this.deviceId);
 
+        if (this.deviceId != '') {
+            this.registration = new NodeRegister(this);
+            this.status({fill: "gray", shape: "ring", text: "disconnected"});
+            //var ws = new WsEventHandler(node, 'http://localhost:3000', 'role=actuator&sensorId=' + node.deviceId + "&node_type=" + nodeName + "&relayId="+ node.relaynumber,nodeName);
 
             this.on('input', function (msg) {
+
 
                 var socket_io_data = {
                     'device_id': null,
@@ -59,9 +62,9 @@ module.exports = function (RED) {
                 //var bKeys = Object.keys(msg.payload).sort();
                 //var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
 
-                if (msg.valid){
+                if (true || msg.valid){
                     var mymsg = {
-                        device_id: node.deviceid,
+                        device_id: node.deviceId,
                         sensor_type: 'relay' + node.relaynumber,
                         sensor_value: null
                     };
@@ -69,7 +72,8 @@ module.exports = function (RED) {
                     if (this.value == -1){
                         if (msg.payload.relayValue){
                             mymsg.sensor_value= msg.payload.relayValue;
-                            ws.getSocket().emit('sensor-receive', mymsg/* msg.payload*/);
+                            //ws.getSocket().emit('sensor-receive', mymsg/* msg.payload*/);
+                            this.registration.sendToSensor(mymsg,node.deviceId);
                         }
                         else{
                             node.alert("No value to send");
@@ -83,7 +87,8 @@ module.exports = function (RED) {
                             //  msg.payload.sensor_type ='relay1';//'relay'+node.relaynumber;
                             // msg.payload.sensor_value =0; //node.value;
                             //console.log(JSON.stringify(mymsg));
-                            ws.getSocket().emit('sensor-receive', mymsg/* msg.payload*/);
+                            //ws.getSocket().emit('sensor-receive', mymsg/* msg.payload*/);
+                            this.registration.sendToSensor(mymsg,node.deviceId);
 
                         } else {
                             //console.log("actuator command invalid");
@@ -93,6 +98,8 @@ module.exports = function (RED) {
             });
 
             this.on("close", function () {
+
+
                 // Called when the node is shutdown - eg on redeploy.
                 // Allows ports to be closed, connections dropped etc.
                 // eg: node.client.disconnect();
