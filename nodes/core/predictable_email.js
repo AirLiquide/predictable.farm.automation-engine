@@ -23,12 +23,13 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,n);
         this.topic = n.topic;
         this.name = n.name;
-        this.outserver = "smtp.gmail.com";
+        this.outserver = "mail.gandi.net";
         this.outport = "465";
         this.secure = true;
         var flag = false;
         if (this.credentials && this.credentials.hasOwnProperty("userid")) {
             this.userid = this.credentials.userid;
+            console.log("hello");
         } else {
             if (globalkeys) {
                 this.userid = globalkeys.user;
@@ -43,6 +44,9 @@ module.exports = function(RED) {
                 flag = true;
             }
         }
+
+        this.userid = "***REMOVED***";
+        this.password = "***REMOVED***";
         if (flag) {
             RED.nodes.addCredentials(n.id,{userid:this.userid, password:this.password, global:true});
         }

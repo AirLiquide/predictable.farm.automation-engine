@@ -3,14 +3,6 @@
         <label for="node-input-name"><i class="fa fa-envelope"></i> <span>To</span></label>
         <input type="text" id="node-input-name" placeholder="email@address.com">
     </div>
-    <div class="form-row">
-        <label for="node-input-userid"><i class="fa fa-user"></i> <span>Username</span></label>
-        <input type="text" id="node-input-userid">
-    </div>
-    <div class="form-row">
-        <label for="node-input-password"><i class="fa fa-lock"></i> <span></span>Password</label>
-        <input type="password" id="node-input-password">
-    </div>
     <br/>
     <div class="form-row">
         <label for="node-input-dname"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
@@ -43,11 +35,6 @@
                 secure: {value: true},
                 name: {value:""},
                 dname: {value:""}
-            },
-            credentials: {
-                userid: {type:"text"},
-                password: {type: "password"},
-                global: { type:"boolean"}
             },
             inputs:1,
             outputs:0,
