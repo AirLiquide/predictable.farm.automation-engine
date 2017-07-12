@@ -1,0 +1,8 @@
+.palette_orange {
+    background-color: orange !important;
+    fill: orange !important;
+}
+
+.palette_orange text {
+    fill: #fff;
+}
