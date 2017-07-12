@@ -21,6 +21,7 @@ module.exports = function(RED) {
         this.timeout = n.timeout*1000;//convert seconds to milliseconds.
         this.relayId = n.relayId;
 
+
         // copy "this" object in case we need it in context of callbacks of other functions.
         var node = this;
 
