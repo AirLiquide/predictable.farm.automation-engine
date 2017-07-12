@@ -198,7 +198,7 @@ module.exports = {
         page: {
             title: "Predictable Farm",
             favicon: "/absolute/path/to/theme/icon",
-            css: "/usr/local/lib/node_modules/node-red/public/vendor/predictable-ui/css/styles.css",
+            css: "/usr/local/lib/node_modules/node-red/public/vendor/predictable-ui/css/style.css",
             scripts: "/usr/local/lib/node_modules/node-red/public/vendor/predictable-ui/js/main.js" // As of 0.17
         },
         header: {
