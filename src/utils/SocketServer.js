@@ -164,8 +164,6 @@ class SocketServer {
                 var data = JSON.parse(message);
                 var type = data['sensor_type'];
 
-                console.log(type);
-
                 sensorNodes.forEach(function each(node) {
                     if ((node.deviceId == deviceId && node.nodeType == 'global_sensor') || node.nodeType == 'global_all_sensor') { //id is the sensor id
                         node.registration.handleEvent(SocketActions.UPDATE_DATA, message);

@@ -28,7 +28,7 @@ class DashBoardSocket {
         _actuators = {};
         _dashboard = {};
         _clients = {};
-        this.socket = socketClient('http://127.0.0.1:80/');
+        this.socket = socketClient('http://dashboard:80/');
         this.cloudSocket = socketClient(cloudAddress, {
             query: "farmId=" + farmID
         });
