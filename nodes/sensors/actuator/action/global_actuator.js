@@ -98,8 +98,7 @@ module.exports = function (RED) {
             });
 
             this.on("close", function () {
-
-
+                this.registration.disconnect();
                 // Called when the node is shutdown - eg on redeploy.
                 // Allows ports to be closed, connections dropped etc.
                 // eg: node.client.disconnect();

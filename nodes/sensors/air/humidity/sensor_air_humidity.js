@@ -7,6 +7,7 @@ module.exports = function (RED) {
     var SocketActions = require('../../../../src/utils/SocketActions');
     var WsEventHandler = require('../../../../src/utils/WsEventHandler');
     var SocketServer = require('../../../../src/utils/SocketServer');
+    var NodeRegister = require('../../../../src/utils/NodeRegister');
     var nodeName = "sensor_air_humidity";
 
     // The main node definition - most things happen in here
@@ -36,7 +37,7 @@ module.exports = function (RED) {
 
         if (!this.deviceId == ''){
             this.status({fill:"gray",shape:"ring",text:"not found"});
-            var ws = new WsEventHandler(node,'http://localhost:3000', 'role=node&sensorId='+node.deviceId+"&node_type="+nodeName,nodeName);
+            this.registration = new NodeRegister(this);
 
             // respond to inputs....
             this.on('input', function (msg) {
@@ -49,12 +50,7 @@ module.exports = function (RED) {
                 // Called when the node is shutdown - eg on redeploy.
                 // Allows ports to be closed, connections dropped etc.
                 // eg: node.client.disconnect();
-                var _data ={
-                    data:{
-                        disconnected: true
-                    }
-                }
-                ws.getSocket().emit(SocketActions.NODE_DISCONNECT,_data);
+                this.registration.disconnect();
             });
 
         }

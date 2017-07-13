@@ -22,8 +22,12 @@ class NodeRegister {
 
         this.enabled = true;
 
-        SocketServer.registerSensorNode(node);
-
+        if (this.node.nodeType == "global_actuator"){
+            SocketServer.registeraActuatorNode(this.node);
+        }
+        else{
+            SocketServer.registerSensorNode(node);
+        }
     }
 
     handleEvent(event,data){
@@ -106,8 +110,12 @@ class NodeRegister {
     }
 
     disconnect(){
-        console.log(this.TO);
-        SocketServer.removeSensorNode(this.node);
+        if (this.node.nodeType == "global_actuator"){
+            SocketServer.removeaActuatorNode(this.node);
+        }
+        else{
+            SocketServer.removeSensorNode(this.node);
+        }
         clearTimeout(this.TO);
         this.enabled =false;
         this.state = STATE.disconnected;
