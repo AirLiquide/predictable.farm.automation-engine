@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
-    "socket.io": "^1.7.1",
-    "cassandra-driver": "^3.0.1"
+    "cassandra-driver": "^3.0.1",
+    "cron": "^1.2.1",
+    "socket.io": "^1.7.1"
   },
   "devDependencies": {},
   "scripts": {
     "postinstall": "./install.sh"
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "node-red": {
     "nodes": {
       "global_actuator": "nodes/sensors/actuator/action/global_actuator.js",
