@@ -1,0 +1,87 @@
+#palette {
+    background: #F0F0F0;
+    width: 288px;
+    border: none;
+
+    #palette-search {
+        margin:4px 32px 4px 32px;
+        border-radius: 9px;
+        height: auto;
+
+        input {
+            height: 43px;
+            border-radius: 9px;
+        }
+    }
+
+    #palette-container {
+        background: #F0F0F0;
+    }
+
+    .palette-content {
+        background: none;
+
+        .palette_node {
+            width: 213px;
+            min-height: 41px !important;
+            border-radius: 9px;
+            border-color: transparent;
+
+            .palette_label {
+                color: #fff !important;
+                font-size: 17px;
+                margin: 8px 32px 8px 0;
+                font-weight: light;
+            }
+
+            .palette_port {
+                border-radius: 50%;
+                top: 16px !important;
+                width: 15px;
+                height: 15px;
+                background: white;
+
+                &.palette_port_output {
+                    right: -7px;
+                }
+
+                &.palette_port_input {
+                    left: -7px;
+                }
+            }
+        }
+    }
+
+    .palette-header {
+        background: none;
+        color: #46025E;
+        font-weight: 300;
+        font-size: 20px;
+        border-bottom: 1px solid #979797;
+        position: relative;
+
+        i {
+            float: right;
+        }
+        span {
+            margin-left: 25px;
+        }
+
+        &:after {
+            border: 1px solid #979797;
+            width: 90%;
+            left: 5%;
+            position: absolute;
+            bottom: 0px;
+        }
+    }
+
+
+    .palette-category {
+        border: none;
+    }
+
+}
+.red-ui-popover  i {
+    display: none;
+}

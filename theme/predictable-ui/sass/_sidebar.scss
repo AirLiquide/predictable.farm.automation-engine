@@ -1,0 +1,30 @@
+#sidebar {
+    background: transparent;
+    border: none;
+
+    * {
+        background: transparent;
+    }
+    .red-ui-tabs {
+        background: transparent;
+    #sidebar-tabs {
+        background: transparent;
+        border-bottom: none;
+
+        li {
+            border: none;
+            text-align: center;
+            span {
+                font-size: 20px;
+                font-weight: 300;
+                color: #000;
+            }
+
+            &.active {
+                border-bottom: 3px solid $purple;
+                font-weight: 400;
+            }
+        }
+    }
+    }
+}
