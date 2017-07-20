@@ -328,8 +328,6 @@ class SocketServer {
 
                     actuatorNodes.forEach(function each(actuator) {
 
-                        console.log(actuator.deviceId,deviceId,actuator.relayId,relayId);
-
                         if (actuator.deviceId == deviceId && actuator.nodeType == 'global_actuator' && actuator.relayId == relayId) { //id is the relay id
                             actuator.registration.handleEvent(SocketActions.UPDATE_DATA, message);
                         }
