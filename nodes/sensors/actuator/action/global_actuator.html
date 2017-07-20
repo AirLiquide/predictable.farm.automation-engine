@@ -52,7 +52,7 @@
 <!-- The example below shows a small subset of the properties that can be set-->
 <script type="text/javascript">
     RED.nodes.registerType('global_actuator',{
-        category: 'IO',      // the palette category
+        category: 'sensors',      // the palette category
         defaults: {             // defines the editable properties of the node
             name: {value:""},   //  along with default values.
             deviceid: {value:"", required:true},
@@ -67,8 +67,8 @@
         paletteLabel:"Activate Relay",
         color: "#6d8fc6",
 	label: function() {     // sets the default label contents
-        if (this.value && this.relaynumber)
-            return this.name||"Activate Relay " + this.relaynumber +" : " + (this.value == 0? "ON":"OFF");
+        if (this.value && this.relayId)
+            return this.name||"Activate Relay " + this.relayId +" : " + (this.value == 0? "ON":"OFF");
         else
             return this.name||"Activate Relay";
         },

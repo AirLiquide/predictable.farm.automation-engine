@@ -11,6 +11,10 @@ $lightOrange: #F6BB42;
     box-shadow: none;
     box-sizing: border-box;
     -webkit-box-shadow: none;
+
+    color: rgba(61, 61, 79, 64);
+    font-size: 17px;
+    font-weight: 400;
 }
 
 a,
@@ -34,22 +38,38 @@ body {
     color: $dark;
 }
 
+label {
+    font-size: 17px;
+}
 
-#header {
+button.ui-button {
+    border-radius: 5px;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    background-color: #F9F9F9;
+ }
+
+
+ .ui-corner-all {
+     border-radius: 5px;
+     overflow: hidden;
+ }
+
+.notification {
+    top: 100px;
+    border: none;
+    box-shadow: none;
     background-color: transparent;
-    padding-left: 0;
-    span.logo {
-        left: 0;
-        width: 288px;
-        background-color: #F0F0F0;
-        height: 100%;
-        top: 0;
-    }
-    .button  {
-        border: none;
-    }
 
-    #btn-deploy {
-        background-color: $purple;
+    &.notification-success {
+        color: #80AA25;
+        font-size: 22px;
+        font-weight: 300;
     }
+}
+
+.ui-button.primary {
+    background-color: $purple;
+    border-color: $purple;
 }

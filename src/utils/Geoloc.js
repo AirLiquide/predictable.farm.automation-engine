@@ -42,7 +42,6 @@ class Geoloc {
                         //console.log(lat,long);
                     }
                     catch(e){
-                        console.log(e);
                         console.log("Can't reach geoloc service, retrying in 30s");
                         setTimeout(getGeoloc, 30000)
                     }

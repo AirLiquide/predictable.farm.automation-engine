@@ -51,7 +51,7 @@
 <!-- The example below shows a small subset of the properties that can be set-->
 <script type="text/javascript">
     RED.nodes.registerType('sensor_actuator',{
-        category: 'IO',      // the palette category
+        category: 'sensors',      // the palette category
         defaults: {             // defines the editable properties of the node
             name: {value:""},   //  along with default values.
             deviceid: {value:"", required:true},
@@ -65,7 +65,7 @@
         paletteLabel:"Relay",
         color: "#6d8fc6",
 	label: function() {     // sets the default label contents
-        if (this.relaynumber)
+        if (this.relayId)
             return this.name||"Relay " + this.relayId;
         else
             return this.name||"Relay";

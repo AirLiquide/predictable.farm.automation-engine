@@ -9,14 +9,25 @@
 
         .red-ui-tab-button {
             background: transparent;
+
+            transform: perspective(100px) rotateX(30deg)!important;
+            -webkit-transform: perspective(100px) rotateX(30deg)!important;
+
         }
 
         #workspace-tabs {
-            li {
+            li
+             {
+
+                border-radius: 10px 10px 0 0 !important;
+                border: 1px solid #ccc!important;
+
                 text-align: center;
                 color: rgba(0,0,0, 42);
                 position: relative;
-                border: none;
+
+                transform: perspective(100px) rotateX(30deg)!important;
+                -webkit-transform: perspective(100px) rotateX(30deg)!important;
 
                 &.active {
                     color: rgba(0,0,0, 100);
@@ -30,7 +41,7 @@
                   // height: 100%;
                   // width: 30px;
                   // border-radius: 10px 10px 0px 0px;
-                  // background-color: #F9F9F9;
+                 background-color: #F9F9F9;
                   // content: "";
                   // position: absolute;
                   // left: 104px;
@@ -39,17 +50,74 @@
                   // transform: skewX(40deg);
                   // z-index: 2;
 
-                  border-color: transparent transparent #FFF #FFF;
+                  transform: perspective(100px) rotateX(30deg)!important;
+                  -webkit-transform: perspective(100px) rotateX(30deg)!important;
+                  border-color: transparent transparent #000 #000;
                   border-style: solid;
                   border-width: 23px 23px 23px 23px;
                   height:8px;
                   width:10px;
                   position:absolute;
-                  bottom:0px;
+                  top:0px;
                   right:-43px;
+                }
+
+                span {
+                  transform: skewY(1deg);
                 }
             }
         }
     }
+
+    .nodegroup {
+        rect.node {
+            //width: 213px;
+        }
+
+        .port_output {
+            // transform: translate(210px,10px);
+            // -webkit-transform: translate(210px,10px);
+            // -moz-transform: translate(210px,10px);
+        }
+
+        .node_label {
+            fill: #FFF;
+            font-weight: 100;
+        }
+
+    }
+
+}
+
+
+#editor-stack{
+    .editor-tray-toolbar {
+    #node-dialog-delete {
+        border-color: #AD1625;
+            color: #eee !important;
+            background: #AD1625;
+    }
+
+        button {
+          border-radius: 5px;
+          &.primary {
+            background: $purple;
+            border-color: $purple;
+            color: #FFF;
+        }
+        }
+    }
+    .editor-tray-content {
+        .fa.fa-tag {
+            display: none;
+        }
+    }
+
+    .form-row label {
+        display: inline-block;
+        width: 100px;
+        font-size: 17px;
+    }
+
 
 }

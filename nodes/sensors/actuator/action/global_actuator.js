@@ -24,7 +24,7 @@ module.exports = function (RED) {
 
         // Store local copies of the node configuration (as defined in the .html)
         this.deviceId = n.deviceid;
-        this.relaynumber = n.relaynumber;
+        this.relayId = n.relaynumber;
         this.value = n.value;
         this.timeout = n.timeout*1000;//convert seconds to milliseconds.
         // maybe add an option to choose between milliseconds, seconds, minutes
@@ -41,12 +41,12 @@ module.exports = function (RED) {
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
 
-        console.log(this.deviceId);
+        //console.log(this.deviceId);
 
         if (this.deviceId != '') {
             this.registration = new NodeRegister(this);
             this.status({fill: "gray", shape: "ring", text: "disconnected"});
-            //var ws = new WsEventHandler(node, 'http://localhost:3000', 'role=actuator&sensorId=' + node.deviceId + "&node_type=" + nodeName + "&relayId="+ node.relaynumber,nodeName);
+            //var ws = new WsEventHandler(node, 'http://localhost:3000', 'role=actuator&sensorId=' + node.deviceId + "&node_type=" + nodeName + "&relayId="+ node.relayId,nodeName);
 
             this.on('input', function (msg) {
 
@@ -65,7 +65,7 @@ module.exports = function (RED) {
                 if (true || msg.valid){
                     var mymsg = {
                         device_id: node.deviceId,
-                        sensor_type: 'relay' + node.relaynumber,
+                        sensor_type: 'relay' + node.relayId,
                         sensor_value: null
                     };
 
@@ -84,7 +84,7 @@ module.exports = function (RED) {
                         if (/*isValid*/true) {
                             //console.log("actuator command valid :)");
                             mymsg.sensor_value= this.value;
-                            //  msg.payload.sensor_type ='relay1';//'relay'+node.relaynumber;
+                            //  msg.payload.sensor_type ='relay1';//'relay'+node.relayId;
                             // msg.payload.sensor_value =0; //node.value;
                             //console.log(JSON.stringify(mymsg));
                             //ws.getSocket().emit('sensor-receive', mymsg/* msg.payload*/);
