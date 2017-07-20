@@ -29,7 +29,6 @@ module.exports = function(RED) {
         var flag = false;
         if (this.credentials && this.credentials.hasOwnProperty("userid")) {
             this.userid = this.credentials.userid;
-            console.log("hello");
         } else {
             if (globalkeys) {
                 this.userid = globalkeys.user;

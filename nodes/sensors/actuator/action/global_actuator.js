@@ -41,7 +41,7 @@ module.exports = function (RED) {
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
 
-        console.log(this.deviceId);
+        //console.log(this.deviceId);
 
         if (this.deviceId != '') {
             this.registration = new NodeRegister(this);
