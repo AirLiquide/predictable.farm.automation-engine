@@ -83,7 +83,7 @@ module.exports = {
 
     // The following property can be used in place of 'httpAdminRoot' and 'httpNodeRoot',
     // to apply the same root to both parts.
-    //httpRoot: '/red',
+    httpRoot: '/automation',
 
     // When httpAdminRoot is used to move the UI to a different root path, the
     // following property can be used to identify a directory of static content
@@ -202,15 +202,15 @@ module.exports = {
             scripts: "/usr/local/lib/node_modules/node-red/public/vendor/predictable-ui/js/main.js" // As of 0.17
         },
         header: {
-            title: "Predictable Farm",
-            image: "/absolute/path/to/header/image", // or null to remove image
+            title: "",
+            image: "/usr/local/lib/node_modules/node-red/public/vendor/predictable-ui/img/predictable-farm-logo.png", // or null to remove image
             url: "http://nodered.org" // optional url to make the header text/image a link to this url
         },
 
         deployButton: {
             type: "simple",
             label: "",
-            icon: "" // or null to remove image
+            icon: "/usr/local/lib/node_modules/node-red/public/vendor/predictable-ui/img/triangle.png" // or null to remove image
         },
 
         menu: { // Hide unwanted menu items by id. see editor/js/main.js:loadEditor for complete list

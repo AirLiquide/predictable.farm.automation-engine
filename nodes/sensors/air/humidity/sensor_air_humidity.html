@@ -6,7 +6,7 @@
    <!-- The for and id attributes identify the corresponding property        -->
    <!-- (with the 'node-input-' prefix).                                     -->
    <!-- The available icon classes are defined Font Awesome Icons (FA Icons) -->
-  
+
     <!-- By convention, most nodes have a 'name' property. The following div -->
     <!-- provides the necessary field. Should always be the last option      -->
     <div class="form-row">
@@ -44,7 +44,7 @@
 <!-- The example below shows a small subset of the properties that can be set-->
 <script type="text/javascript">
     RED.nodes.registerType('sensor_air_humidity',{
-        category: 'IO',      // the palette category
+        category: 'sensors',      // the palette category
         defaults: {             // defines the editable properties of the node
             name: {value:""},   //  along with default values.
             deviceid: {value:"", required:true},
