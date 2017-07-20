@@ -23,7 +23,7 @@ class NodeRegister {
         this.enabled = true;
 
         if (this.node.nodeType == "global_actuator"){
-            SocketServer.registeraActuatorNode(this.node);
+            SocketServer.registerActuatorNode(this.node);
         }
         else{
             SocketServer.registerSensorNode(node);
@@ -111,7 +111,7 @@ class NodeRegister {
 
     disconnect(){
         if (this.node.nodeType == "global_actuator"){
-            SocketServer.removeaActuatorNode(this.node);
+            SocketServer.removeActuatorNode(this.node);
         }
         else{
             SocketServer.removeSensorNode(this.node);

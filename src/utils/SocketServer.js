@@ -58,6 +58,7 @@ class SocketServer {
         var i = actuatorNodes.indexOf(node);
         if (i == -1) {
             actuatorNodes.push(node);
+            console.log("actuator registered")
         }
 
         //TODO: check if sensor is already logged in
@@ -71,7 +72,7 @@ class SocketServer {
     }
 
     sendToSensor(data,deviceId){
-        console.log("HELLO")
+        //console.log("HELLO")
         var sensors = Object.keys(_sensors);
         sensors.forEach(function each(sensor) {
             if (_sensors[sensor].deviceId == deviceId) { //id is the sensor id
@@ -87,6 +88,8 @@ class SocketServer {
         while (_clients.hasOwnProperty(id));
         var role = ws.handshake.query.role;
         var deviceId = ws.handshake.query.sensorId;
+
+        console.log("deviceID :",deviceId)
         var client = {
             socket: ws,
             deviceId: deviceId,
@@ -115,7 +118,7 @@ class SocketServer {
             });
 
             actuatorNodes.forEach(function each(actuator) {
-                if (actuator.deviceid == deviceid) { //id is the sensor id
+                if (actuator.deviceid == deviceId) { //id is the sensor id
                     var _data = {
                         data: {
                             connected: true
@@ -320,6 +323,15 @@ class SocketServer {
                         if (node.deviceId == deviceId && node.nodeType == 'sensor_actuator' && node.relayId == relayId) { //id is the relay id
                             node.registration.handleEvent(SocketActions.UPDATE_DATA, message);
                         }
+
+                    });
+
+                    actuatorNodes.forEach(function each(actuator) {
+
+                        if (actuator.deviceId == deviceId && actuator.nodeType == 'global_actuator' && actuator.relayId == relayId) { //id is the relay id
+                            actuator.registration.handleEvent(SocketActions.UPDATE_DATA, message);
+                        }
+
                     });
                 }
 

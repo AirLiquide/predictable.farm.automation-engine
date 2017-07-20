@@ -67,8 +67,8 @@
         paletteLabel:"Activate Relay",
         color: "#6d8fc6",
 	label: function() {     // sets the default label contents
-        if (this.value && this.relaynumber)
-            return this.name||"Activate Relay " + this.relaynumber +" : " + (this.value == 0? "ON":"OFF");
+        if (this.value && this.relayId)
+            return this.name||"Activate Relay " + this.relayId +" : " + (this.value == 0? "ON":"OFF");
         else
             return this.name||"Activate Relay";
         },

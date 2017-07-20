@@ -18,7 +18,7 @@ module.exports = function (RED) {
 
         this.nodeType = nodeName;
 
-        console.log("NEW NODE")
+        //console.log("NEW NODE")
 
         // Store local copies of the node configuration (as defined in the .html)
         this.deviceId = n.deviceid;
