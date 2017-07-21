@@ -16,6 +16,7 @@ module.exports = function (RED) {
 
         // Store local copies of the node configuration (as defined in the .html)
         this.value = n.value;
+        this.compareValue = n.compareValue;
 
         // copy "this" object in case we need it in context of callbacks of other functions.
         var node = this;
@@ -27,7 +28,7 @@ module.exports = function (RED) {
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
 
-        if (!this.value == ''){
+        if (!this.compareValue == ''){
             this.on('input', function (msg) {
 
                 var data;
@@ -37,7 +38,7 @@ module.exports = function (RED) {
                 else
                     data = msg.payload;
 
-                if (data == this.value ){
+                if (data == this.compareValue ){
                     msg.sender = node.id;
                     msg.valid = true;
                     node.send(msg);
