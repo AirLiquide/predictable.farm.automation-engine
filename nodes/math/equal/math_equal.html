@@ -1,17 +1,36 @@
 <script type="text/x-red" data-template-name="math_equal">
-   <!-- data-template-name identifies the node type this is for              -->
 
-   <!-- Each of the following divs creates a field in the edit dialog.       -->
-   <!-- Generally, there should be an input for each property of the node.   -->
-   <!-- The for and id attributes identify the corresponding property        -->
-   <!-- (with the 'node-input-' prefix).                                     -->
-   <!-- The available icon classes are defined Font Awesome Icons (FA Icons) -->
-    <!-- By convention, most nodes have a 'name' property. The following div -->
-    <!-- provides the necessary field. Should always be the last option      -->
     <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <input type="hidden" id="node-input-compareValue">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-equalType"><i class="fa fa-tag"></i> Type</label>
+        <select  id="node-input-equalType">
+            <option value="sensor" data-i18n="math_equal.sensor" selected></option>
+            <option value="relay"  data-i18n="math_equal.relay"></option>
+        </select>
+    </div>
+
+    <div class="form-row" id="numeric-value-row">
         <label for="node-input-value"><i class="fa fa-tag"></i> Value</label>
         <input type="number" id="node-input-value" placeholder="Value">
     </div>
+
+    <div class="form-row" id="relay-value-row">
+        <label for="node-input-relayValue"><i class="fa fa-tag"></i> Value</label>
+        <select  id="node-input-relayValue">
+            <option value=0 data-i18n="math_equal.on" selected></option>
+            <option value=1 data-i18n="math_equal.off"></option>
+        </select>
+    </div>
+
+
 </script>
 <!-- Next, some simple help text is provided for the node.                   -->
 <script type="text/x-red" data-help-name="math_equal">
@@ -20,31 +39,91 @@
     <!-- The first <p> is used as the pop-up tool tip when hovering over a    -->
     <!-- node in the palette.                                                 -->
     <p> Math node which check if the input value is equal to the defined value.</p>
+
 </script>
 <!-- Finally, the node type is registered along with all of its properties   -->
 <!-- The example below shows a small subset of the properties that can be set-->
 <script type="text/javascript">
-RED.nodes.registerType('math_equal', {
-    category: 'function', // the palette category
-    defaults: { // defines the editable properties of the node
-        value: {
-            value: "",
-            required: true
-        },
+    RED.nodes.registerType('math_equal', {
+        category: 'function', // the palette category
+        defaults: { // defines the editable properties of the node
+            name: {value: ""},
+            equalType: {
+                value: "sensor",
+                required: true
+            },
+            value: {
+                value: "",
+                required: true
+            },
+            relayValue: {
+                value: 1,
+                required: true
+            },
+            compareValue: {
+                value: "",
+                required: true
+            },
 
-    },
-    inputs: 1, // set the number of inputs - only 0 or 1
-    outputs: 1, // set the number of outputs - 0 to n
-    // set the icon (held in icons dir below where you save the node)
-    icon: "equal.png", // saved in  icons/myicon.png
-    paletteLabel: "Equal",
-    color: "#77B6FA",
-    class: "palette_orange",
-    label: function() { // sets the default label contents
-        return this.value || "";
-    },
-    labelStyle: function() { // sets the class to apply to the label
-        return this.name ? "node_label_italic" : "";
-    }
-});
+
+        },
+        inputs: 1, // set the number of inputs - only 0 or 1
+        outputs: 1, // set the number of outputs - 0 to n
+        // set the icon (held in icons dir below where you save the node)
+        icon: "equal.png", // saved in  icons/myicon.png
+        paletteLabel: "Equal",
+        color: "#77B6FA",
+        class: "palette_orange",
+        label: function () {
+            var v;
+            if (this.name){
+                v = this.name;
+            }
+            else{
+                if (this.equalType == 'sensor' && this.value) {
+                    v = this.value;
+                }
+                else if (this.equalType == 'relay' && this.relayValue) {
+                    v = (this.relayValue == 1) ? 'OFF' : 'ON';
+                }
+            }
+            return v || "";
+
+        },
+        labelStyle: function () { // sets the class to apply to the label
+            return this.name ? "node_label_italic" : "";
+        },
+        oneditprepare: function () {
+            if (document.getElementById("node-input-equalType").value == 'sensor') {
+                document.getElementById("relay-value-row").style.display = "none";
+                document.getElementById("numeric-value-row").style.display = "block";
+            }
+            else {
+                document.getElementById("relay-value-row").style.display = "block";
+                document.getElementById("numeric-value-row").style.display = "none";
+            }
+
+
+            document.getElementById("node-input-equalType").addEventListener("change", function (e) {
+                if (e.target.value == 'relay') {
+                    document.getElementById("relay-value-row").style.display = "block";
+                    document.getElementById("numeric-value-row").style.display = "none";
+                }
+                else {
+                    document.getElementById("relay-value-row").style.display = "none";
+                    document.getElementById("numeric-value-row").style.display = "block";
+                }
+            })
+        },
+        oneditsave: function () {
+            if (document.getElementById("node-input-equalType").value == 'sensor') {
+                document.getElementById("node-input-compareValue").value = document.getElementById("node-input-value").value;
+            }
+            else {
+                document.getElementById("node-input-compareValue").value = document.getElementById("node-input-relayValue").value;
+            }
+
+            console.log(document.getElementById("node-input-compareValue").value);
+        }
+    });
 </script>

@@ -171,6 +171,4 @@ class DashBoardSocket {
         return instance;
     }
 
-    module
-.
-    exports = getInstance();
+    module.exports = getInstance();
