@@ -498,8 +498,8 @@ button.ui-button {
     z-index: 100; }
     #header #btn-sidemenu-parent.open #btn-sidemenu:hover {
       background: transparent !important; }
-    #header #btn-sidemenu-parent.open .fa-bars {
-      content: "\f00d" !important; }
+      #header #btn-sidemenu-parent.open #btn-sidemenu:hover .fa-bars:before {
+        content: "\f00d" !important; }
     #header #btn-sidemenu-parent * {
       font-size: 20px;
       font-weight: 300; }
@@ -521,8 +521,10 @@ button.ui-button {
         background: #F0F0F0; }
       #header #btn-sidemenu-parent ul.dropdown-menu .dropdown-submenu a:before {
         float: right; }
-      #header #btn-sidemenu-parent ul.dropdown-menu li:hover {
+      #header #btn-sidemenu-parent ul.dropdown-menu li:hover, #header #btn-sidemenu-parent ul.dropdown-menu li:focus {
         background: #fff; }
+        #header #btn-sidemenu-parent ul.dropdown-menu li:hover > a, #header #btn-sidemenu-parent ul.dropdown-menu li:focus > a {
+          background: #fff !important; }
       #header #btn-sidemenu-parent ul.dropdown-menu li.divider {
         background: #979797;
         border-color: #979797;
@@ -534,7 +536,7 @@ button.ui-button {
           border-left-color: #999;
           border-style: solid;
           border-width: 5px 0px 5px 5px; }
-        #header #btn-sidemenu-parent ul.dropdown-menu li a:hover {
+        #header #btn-sidemenu-parent ul.dropdown-menu li a:hover, #header #btn-sidemenu-parent ul.dropdown-menu li a:focus {
           background: #fff; }
         #header #btn-sidemenu-parent ul.dropdown-menu li a span.menu-label {
           font-size: 20px;
@@ -622,7 +624,8 @@ button.ui-button {
   left: 288px;
   border: none; }
   #workspace .red-ui-tabs {
-    background: transparent; }
+    background: transparent;
+    padding-left: 0; }
     #workspace .red-ui-tabs .red-ui-tab-button {
       background: transparent;
       transform: perspective(100px) rotateX(30deg) !important;
@@ -633,12 +636,13 @@ button.ui-button {
       text-align: center;
       color: black;
       position: relative;
+      background: #F9F9F9;
       transform: perspective(100px) rotateX(30deg) !important;
       -webkit-transform: perspective(100px) rotateX(30deg) !important; }
       #workspace .red-ui-tabs #workspace-tabs li.active {
         color: black; }
-      #workspace .red-ui-tabs #workspace-tabs li:not(.active) {
-        background: transparent; }
+      #workspace .red-ui-tabs #workspace-tabs li.active {
+        background: #fff; }
       #workspace .red-ui-tabs #workspace-tabs li:before {
         background-color: #F9F9F9;
         transform: perspective(100px) rotateX(30deg) !important;

@@ -68,11 +68,13 @@
     &.open {
         #btn-sidemenu:hover {
             background: transparent !important;
+
+            .fa-bars:before {
+                content:"\f00d" !important;
+            }
         }
 
-        .fa-bars {
-            content:"\f00d" !important;
-        }
+
     }
 
     position: fixed;
@@ -115,8 +117,14 @@
                 }
         }
         li {
-            &:hover {
+            &:hover,
+            &:focus {
             background: #fff;
+
+            > a {
+                background: #fff !important;
+            }
+
             }
 
             &.divider {
@@ -134,7 +142,9 @@
                 border-width: 5px 0px 5px 5px;
             }
 
-            &:hover {
+            &:hover,
+            &:focus
+             {
             background: #fff;
             }
 

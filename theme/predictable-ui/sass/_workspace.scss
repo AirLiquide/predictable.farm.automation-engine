@@ -6,6 +6,7 @@
 
     .red-ui-tabs {
         background: transparent;
+        padding-left: 0;
 
         .red-ui-tab-button {
             background: transparent;
@@ -25,6 +26,7 @@
                 text-align: center;
                 color: rgba(0,0,0, 42);
                 position: relative;
+                background: #F9F9F9;
 
                 transform: perspective(100px) rotateX(30deg)!important;
                 -webkit-transform: perspective(100px) rotateX(30deg)!important;
@@ -33,8 +35,8 @@
                     color: rgba(0,0,0, 100);
                 }
 
-                &:not(.active){
-                    background: transparent;
+                &.active{
+                    background: #fff;
                 }
 
                 &:before {
