@@ -463,6 +463,8 @@ button.ui-button {
     #header span.logo img {
       width: 178px;
       margin-left: 58px; }
+    #header span.logo span {
+      display: none; }
   #header .button {
     border: none; }
   #header .header-toolbar {
@@ -492,9 +494,9 @@ button.ui-button {
       display: none; }
   #header #btn-sidemenu-parent {
     position: fixed;
-    left: 10px;
+    left: 4px;
     right: auto;
-    top: 10px;
+    top: 4px;
     z-index: 100; }
     #header #btn-sidemenu-parent.open #btn-sidemenu:hover {
       background: transparent !important; }
@@ -503,6 +505,9 @@ button.ui-button {
     #header #btn-sidemenu-parent * {
       font-size: 20px;
       font-weight: 300; }
+    #header #btn-sidemenu-parent .fa-bars {
+      font-size: 25px;
+      color: #979797; }
     #header #btn-sidemenu-parent #btn-sidemenu:hover,
     #header #btn-sidemenu-parent #btn-sidemenu:focus {
       background: transparent !important; }

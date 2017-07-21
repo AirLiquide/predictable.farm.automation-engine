@@ -83,7 +83,7 @@ module.exports = {
 
     // The following property can be used in place of 'httpAdminRoot' and 'httpNodeRoot',
     // to apply the same root to both parts.
-    httpRoot: '/automation',
+    httpRoot: '/recipes',
 
     // When httpAdminRoot is used to move the UI to a different root path, the
     // following property can be used to identify a directory of static content
@@ -197,14 +197,14 @@ module.exports = {
     editorTheme: {
         page: {
             title: "Predictable Farm",
-            favicon: "/absolute/path/to/theme/icon",
+            favicon: "/usr/local/lib/node_modules/node-red/public/vendor/predictable-ui/img/triangle.png",
             css: "/usr/local/lib/node_modules/node-red/public/vendor/predictable-ui/css/style.css",
             scripts: "/usr/local/lib/node_modules/node-red/public/vendor/predictable-ui/js/main.js" // As of 0.17
         },
         header: {
             title: "",
             image: "/usr/local/lib/node_modules/node-red/public/vendor/predictable-ui/img/predictable-farm-logo.png", // or null to remove image
-            url: "http://nodered.org" // optional url to make the header text/image a link to this url
+            url: "/recipes/" // optional url to make the header text/image a link to this url
         },
 
         deployButton: {

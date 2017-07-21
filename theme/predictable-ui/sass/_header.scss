@@ -15,6 +15,9 @@
             width: 178px;
             margin-left: 58px;
         }
+        span {
+            display: none;
+        }
     }
     .button  {
         border: none;
@@ -65,6 +68,13 @@
     #btn-sidemenu-parent {
 
 
+        position: fixed;
+        left: 4px;
+        right: auto;
+        top: 4px;
+        z-index: 100;
+
+
     &.open {
         #btn-sidemenu:hover {
             background: transparent !important;
@@ -77,15 +87,15 @@
 
     }
 
-    position: fixed;
-    left: 10px;
-    right: auto;
-    top: 10px;
-    z-index: 100;
 
     * {
     font-size: 20px;
     font-weight: 300;
+    }
+
+    .fa-bars {
+        font-size: 25px;
+        color: #979797;
     }
 
     #btn-sidemenu:hover,
