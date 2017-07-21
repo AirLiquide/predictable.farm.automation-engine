@@ -10,18 +10,26 @@
 
         .red-ui-tab-button {
             background: transparent;
-
+            border-bottom: none;
             transform: perspective(100px) rotateX(30deg)!important;
             -webkit-transform: perspective(100px) rotateX(30deg)!important;
+
+            a {
+              border-bottom: none;
+              border-top-left-radius: 8px;
+              border-top-right-radius: 8px;
+            }
 
         }
 
         #workspace-tabs {
+          border-bottom: none;
+
             li
              {
 
                 border-radius: 10px 10px 0 0 !important;
-                border: 1px solid #ccc!important;
+                border-bottom: none;
 
                 text-align: center;
                 color: rgba(0,0,0, 42);
@@ -52,16 +60,16 @@
                   // transform: skewX(40deg);
                   // z-index: 2;
 
-                  transform: perspective(100px) rotateX(30deg)!important;
-                  -webkit-transform: perspective(100px) rotateX(30deg)!important;
-                  border-color: transparent transparent #000 #000;
-                  border-style: solid;
-                  border-width: 23px 23px 23px 23px;
-                  height:8px;
-                  width:10px;
-                  position:absolute;
-                  top:0px;
-                  right:-43px;
+                  // transform: perspective(100px) rotateX(30deg)!important;
+                  // -webkit-transform: perspective(100px) rotateX(30deg)!important;
+                  // border-color: transparent transparent #000 #000;
+                  // border-style: solid;
+                  // border-width: 23px 23px 23px 23px;
+                  // height:8px;
+                  // width:10px;
+                  // position:absolute;
+                  // top:0px;
+                  // right:-43px;
                 }
 
                 span {
