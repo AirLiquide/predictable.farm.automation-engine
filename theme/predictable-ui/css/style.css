@@ -585,9 +585,9 @@ button.ui-button {
       #palette .palette-content .palette_node .palette_label {
         color: #fff !important;
         font-size: 14px;
-        margin: 4px 32px 4px 0;
+        margin: 4px;
         font-weight: 300;
-        font-family: "RobotoLight", "Roboto"; }
+        font-family: "Roboto"; }
       #palette .palette-content .palette_node .palette_port {
         border-radius: 50%;
         top: 10px !important;
@@ -641,7 +641,9 @@ button.ui-button {
         border-top-left-radius: 8px;
         border-top-right-radius: 8px; }
     #workspace .red-ui-tabs #workspace-tabs {
-      border-bottom: none; }
+      border-bottom: none;
+      position: relative;
+      top: 2px; }
       #workspace .red-ui-tabs #workspace-tabs li {
         border-radius: 10px 10px 0 0 !important;
         border-bottom: none;
@@ -681,7 +683,7 @@ button.ui-button {
   font-size: 17px; }
 
 #sidebar {
-  background: transparent;
+  background: #F9F9F9;
   border: none;
   font-size: 17px;
   color: #3D3D4F;
