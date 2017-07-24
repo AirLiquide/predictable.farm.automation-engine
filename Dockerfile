@@ -5,6 +5,7 @@ FROM node
 RUN npm install -g pm2
 RUN npm install -g node-red
 RUN npm install -g node-red-admin
+RUN npm install -g node-red-node-suncalc
 RUN mkdir /usr/local/lib/node_modules/node-red-ilab/
 WORKDIR /usr/local/lib/node_modules/node-red-ilab
 
