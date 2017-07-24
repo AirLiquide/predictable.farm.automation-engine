@@ -75,6 +75,7 @@
                 }
 
                 span {
+                  text-overflow: ellipsis;
                   transform: skewY(1deg);
                 }
             }

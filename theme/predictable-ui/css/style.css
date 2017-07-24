@@ -480,6 +480,8 @@ button.ui-button {
       padding-right: 12px;
       margin: 0;
       line-height: 0; }
+      #header .header-buttons .header-button:active {
+        background: transparent; }
   #header #btn-deploy {
     background-color: #46025E;
     height: 50px;
@@ -660,6 +662,7 @@ button.ui-button {
         #workspace .red-ui-tabs #workspace-tabs li:before {
           background-color: #F9F9F9; }
         #workspace .red-ui-tabs #workspace-tabs li span {
+          text-overflow: ellipsis;
           transform: skewY(1deg); }
   #workspace .nodegroup .node_label {
     fill: #FFF;
