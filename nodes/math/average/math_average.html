@@ -10,11 +10,11 @@
     <div class="form-row">
         <label for="node-input-amount" style="width:unset;"><i class="fa fa-tag"></i> Send data after :</label>
         <input type="number" style="width:15%;" id="node-input-amount" min=1 placeholder="Amount">
-        <select  id="node-input-relayValue" style="width:45%;">
-            <option value=0 data-i18n="seconds" selected></option>
-            <option value=1 data-i18n="minutes"></option>
-            <option value=2 data-i18n="hours"></option>
-            <option value=3 data-i18n="values"></option>
+        <select  id="node-input-delayType" style="width:45%;">
+            <option value="seconds" data-i18n="seconds" selected></option>
+            <option value="minutes" data-i18n="minutes"></option>
+            <option value="hours" data-i18n="hours"></option>
+            <option value="values" data-i18n="values"></option>
         </select>
 </script>
 
@@ -38,6 +38,7 @@
         defaults: {             // defines the editable properties of the node
             name: {value:""},   //  along with default values.
             amount: {value:"10", required:true},
+            delayType:{value: "seconds",required:true}
         },
         inputs:1,               // set the number of inputs - only 0 or 1
         outputs:1,              // set the number of outputs - 0 to n

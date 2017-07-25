@@ -4,7 +4,7 @@ module.exports = function (RED) {
     "use strict";
     // require any external libraries we may need....
     //var foo = require("foo-library");
-
+    var schedule = require('node-schedule');
 
     // The main node definition - most things happen in here
     function MathAverageNode(n) {
@@ -14,6 +14,7 @@ module.exports = function (RED) {
 
         // Store local copies of the node configuration (as defined in the .html)
         this.amount = n.amount;
+        this.delayType = n.delayType;
 
         // copy "this" object in case we need it in context of callbacks of other functions.
         var node = this;
@@ -25,54 +26,87 @@ module.exports = function (RED) {
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
 
-        if (!this.amount == ''){
+        this.sendAverage = function(){
+            var total = 0;
+            for(var i = 0; i < table.length; i++) {
+                total += table[i];
+            }
+            var avg = total / table.length;
+            var msg ={
+
+            }
+            msg.payload = avg;
+            table =[];
+            msg.sender = node.id;
+            node.send(msg)
+        }
+
+        if (!(this.amount == '' || this.delayType=='')){
             var table = [];
-            this.on('input', function (msg) {
 
-                var data;
+                this.on('input', function (msg) {
 
-                if (msg.payload.sensor_value)
-                    data = msg.payload.sensor_value;
-                else
-                    data = msg.payload;
+                    var data;
 
-                if (typeof data == 'number'){
-                    table.push(data);
-                }
-                else if(Array.isArray(data)){
-                    var valid = true;
-                    data.forEach(function (m){
-                        if (!typeof data == 'number')
-                        {
-                            valid = false;
-                        }
-                    });
-                    if (valid){
+                    if (msg.payload.sensor_value)
+                        data = msg.payload.sensor_value;
+                    else
+                        data = msg.payload;
+
+                    if (typeof data == 'number'){
+                        table.push(data);
+                    }
+                    else if (!isNaN(data)){ //if string that can be converted to number
+
+                        table.push(Number.parseFloat(data));
+                    }
+                    else if(Array.isArray(data)){
+                        var valid = true;
                         data.forEach(function (m){
-                            table.push(m);
+                            if (!typeof data == 'number')
+                            {
+                                valid = false;
+                            }
                         });
+                        if (valid){
+                            data.forEach(function (m){
+                                table.push(m);
+                            });
+                        }
+                        else{
+                            node.error("All values must be a Number")
+                        }
                     }
                     else{
-                        node.error("All values must be a Number")
+                        node.error("Payload must be a Number")
                     }
-                }
-                else{
-                    node.error("Payload must be a Number")
-                }
-                if (table.length >= node.amount){
-                    var total = 0;
-                    for(var i = 0; i < table.length; i++) {
-                        total += table[i];
+                    if(this.delayType == 'values'){
+                        if (table.length >= node.amount){
+                            node.sendAverage()
+                        }
                     }
-                    var avg = total / table.length;
-                    msg.payload = avg;
-                    table =[];
-                    msg.sender = node.id;
-                    node.send(msg)
+
+                });
+                if (this.delayType == 'seconds'){
+                    var timing = '*/'+node.amount +' * * * * *';
+                    var job = schedule.scheduleJob(timing, function(){
+                        node.sendAverage()
+                    });
+                }
+                else if (this.delayType == 'minutes'){
+                    var timing = '*/'+node.amount +' * * * *';
+                    var job = schedule.scheduleJob(timing, function(){
+                        node.sendAverage()
+                    });
+
+                }
+                else if (this.delayType == 'hours'){
+                    var timing = '* */'+node.amount +' * * *';
+                    var job = schedule.scheduleJob(timing, function(){
+                        node.sendAverage()
+                    });
                 }
 
-
-            });
 
             this.on("close", function () {
                 // Called when the node is shutdown - eg on redeploy.
