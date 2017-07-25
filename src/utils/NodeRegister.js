@@ -95,8 +95,18 @@ class NodeRegister {
             payload: data
         };
 
+        if (this.node.nodeType == "sensor_light_dli"){
+            this.node.addDLI(data);
+        }
+        else{
+            this.node.send(msg);
+        }
+
         if (this.node.nodeType == "global_actuator" || this.node.nodeType == 'sensor_actuator'){
             this.node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + ((data.sensor_value ==0)? "ON":"OFF")});
+        }
+        else if(this.node.nodeType == "sensor_light_dli"){
+            this.node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + this.node.dli});
         }
         else if (this.node.nodeType !="global_sensor" && this.node.nodeType != "global_all_sensor"){
             this.node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + data.sensor_value});
@@ -105,7 +115,7 @@ class NodeRegister {
             this.node.status({fill: "green", shape: "dot", text: "Connected"});
         }
 
-        this.node.send(msg);
+
 
     }
 

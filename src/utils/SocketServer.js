@@ -227,18 +227,19 @@ class SocketServer {
                         if (node.deviceId == deviceId && node.nodeType == 'sensor_light_par') { //id is the sensor id
                             node.registration.handleEvent(SocketActions.UPDATE_DATA, message);
                         }
+                        if (node.deviceId == deviceId && node.nodeType == 'sensor_light_dli') { //id is the sensor id
+                            node.registration.handleEvent(SocketActions.UPDATE_DATA, message);
+                        }
                     });
                 }
-                else if (type == 'light_lux') {
+                /*else if (type == 'light_lux') {
                     sensorNodes.forEach(function each(node) {
                         if (node.deviceId == deviceId && node.nodeType == 'sensor_light_lux') { //id is the sensor id
                             node.registration.handleEvent(SocketActions.UPDATE_DATA, message);
                         }
-                        if (node.deviceId == deviceId && node.nodeType == 'sensor_light_dli') { //id is the sensor id
-                            node.addDLI(message);
-                        }
+
                     });
-                }
+                }*/
                 /*else if (type == 'light_dli') {
                  nodes.forEach(function each(node) {
                  if (node.sensorId == sensorId && node.nodeType == 'sensor_light_dli') { //id is the sensor id

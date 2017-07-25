@@ -29,11 +29,25 @@ module.exports = function(RED) {
         var node = this;
         this.dli = 0;
 
-        this.addDLI = function(message){
-            var value = message.sensor_value;
+        this.lastValueTime = Date.now();
 
-            this.dli = this.dli + value;
-        }
+        this.addDLI = function(message){
+            var time = Date.now();
+            var deltaT = time - node.lastValueTime;
+
+            var mult = deltaT/1000; // number of second elapsed
+
+            var value = Number.parseFloat(message.sensor_value);
+
+            node.dli = Number.parseFloat((node.dli + (value*mult)).toFixed(2));
+
+            message.sensor_value = node.dli.toString();
+            message.sensor_type = 'light_dli';
+
+            node.lastValueTime = time;
+
+            this.send(message);
+        };
 
         // Do whatever you need to do in here - declare callbacks etc
         // Note: this sample doesn't do anything much - it will only send
@@ -45,7 +59,7 @@ module.exports = function(RED) {
 
             schedule.scheduleJob('0 0 * * *', () => {
                 node.dli = 0;
-            })
+            });
 
             // respond to inputs....
             this.on('input', function (msg) {
