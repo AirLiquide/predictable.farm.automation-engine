@@ -42,7 +42,8 @@ module.exports = function (RED) {
                 //console.log(node.lastData[msg.sender])
                 if (msg.sender && msg.valid && node.entries.indexOf(msg.sender) !=-1){
                         node.send({
-                            sender:node.id
+                            sender:node.id,
+                            valid:true
                         });
                 }
                 if (!msg.sender){

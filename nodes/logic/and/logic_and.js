@@ -57,7 +57,8 @@ module.exports = function (RED) {
                                 node.lastData[member] = null;
                             }
                             node.send({
-                                sender:node.id
+                                sender:node.id,
+                                valid:true
                             });
 
                         }
@@ -67,7 +68,7 @@ module.exports = function (RED) {
                     }
                 }
                 if (!msg.sender){
-                    node.alert("Invalid tool linked with " + node.type + " !");
+                    node.error("Invalid tool linked with " + node.type + " !");
                 }
                 //console.log(msg)
             });

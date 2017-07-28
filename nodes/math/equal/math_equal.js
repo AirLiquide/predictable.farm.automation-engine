@@ -44,7 +44,7 @@ module.exports = function (RED) {
                     node.send(msg);
                 }
                 else{
-                    node.send({valid:false});
+                    node.send({valid:false,sender :node.id});
                 }
 
             });
