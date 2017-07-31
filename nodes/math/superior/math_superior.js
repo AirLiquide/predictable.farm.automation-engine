@@ -35,6 +35,7 @@ module.exports = function (RED) {
                     data = msg.payload;
 
                 if (!isNaN(data)){
+                    data = Number.parseFloat(data);
                     if (data > this.value ){
                         msg.sender = node.id;
                         msg.valid = true;
