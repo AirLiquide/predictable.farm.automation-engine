@@ -37,7 +37,6 @@ module.exports = function (RED) {
                 sender: node.id
             }
             table =[];
-            console.log(avg, typeof avg);
             node.send(msg);
         }
 
