@@ -354,7 +354,6 @@ class SocketServer {
                         if (type == 'light_par') {
 
                             var v = DLIStore.getDLI(node.deviceId);
-                            console.log(JSON.stringify(DLIStore.map));
                             var msg ={
                                 'device_id': data.device_id,
                                 'sensor_type': "light_dli",
