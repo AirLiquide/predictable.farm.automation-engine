@@ -35,8 +35,6 @@ module.exports = function (RED) {
         this.addDLI = function (message) {
 
             DLIStore.addValueToDLI(node.deviceId, message.sensor_value, (value) => {
-
-                console.log(value);
                 node.dli = (value / 1000000).toFixed(2);
                 var msg = {
                     sensor_value : node.dli.toString(),
