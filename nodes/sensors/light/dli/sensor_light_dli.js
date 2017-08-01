@@ -49,7 +49,6 @@ module.exports = function (RED) {
         this.updateValue = function(){
             var v = DLIStore.getDLI(node.deviceId);
             node.dli = v;
-            console.log(v)
             var msg = {
                 sensor_value : node.dli.toString(),
                 sensor_type : 'light_dli',
