@@ -110,7 +110,7 @@ class NodeRegister {
             });
         }
         else if (this.node.nodeType == "sensor_light_dli") {
-            this.node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + (this.node.dli).toFixed(2)}); //convert micromol to mol
+            this.node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + (this.node.dli).toFixed(3)}); //convert micromol to mol
         }
         else if (this.node.nodeType != "global_sensor" && this.node.nodeType != "global_all_sensor") {
             this.node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + data.sensor_value});
