@@ -50,9 +50,11 @@ module.exports = function (RED) {
             var v = DLIStore.getDLI(node.deviceId);
             node.dli = v;
             var msg = {
-                sensor_value : node.dli.toString(),
-                sensor_type : 'light_dli',
-                device_id : node.deviceId
+                payload :{
+                    sensor_value : node.dli.toString(),
+                    sensor_type : 'light_dli',
+                    device_id : node.deviceId
+                }
             };
             node.send(msg);
             //node.status({fill: "green", shape: "dot", text: node.deviceId + " / Value : " + node.dli});
