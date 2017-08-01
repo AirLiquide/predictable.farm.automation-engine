@@ -33,12 +33,12 @@ module.exports = function (RED) {
             }
             var avg = total / table.length;
             var msg ={
-
+                payload : avg,
+                sender: node.id
             }
-            msg.payload = avg;
             table =[];
-            msg.sender = node.id;
-            node.send(msg)
+            console.log(avg, typeof avg);
+            node.send(msg);
         }
 
         if (!(this.amount == '' || this.delayType=='')){
@@ -89,20 +89,20 @@ module.exports = function (RED) {
                 });
                 if (this.delayType == 'seconds'){
                     var timing = '*/'+node.amount +' * * * * *';
-                    var job = schedule.scheduleJob(timing, function(){
+                    node.job = schedule.scheduleJob(timing, function(){
                         node.sendAverage()
                     });
                 }
                 else if (this.delayType == 'minutes'){
                     var timing = '*/'+node.amount +' * * * *';
-                    var job = schedule.scheduleJob(timing, function(){
+                    node.job = schedule.scheduleJob(timing, function(){
                         node.sendAverage()
                     });
 
                 }
                 else if (this.delayType == 'hours'){
                     var timing = '* */'+node.amount +' * * *';
-                    var job = schedule.scheduleJob(timing, function(){
+                    node.job = schedule.scheduleJob(timing, function(){
                         node.sendAverage()
                     });
                 }
@@ -112,6 +112,7 @@ module.exports = function (RED) {
                 // Called when the node is shutdown - eg on redeploy.
                 // Allows ports to be closed, connections dropped etc.
                 // eg: node.client.disconnect();
+                node.job.cancel();
             });
         }
         else{
