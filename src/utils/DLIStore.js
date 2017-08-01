@@ -57,9 +57,7 @@ class DLIStore {
 
             var v = Number.parseFloat(value);
 
-            console.log(v)
-
-            var dli = (this.map[deviceID].value + (v*mult));
+            var dli = (this.map[deviceID].value + (v*mult)/1000000);
 
             this.map[deviceID].value = dli;
             this.map[deviceID].lastValueTime = time;

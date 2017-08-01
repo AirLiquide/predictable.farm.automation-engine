@@ -229,7 +229,6 @@ class SocketServer {
                             node.registration.handleEvent(SocketActions.UPDATE_DATA, message);
                         }
                         if (node.deviceId == deviceId && node.nodeType == 'sensor_light_dli') { //id is the sensor id
-                            //TODO : register new value to the DLIStore
                             if (!DLIStore.hasDLI(node.deviceId)) {
                                 DLIStore.addDLI(node.deviceId);
                             }
