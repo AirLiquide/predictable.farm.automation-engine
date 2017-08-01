@@ -58,7 +58,7 @@ module.exports = function (RED) {
             };
             node.send(msg);
             //node.status({fill: "green", shape: "dot", text: node.deviceId + " / Value : " + node.dli});
-        }
+        };
 
 
         // Do whatever you need to do in here - declare callbacks etc

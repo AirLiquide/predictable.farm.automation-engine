@@ -95,7 +95,7 @@ class NodeRegister {
             payload: data
         };
 
-        if (this.node.nodeType == "sensor_light_dli") {
+        if (this.node.nodeType == "sensor_light_dli")  {
             this.node.updateValue();
         }
         else {

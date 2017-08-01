@@ -168,11 +168,15 @@ class SocketServer {
                 var data = JSON.parse(message);
                 var type = data['sensor_type'];
 
-                sensorNodes.forEach(function each(node) {
-                    if ((node.deviceId == deviceId && node.nodeType == 'global_sensor') || node.nodeType == 'global_all_sensor') { //id is the sensor id
-                        node.registration.handleEvent(SocketActions.UPDATE_DATA, message);
+                if (type == 'light_par'){
+                    if (!DLIStore.hasDLI(data.device_id)) {
+                        DLIStore.addDLI(data.device_id);
                     }
-                });
+                    DLIStore.addValueToDLI(data.device_id, data.sensor_value, (value) => {
+
+                    });
+                }
+
 
                 /**
                  * AIR
@@ -232,9 +236,9 @@ class SocketServer {
                             if (!DLIStore.hasDLI(node.deviceId)) {
                                 DLIStore.addDLI(node.deviceId);
                             }
-                            DLIStore.addValueToDLI(node.deviceId, data.sensor_value, (value) => {
+                            //DLIStore.addValueToDLI(node.deviceId, data.sensor_value, (value) => {
 
-                            });
+                            //});
                             node.registration.handleEvent(SocketActions.UPDATE_DATA, message);
                         }
                     });
@@ -342,6 +346,27 @@ class SocketServer {
 
                     });
                 }
+
+
+                sensorNodes.forEach(function each(node) {
+                    if ((node.deviceId == deviceId && node.nodeType == 'global_sensor') || node.nodeType == 'global_all_sensor') { //id is the sensor id
+                        node.registration.handleEvent(SocketActions.UPDATE_DATA, message);
+                        if (type == 'light_par') {
+
+                            var v = DLIStore.getDLI(node.deviceId);
+                            console.log(JSON.stringify(DLIStore.map));
+                            var msg ={
+                                'device_id': data.device_id,
+                                'sensor_type': "light_dli",
+                                'sensor_value': v
+                            }
+                            node.registration.handleEvent(SocketActions.UPDATE_DATA, JSON.stringify(msg));
+                        }
+                    }
+                });
+
+
+
 
             }
         });
