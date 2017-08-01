@@ -5,11 +5,11 @@
 var SocketActions = require('./SocketActions');
 var SocketServer = require('./SocketServer');
 
-var STATE ={
-    notFound : "Not found",
-    connected : "Connected",
-    timeout : "Timeout", //Important to send alerts
-    disconnected : "Disconnected",
+var STATE = {
+    notFound: "Not found",
+    connected: "Connected",
+    timeout: "Timeout", //Important to send alerts
+    disconnected: "Disconnected",
     discoTO: "Disconnected after Timeout" //Important to send alerts
 };
 
@@ -22,19 +22,19 @@ class NodeRegister {
 
         this.enabled = true;
 
-        if (this.node.nodeType == "global_actuator"){
+        if (this.node.nodeType == "global_actuator") {
             SocketServer.registerActuatorNode(this.node);
         }
-        else{
+        else {
             SocketServer.registerSensorNode(node);
         }
     }
 
-    handleEvent(event,data){
+    handleEvent(event, data) {
 
         if (SocketActions.isValidAction(event)) {
             //prevent the timeout to be called when we disconnect/redeploy the node
-            if (event != SocketActions.SENSOR_DISCONNECT && event != SocketActions.SENSOR_CONNECT ) {
+            if (event != SocketActions.SENSOR_DISCONNECT && event != SocketActions.SENSOR_CONNECT) {
                 //console.log(data);
                 this.setLastUpdate(Date.now());
                 //console.log("lastUpdate edited", weh.getLastUpdate())
@@ -49,15 +49,15 @@ class NodeRegister {
                 this.setTO(undefined);
             }
 
-            if (event == SocketActions.SENSOR_CONNECT){
+            if (event == SocketActions.SENSOR_CONNECT) {
                 this.onSensorConnect(data)
 
             }
-            else if (event == SocketActions.SENSOR_DISCONNECT){
+            else if (event == SocketActions.SENSOR_DISCONNECT) {
                 this.onSensorDisconnect(data)
 
             }
-            else if (event == SocketActions.UPDATE_DATA){
+            else if (event == SocketActions.UPDATE_DATA) {
                 this.onUpdateData(data)
 
             }
@@ -65,28 +65,28 @@ class NodeRegister {
 
     }
 
-    onSensorConnect(){
+    onSensorConnect() {
 
     }
 
-    onSensorDisconnect(data){
-        if (this.getState() == STATE.timeout){
+    onSensorDisconnect(data) {
+        if (this.getState() == STATE.timeout) {
             this.setState(STATE.discoTO);
             this.node.status({fill: "red", shape: "ring", text: "disconnected after timeout"});
         }
-        else if (this.getState() == STATE.connected){
+        else if (this.getState() == STATE.connected) {
             this.setState(STATE.disconnected);
             this.node.status({fill: "gray", shape: "ring", text: "disconnected"});
         }
-        else{
+        else {
             this.node.status({fill: "gray", shape: "ring", text: "not found"});
         }
 
     }
 
-    onUpdateData(data){
+    onUpdateData(data) {
 
-        if (this.getState() != STATE.connected){
+        if (this.getState() != STATE.connected) {
             this.setState(STATE.connected);
         }
 
@@ -95,44 +95,46 @@ class NodeRegister {
             payload: data
         };
 
-        if (this.node.nodeType == "sensor_light_dli"){
-            this.node.addDLI(data);
+        if (this.node.nodeType == "sensor_light_dli") {
+            this.node.updateValue();
         }
-        else{
+        else {
             this.node.send(msg);
         }
 
-        if (this.node.nodeType == "global_actuator" || this.node.nodeType == 'sensor_actuator'){
-            this.node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + ((data.sensor_value ==0)? "ON":"OFF")});
+        if (this.node.nodeType == "global_actuator" || this.node.nodeType == 'sensor_actuator') {
+            this.node.status({
+                fill: "green",
+                shape: "dot",
+                text: data.device_id + " / Value : " + ((data.sensor_value == 0) ? "ON" : "OFF")
+            });
         }
-        else if(this.node.nodeType == "sensor_light_dli"){
-            //this.node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + this.node.dli});
+        else if (this.node.nodeType == "sensor_light_dli") {
+            this.node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + (this.node.dli/1000000).toFixed(2)}); //convert micromol to mol
         }
-        else if (this.node.nodeType !="global_sensor" && this.node.nodeType != "global_all_sensor"){
+        else if (this.node.nodeType != "global_sensor" && this.node.nodeType != "global_all_sensor") {
             this.node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + data.sensor_value});
         }
         else {
             this.node.status({fill: "green", shape: "dot", text: "Connected"});
         }
 
-
-
     }
 
-    disconnect(){
-        if (this.node.nodeType == "global_actuator"){
+    disconnect() {
+        if (this.node.nodeType == "global_actuator") {
             SocketServer.removeActuatorNode(this.node);
         }
-        else{
+        else {
             SocketServer.removeSensorNode(this.node);
         }
         clearTimeout(this.TO);
-        this.enabled =false;
+        this.enabled = false;
         this.state = STATE.disconnected;
     }
 
-    sendToSensor(data,deviceId){
-        SocketServer.sendToSensor(data,deviceId);
+    sendToSensor(data, deviceId) {
+        SocketServer.sendToSensor(data, deviceId);
     }
 
     getNode() {
@@ -155,18 +157,18 @@ class NodeRegister {
         this.lastUpdate = lastUpdate;
     }
 
-    getState(){
+    getState() {
         return this.state;
     }
 
-    setState(state){
+    setState(state) {
         this.state = state;
     }
 }
 
 var checkTimeout = function (weh) {
 
-    if (weh.enabled){
+    if (weh.enabled) {
         //console.log((Date.now() - weh.getLastUpdate()) - weh.getNode().timeout);
         if ((Date.now() - weh.getLastUpdate()) >= weh.getNode().timeout) {
             //if ((Date.now()-weh.lastUpdate)>=5000){
