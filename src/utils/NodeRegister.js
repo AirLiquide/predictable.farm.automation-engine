@@ -106,7 +106,7 @@ class NodeRegister {
             this.node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + ((data.sensor_value ==0)? "ON":"OFF")});
         }
         else if(this.node.nodeType == "sensor_light_dli"){
-            this.node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + this.node.dli});
+            //this.node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + this.node.dli});
         }
         else if (this.node.nodeType !="global_sensor" && this.node.nodeType != "global_all_sensor"){
             this.node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + data.sensor_value});

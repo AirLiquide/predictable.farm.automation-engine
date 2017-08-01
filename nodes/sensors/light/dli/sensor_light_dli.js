@@ -1,7 +1,7 @@
 // node-red input binding for sensor_light_dli
 
 
-module.exports = function(RED) {
+module.exports = function (RED) {
     "use strict";
     // require any external libraries we may need....
     //var foo = require("foo-library");
@@ -10,6 +10,7 @@ module.exports = function(RED) {
     var WsEventHandler = require('../../../../src/utils/WsEventHandler');
     var SocketServer = require('../../../../src/utils/SocketServer');
     var NodeRegister = require('../../../../src/utils/NodeRegister');
+    var DLIStore = require('../../../../src/utils/DLIStore');
     var schedule = require('node-schedule');
     var nodeName = "sensor_light_dli";
 
@@ -17,13 +18,13 @@ module.exports = function(RED) {
     // The main node definition - most things happen in here
     function sensorLightDliNode(n) {
         // Create a RED node
-        RED.nodes.createNode(this,n);
+        RED.nodes.createNode(this, n);
 
         this.nodeType = nodeName;
 
         // Store local copies of the node configuration (as defined in the .html)
         this.deviceId = n.deviceid;
-        this.timeout = n.timeout*1000;//convert seconds to milliseconds.
+        this.timeout = n.timeout * 1000;//convert seconds to milliseconds.
 
         // copy "this" object in case we need it in context of callbacks of other functions.
         var node = this;
@@ -31,30 +32,36 @@ module.exports = function(RED) {
 
         this.lastValueTime = Date.now();
 
-        this.addDLI = function(message){
-            var time = Date.now();
-            var deltaT = time - node.lastValueTime;
+        this.addDLI = function (message) {
 
-            var mult = deltaT/1000; // number of second elapsed
+            DLIStore.addValueToDLI(node.deviceId, message.sensor_value, (value) => {
 
-            var value = Number.parseFloat(message.sensor_value);
-
-            node.dli = Number.parseFloat((node.dli + (value*mult)).toFixed(2));
-
-            message.sensor_value = node.dli.toString();
-            message.sensor_type = 'light_dli';
-
-            node.lastValueTime = time;
-
-            this.send(message);
+                console.log(value);
+                node.dli = (value / 1000000).toFixed(2);
+                var msg = {
+                    sensor_value : node.dli.toString(),
+                    sensor_type : 'light_dli',
+                    device_id : node.deviceId
+                };
+                node.send(msg);
+                node.status({fill: "green", shape: "dot", text: node.deviceId + " / Value : " + node.dli});
+            });
         };
+
 
         // Do whatever you need to do in here - declare callbacks etc
         // Note: this sample doesn't do anything much - it will only send
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
-        if (!this.deviceId == ''){
-            this.status({fill:"gray",shape:"ring",text:"not found"});
+        if (!this.deviceId == '') {
+
+            if (DLIStore.hasDLI(this.deviceId)) {
+                this.dli = DLIStore.getDLI(this.deviceId);
+            }
+            else {
+                DLIStore.addDLI(this.deviceId);
+            }
+            this.status({fill: "gray", shape: "ring", text: "not found"});
             this.registration = new NodeRegister(this);
 
             schedule.scheduleJob('0 0 * * *', () => {
@@ -76,13 +83,13 @@ module.exports = function(RED) {
             });
 
         }
-        else{
-            this.status({fill:"red",shape:"ring",text:"No ID specified"});
+        else {
+            this.status({fill: "red", shape: "ring", text: "No ID specified"});
         }
     }
 
     // Register the node by name. This must be called before overriding any of the
     // Node functions.
-    RED.nodes.registerType(nodeName,sensorLightDliNode);
+    RED.nodes.registerType(nodeName, sensorLightDliNode);
 
 }
