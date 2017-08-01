@@ -3,10 +3,13 @@
  */
 "use strict";
 var cassandra = require('cassandra-driver');
+
+
+
 var dbConfig = {
     defaults: {
         //hosts: {value: "predictable-server"}, //don't use localhost or 127.0.0.1
-        hosts: {value: '91.90.97.226'}, //don't use localhost or 127.0.0.1
+        hosts: {value: 'cassandra'}, //oriented for docker sub-network
         port: {value: "9042"},
         keyspace: {value: "predictablefarm"}
     },
@@ -25,6 +28,16 @@ class CassandraConnection {
     constructor() {
         this.connect();
         doConnect = this.doConnect;
+        this.queries = {
+            "get-switch": "SELECT * FROM predictablefarm.relaystate WHERE device_id= ? AND sensor_type = ? ;",// device_id / sensor_type
+            "save-switch": "INSERT INTO predictablefarm.relaystate (device_id, sensor_type, sensor_value, last_update) + " +
+            "VALUES( ? , ? , ? , dateof(now()) ) USING TIMESTAMP;", // device_id / sensor_type /  / sensor_value
+            "save-sensor": "INSERT INTO predictablefarm.sensorLog (device_id, sensor_type, sensor_value, created_at) + " +
+            "VALUES( ? , ? , ? , dateof(now()) ) USING TIMESTAMP;" // device_id / sensor_type / sensor_value
+        };
+
+        this.queryBatch = [];
+
         return this;
     }
 
@@ -69,7 +82,7 @@ class CassandraConnection {
         return this.connection;
     }
 
-    exectQuery(query, msg, callback) {
+    exectQuery(query, params, callback) {
         var batchMode = Array.isArray(query);
         if (!batchMode && typeof query != 'string') {
             console.error("msg.topic : the query is not defined as a string or as an array of queries");
@@ -89,9 +102,40 @@ class CassandraConnection {
             this.connection.batch(query, {prepare: true}, resCallback);
         } else {
             //console.log("Executing CQL query: ", query);
-            var params = msg.payload || [];
-            this.connection.execute(query, null, {prepare: true}, resCallback);
+            this.connection.execute(query, params, {prepare: true}, resCallback);
         }
+    }
+
+
+    //designed to no be called in batch mode to ensure real time data
+    getSwitch(msg,callback){
+        var params = [msg.payload.device_id, msg.payload.sensor_type];
+        this.exectQuery(this.queries['get-switch'],params,callback);
+    }
+
+    //designed to no be called in batch mode to ensure real time data
+    saveSwitch(msg,callback){
+        var params = [msg.payload.device_id, msg.payload.sensor_type,msg.payload.sensor_value];
+        this.exectQuery(this.queries['save-switch'],params,callback);
+    }
+
+    addQueryToSensorLogBatch(msg){
+        var params = [msg.payload.device_id, msg.payload.sensor_type,msg.payload.sensor_value];
+        var query = {
+            query : this.queries['save-sensor'],
+            params: params
+        };
+
+        this.queryBatch.push(query);
+    }
+
+    saveSensorLogs(callback){
+        var t = this;
+        this.exectQuery(this.queries,null,function () {
+            t.queries = [];
+            callback();
+        });
+
     }
 
 }
