@@ -38,7 +38,7 @@ module.exports = function (RED) {
                 else
                     data = msg.payload;
 
-                if (data == this.compareValue ){
+                if (data == Number.parseFloat(this.compareValue) ){
                     msg.sender = node.id;
                     msg.valid = true;
                     node.send(msg);
