@@ -46,19 +46,24 @@ module.exports = function (RED) {
             });
         };
 
+        this.updateValue = function(){
+            var v = DLIStore.getDLI(node.deviceId);
+            node.dli = v;
+            var msg = {
+                sensor_value : node.dli.toString(),
+                sensor_type : 'light_dli',
+                device_id : node.deviceId
+            };
+            node.send(msg);
+            //node.status({fill: "green", shape: "dot", text: node.deviceId + " / Value : " + node.dli});
+        }
+
 
         // Do whatever you need to do in here - declare callbacks etc
         // Note: this sample doesn't do anything much - it will only send
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
         if (!this.deviceId == '') {
-
-            if (DLIStore.hasDLI(this.deviceId)) {
-                this.dli = DLIStore.getDLI(this.deviceId);
-            }
-            else {
-                DLIStore.addDLI(this.deviceId);
-            }
             this.status({fill: "gray", shape: "ring", text: "not found"});
             this.registration = new NodeRegister(this);
 

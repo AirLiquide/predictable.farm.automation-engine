@@ -57,6 +57,8 @@ class DLIStore {
 
             var v = Number.parseFloat(value);
 
+            console.log(v)
+
             var dli = (this.map[deviceID].value + (v*mult));
 
             this.map[deviceID].value = dli;

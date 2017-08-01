@@ -6,7 +6,8 @@
  * Created by ilab on 01/12/16.
  */
 
-var SocketActions = require(__dirname + '/SocketActions');
+var SocketActions = require('./SocketActions');
+var DLIStore = require('./DLIStore');
 
 var url = require('url');
 
@@ -228,6 +229,13 @@ class SocketServer {
                             node.registration.handleEvent(SocketActions.UPDATE_DATA, message);
                         }
                         if (node.deviceId == deviceId && node.nodeType == 'sensor_light_dli') { //id is the sensor id
+                            //TODO : register new value to the DLIStore
+                            if (!DLIStore.hasDLI(node.deviceId)) {
+                                DLIStore.addDLI(node.deviceId);
+                            }
+                            DLIStore.addValueToDLI(node.deviceId, data.sensor_value, (value) => {
+
+                            });
                             node.registration.handleEvent(SocketActions.UPDATE_DATA, message);
                         }
                     });
