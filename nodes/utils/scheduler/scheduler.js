@@ -65,8 +65,6 @@ module.exports = function(RED) {
                     start: true,
                 });*/
 
-                console.log("added :", el);
-
                 node.jobs.push(job);
             });
 
