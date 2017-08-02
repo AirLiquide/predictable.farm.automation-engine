@@ -16,7 +16,7 @@
 
 module.exports = function(RED) {
     "use strict";
-    var cron = require("cron");
+    var CronJob = require('cron').CronJob;
     var schedule = require('node-schedule');
 
     function SchedulerNode(n) {
@@ -32,16 +32,43 @@ module.exports = function(RED) {
         this.timeDays = n.timeDays;
         this.jobs = [];
 
+        console.log((new Date).toLocaleTimeString());
+        try {
+            var job = new CronJob({
+                cronTime: '01-59/1 12-13 * * *',
+                onTick: function() {
+                    console.log("hello")
+                },
+                start: true,
+            });
+            //job.start();
+        } catch(ex) {
+            console.log("cron pattern not valid");
+        }
+
         if (this.crontab.valid){
             this.crontab.value.forEach(function (el) {
                 var job = schedule.scheduleJob(el, function(){
                     node.send({
                         valid:true
-                    })
+                    });
                 });
 
+                /*var job = new CronJob({
+                    cronTime: el,
+                    onTick: function() {
+                        node.send({
+                            valid:true
+                        })
+                        console.log("hello")
+                    },
+                    start: true,
+                });*/
+
+                console.log("added :", el);
+
                 node.jobs.push(job);
-            })
+            });
 
             this.on("close", function () {
                 this.jobs.forEach(function (j) {
