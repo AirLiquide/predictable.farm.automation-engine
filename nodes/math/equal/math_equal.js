@@ -38,6 +38,8 @@ module.exports = function (RED) {
                 else
                     data = msg.payload;
 
+                data = data.replace(',','.').replace(' ','');
+
                 if (data == Number.parseFloat(this.compareValue) ){
                     msg.sender = node.id;
                     msg.valid = true;

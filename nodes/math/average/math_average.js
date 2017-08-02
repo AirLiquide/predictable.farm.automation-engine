@@ -56,7 +56,7 @@ module.exports = function (RED) {
                         table.push(data);
                     }
                     else if (!isNaN(data)){ //if string that can be converted to number
-
+                        data = data.replace(',','.').replace(' ','');
                         table.push(Number.parseFloat(data));
                     }
                     else if(Array.isArray(data)){
