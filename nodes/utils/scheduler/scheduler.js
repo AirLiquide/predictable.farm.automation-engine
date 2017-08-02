@@ -73,8 +73,8 @@ module.exports = function(RED) {
             this.on("close", function () {
                 this.jobs.forEach(function (j) {
                     j.cancel();
-                    node.jobs.splice(node.jobs.indexOf(j),1);
-                })
+                });
+                node.jobs = [];
             });
         }
 
