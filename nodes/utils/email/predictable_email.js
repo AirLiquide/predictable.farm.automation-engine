@@ -83,7 +83,6 @@ module.exports = function(RED) {
                         sendopts.text = payload; // plaintext body
                         if (/<[a-z][\s\S]*>/i.test(payload)) { sendopts.html = payload; } // html body
 
-                    console.log(sendopts);
                     smtpTransport.sendMail(sendopts, function(error, info) {
                         if (error) {
                             node.error(error,msg);
