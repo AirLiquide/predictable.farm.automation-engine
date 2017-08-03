@@ -20,13 +20,15 @@ class DLIStore {
     }
 
     hasDLI(deviceID) {
-        return (this.map[deviceID] != null);
+        var v = (this.map[deviceID] != null);
+        return v;
     }
 
     addDLI(deviceID) {
+        var t = this;
         if (!this.map[deviceID])
             CassandraConnection.getLastDLIValue(deviceID,function (value) {
-                this.map[deviceID] = {
+                t.map[deviceID] = {
                     lastValueTime: Date.now(),
                     lastValue: 0,
                     value: value || 0
@@ -61,7 +63,6 @@ class DLIStore {
             var v = Number.parseFloat(value);
 
             var dli = (this.map[deviceID].value + (v*mult)/1000000);
-            dli = Number.parseFloat(dli.toFixed(3));
 
             this.map[deviceID].value = dli;
             this.map[deviceID].lastValueTime = time;

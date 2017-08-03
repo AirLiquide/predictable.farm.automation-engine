@@ -168,6 +168,7 @@ class SocketServer {
                 var data = JSON.parse(message);
                 var type = data['sensor_type'];
 
+
                 if (type == 'light_par'){
                     if (!DLIStore.hasDLI(data.device_id)) {
                         DLIStore.addDLI(data.device_id);
