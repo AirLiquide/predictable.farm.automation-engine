@@ -1,14 +1,25 @@
 <script type="text/x-red" data-template-name="predictable_email">
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-envelope"></i> <span>To</span></label>
-        <input type="text" id="node-input-name" placeholder="email@address.com">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
     </div>
-    <br/>
+
+
     <div class="form-row">
-        <label for="node-input-dname"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
-        <input type="text" id="node-input-dname" data-i18n="[placeholder]node-red:common.label.name">
+        <label for="node-input-mail"><i class="fa fa-envelope"></i> <span>To</span></label>
+        <input type="text" id="node-input-mail" placeholder="email@address.com">
     </div>
-    <div class="form-tips" id="node-tip"><span data-i18n="[html]email.tip.cred"></span></div>
+
+    <div class="form-row">
+        <label for="node-input-subject"><i class="fa fa-envelope"></i> <span>To</span></label>
+        <input type="text" id="node-input-subject" placeholder="Mail Subject">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-content"><i class="fa fa-envelope"></i> <span>Content</span></label>
+        <textarea id="node-input-content" placeholder="Something happened" rows="10" style="resize:none;width:70%"></textarea>
+    </div>
+
 </script>
 
 <script type="text/x-red" data-help-name="predictable_email">
@@ -24,30 +35,44 @@
     <p>Alternatively you may provide <code>msg.attachments</code> which should contain an array of one or
     more attachments in <a href="https://www.npmjs.com/package/nodemailer#attachments" target="_new">nodemailer</a> format.</p>
     <p>If required by your recipient you may also pass in a <code>msg.envelope</code> object, typically containing extra from and to properties.</p>
+
 </script>
 
 <script type="text/javascript">
-    (function() {
-        RED.nodes.registerType('predictable_email',{
+    (function () {
+        RED.nodes.registerType('predictable_email', {
             category: 'notifications',
-            color:"#c7e9c0",
+            color: "#c7e9c0",
             defaults: {
                 secure: {value: true},
-                name: {value:""},
-                dname: {value:""}
+                name: {
+                    value: ""
+                },
+                mail: {
+                    value: "",
+                    required: true
+                },
+                subject: {
+                    value: "",
+                    required: true
+                },
+                content: {
+                    value: "",
+                    required: true
+                }
             },
-            inputs:1,
-            outputs:0,
+            inputs: 1,
+            outputs: 0,
             icon: "envelope.png",
-            paletteLabel:"Email",
+            paletteLabel: "Email",
             align: "right",
-            label: function() {
-                return this.dname||this.name||"Email";
+            label: function () {
+                return this.name || this.mail || "Email";
             },
-            labelStyle: function() {
-                return (this.dname||!this.topic)?"node_label_italic":"";
+            labelStyle: function () {
+                return (this.name || !this.mail) ? "node_label_italic" : "";
             },
-            oneditprepare: function() {
+            oneditprepare: function () {
                 if (this.credentials.global) {
                     $('#node-tip').show();
                 } else {
