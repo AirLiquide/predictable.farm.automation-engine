@@ -34,6 +34,7 @@ module.exports = function (RED) {
                     data = msg.payload;
 
                 data = data.replace(',','.').replace(' ','');
+                this.value = this.value.replace(',','.').replace(' ','');
 
                 if (!isNaN(data)){
                     data = Number.parseFloat(data);

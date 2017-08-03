@@ -39,15 +39,24 @@ module.exports = function (RED) {
                     data = msg.payload;
 
                 data = data.replace(',','.').replace(' ','');
+                this.value = this.value.replace(',','.').replace(' ','');
 
-                if (data == Number.parseFloat(this.compareValue) ){
-                    msg.sender = node.id;
-                    msg.valid = true;
-                    node.send(msg);
+                if (!isNaN(data)){
+                    data = Number.parseFloat(data);
+                    if (data == Number.parseFloat(this.compareValue) ){
+                        msg.sender = node.id;
+                        msg.valid = true;
+                        node.send(msg);
+                    }
+                    else{
+                        node.send({valid:false,sender :node.id});
+                    }
                 }
                 else{
-                    node.send({valid:false,sender :node.id});
+                    node.error("Payload must be a Number")
                 }
+
+
 
             });
 
