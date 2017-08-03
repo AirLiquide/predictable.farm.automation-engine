@@ -50,7 +50,8 @@ module.exports = function(RED) {
             this.crontab.value.forEach(function (el) {
                 var job = schedule.scheduleJob(el, function(){
                     node.send({
-                        valid:true
+                        valid:true,
+                        sender:node.id
                     });
                 });
 
