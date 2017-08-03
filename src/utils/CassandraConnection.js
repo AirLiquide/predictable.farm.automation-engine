@@ -138,6 +138,12 @@ class CassandraConnection {
 
     }
 
+    getLastDLIValue(deviceID,callback){
+        //TODO: call the database
+
+        callback(0);
+    }
+
 }
 
 function getInstance() {

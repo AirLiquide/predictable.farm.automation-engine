@@ -9,6 +9,7 @@
 var instance = null;
 
 var schedule = require('node-schedule');
+var CassandraConnection = require('./CassandraConnection');
 
 class DLIStore {
     constructor() {
@@ -24,11 +25,13 @@ class DLIStore {
 
     addDLI(deviceID) {
         if (!this.map[deviceID])
-            this.map[deviceID] = {
-                lastValueTime: Date.now(),
-                lastValue: 0,
-                value: 0
-            };
+            CassandraConnection.getLastDLIValue(deviceID,function (value) {
+                this.map[deviceID] = {
+                    lastValueTime: Date.now(),
+                    lastValue: 0,
+                    value: value || 0
+                };
+            })
     }
 
     getDLI(deviceID) {
