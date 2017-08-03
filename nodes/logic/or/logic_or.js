@@ -47,7 +47,7 @@ module.exports = function (RED) {
                         });
                 }
                 if (!msg.sender){
-                    node.alert("Invalid tool linked with " + node.type + " !");
+                    node.error("Invalid tool linked with " + node.type + " !");
                 }
                 //console.log(msg)
             });
