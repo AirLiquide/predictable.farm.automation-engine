@@ -51,7 +51,8 @@ module.exports = function(RED) {
                 var job = schedule.scheduleJob(el, function(){
                     node.send({
                         valid:true,
-                        sender:node.id
+                        sender:node.id,
+                        payload:Date.now()
                     });
                 });
 
