@@ -36,6 +36,10 @@ module.exports = function (RED) {
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
         this.on('input', function (msg) {
+
+            if (msg.payload.sensor_type == "light_dli"){
+                msg.payload.sensor_value = Number.parseFloat(msg.payload.sensor_value).toFixed(3);
+            }
             DashBoardSocket.emit("sensor-emit",msg.payload);
             // in this example just send it straight on... should process it here really
             //node.send(msg);

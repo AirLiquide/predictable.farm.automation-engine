@@ -354,7 +354,6 @@ class SocketServer {
                         node.registration.handleEvent(SocketActions.UPDATE_DATA, message);
                         if (type == 'light_par') {
                             var v = DLIStore.getDLI(data.device_id);
-                            console.log(v);
                             var msg ={
                                 'device_id': data.device_id,
                                 'sensor_type': "light_dli",
