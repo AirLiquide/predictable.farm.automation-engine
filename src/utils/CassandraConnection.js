@@ -141,7 +141,7 @@ class CassandraConnection {
     saveSensorLogs(callback){
         var t = this;
         this.exectQuery(this.queryBatch,null,function () {
-            console.log("Saved",t.queryBatch.length,"queries.");
+            //console.log("Saved",t.queryBatch.length,"queries.");
             t.queryBatch = [];
             if (callback)
                 callback();
