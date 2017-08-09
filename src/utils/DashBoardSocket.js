@@ -6,6 +6,9 @@
 const crypto = require('crypto');
 var socketClient = require('socket.io-client');
 //var cloudAddress = 'http://bridge.predictable.farm';
+
+var SocketServer = require('./SocketServer');
+
 var cloudAddress = 'http://35.158.33.67';
 
 var farmID = process.env.FARM_ID || "";
@@ -41,7 +44,11 @@ class DashBoardSocket {
         });
 
         this.socket.on('sensor-receive', function (msg) {
-            var msg = JSON.parse(msg);
+
+            console.log("HELLO");
+
+            var data = JSON.parse(msg);
+            console.log(msg);
             var socket_io_data = {
                 'device_id': null,
                 'sensor_type': null,
@@ -49,24 +56,28 @@ class DashBoardSocket {
                 'sensor_value': 0
             };
 
+            SocketServer.sendToSensor(msg,data.device_id);
+
+            /*
             var aKeys = Object.keys(socket_io_data).sort();
             var bKeys = Object.keys(msg).sort();
             var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
 
             var actuators = Object.keys(_actuators);
 
+
             actuators.forEach(function each(actuator) {
 
                 var node = _actuators[actuator];
 
-                if (isValid && node.deviceid == msg.device_id){
+                if (node.deviceid == msg.device_id){
                     node.send({
                         payload: msg
                     });
                 }
                 // in this example just send it straight on... should process it here really
                 //node.send(msg);
-            });
+            });*/
         });
         this.socket.emit("hello");
 
@@ -89,6 +100,10 @@ class DashBoardSocket {
             });
 
             cs.on('sensor-receive', function (msg) {
+
+                console.log("DAFUK")
+
+
                 var socket_io_data = {
                     'device_id': null,
                     'sensor_type': null,
