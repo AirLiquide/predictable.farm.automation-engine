@@ -29,12 +29,14 @@ class CassandraConnection {
         this.connect();
         doConnect = this.doConnect;
         this.queries = {
-            "get-switch": "SELECT * FROM predictablefarm.relaystate WHERE device_id= ? AND sensor_type = ? ;",// device_id / sensor_type
-            "save-switch": "INSERT INTO predictablefarm.relaystate (device_id, sensor_type, sensor_value, last_update) + " +
-            "VALUES( ? , ? , ? , dateof(now()) ) USING TIMESTAMP;", // device_id / sensor_type /  / sensor_value
-            "save-sensor": "INSERT INTO predictablefarm.sensorLog (device_id, sensor_type, sensor_value, created_at) + " +
-            "VALUES( ? , ? , ? , dateof(now()) ) USING TIMESTAMP;" // device_id / sensor_type / sensor_value
+            "get-switch": 'SELECT * FROM predictablefarm.relaystate WHERE device_id= ? AND sensor_type = ?',// device_id / sensor_type
+            "save-switch": 'INSERT INTO predictablefarm.relaystate (device_id, sensor_type, sensor_value, last_update) ' +
+            'VALUES(?, ?, ?, toTimestamp(now()))', // device_id / sensor_type /  / sensor_value
+            "save-sensor": 'INSERT INTO predictablefarm.sensorLog (device_id, sensor_type, sensor_value, created_at) ' +
+            'VALUES(?, ?, ?, toTimestamp(now()))' // device_id / sensor_type / sensor_value
         };
+
+        this.timer = setInterval(()=>{;if (this.connected && this.queryBatch.length!=0)this.saveSensorLogs()}, 10000);
 
         this.queryBatch = [];
 
@@ -48,6 +50,7 @@ class CassandraConnection {
     };
 
     doConnect() {
+        var t = this;
         this.connecting = true;
 
         var authProvider = null;
@@ -68,10 +71,11 @@ class CassandraConnection {
         this.connection.connect(function (err) {
             this.connecting = false;
             if (err) {
-                this.tick = setTimeout(doConnect, 30000);
-                //console.log(err);
+                this.tick = setTimeout(doConnect, 10000);
+                console.log(err);
             } else {
                 this.connected = true;
+                t.connected = true;
                 console.log("Connection to cassandra database done")
             }
         });
@@ -91,7 +95,7 @@ class CassandraConnection {
         var resCallback = function (err, result) {
 
             if (err) {
-               console.error(err);
+                console.error(err);
             } else {
                 callback(result.rows);
             }
@@ -114,26 +118,34 @@ class CassandraConnection {
     }
 
     //designed to no be called in batch mode to ensure real time data
-    saveSwitch(msg,callback){
-        var params = [msg.payload.device_id, msg.payload.sensor_type,msg.payload.sensor_value];
+    saveSwitch(data,callback){
+        var params = [data.device_id, data.sensor_type,data.sensor_value];
         this.exectQuery(this.queries['save-switch'],params,callback);
     }
 
-    addQueryToSensorLogBatch(msg){
-        var params = [msg.payload.device_id, msg.payload.sensor_type,msg.payload.sensor_value];
+    addQueryToSensorLogBatch(data){
+        var params = [data.device_id, data.sensor_type,data.sensor_value];
+        var q = this.queries['save-sensor'];
         var query = {
-            query : this.queries['save-sensor'],
+            query : q,
             params: params
         };
 
-        this.queryBatch.push(query);
+        //console.log('added',data,"to batch");
+
+        if (typeof q != 'undefined'){
+            this.queryBatch.push(query);
+        }
     }
 
     saveSensorLogs(callback){
         var t = this;
-        this.exectQuery(this.queries,null,function () {
-            t.queries = [];
-            callback();
+        this.exectQuery(this.queryBatch,null,function () {
+            console.log("Saved",t.queryBatch.length,"queries.");
+            t.queryBatch = [];
+            if (callback)
+                callback();
+
         });
 
     }
@@ -142,6 +154,18 @@ class CassandraConnection {
         //TODO: call the database
 
         callback(0);
+    }
+
+    initDB(){
+        let query = "CREATE KEYSPACE PredictableFarm  WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };";
+        exectQuery(query,{},function (res) {
+            let queries = [
+                {
+                    query: "a",
+                    params:{}
+                }
+            ]
+        })
     }
 
 }
