@@ -35,8 +35,11 @@ class CassandraConnection {
             "save-sensor": 'INSERT INTO predictablefarm.sensorLog (device_id, sensor_type, sensor_value, created_at) ' +
             'VALUES(?, ?, ?, toTimestamp(now()))' // device_id / sensor_type / sensor_value
         };
-
-        this.timer = setInterval(()=>{;if (this.connected && this.queryBatch.length!=0)this.saveSensorLogs()}, 10000);
+        var t  = this;
+        this.timer = setInterval(()=>{
+            if (t.connected && t.queryBatch.length!=0)
+                t.saveSensorLogs()
+        }, 10000);
 
         this.queryBatch = [];
 
@@ -69,9 +72,9 @@ class CassandraConnection {
         });
 
         this.connection.connect(function (err) {
-            this.connecting = false;
+            t.connecting = false;
             if (err) {
-                this.tick = setTimeout(doConnect, 10000);
+                this.tick = setTimeout(doConnect.bind(t), 10000);
                 console.log(err);
             } else {
                 this.connected = true;
@@ -97,6 +100,7 @@ class CassandraConnection {
             if (err) {
                 console.error(err);
             } else {
+                console.log(result);
                 callback(result.rows);
             }
         };
@@ -141,7 +145,7 @@ class CassandraConnection {
     saveSensorLogs(callback){
         var t = this;
         this.exectQuery(this.queryBatch,null,function () {
-            //console.log("Saved",t.queryBatch.length,"queries.");
+            console.log("Saved",t.queryBatch.length,"queries.");
             t.queryBatch = [];
             if (callback)
                 callback();

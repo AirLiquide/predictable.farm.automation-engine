@@ -67,6 +67,12 @@ class DLIStore {
             this.map[deviceID].value = dli;
             this.map[deviceID].lastValueTime = time;
 
+            CassandraConnection.addQueryToSensorLogBatch({
+                device_id: deviceID,
+                sensor_type: "light_dli",
+                sensor_value: value
+            });
+
             callback(dli);
         }
     }
