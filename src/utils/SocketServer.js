@@ -8,6 +8,7 @@
 
 var SocketActions = require('./SocketActions');
 var DLIStore = require('./DLIStore');
+var CassandraConnection = require('./CassandraConnection');
 
 var url = require('url');
 
@@ -163,10 +164,10 @@ class SocketServer {
                     'sensor_value': 0
                 };
 
-
-
                 var data = JSON.parse(message);
                 var type = data['sensor_type'];
+
+                CassandraConnection.addQueryToSensorLogBatch(data);
 
 
                 if (type == 'light_par'){
