@@ -48,15 +48,17 @@ module.exports = function (RED) {
 
         this.updateValue = function(){
             var v = DLIStore.getDLI(node.deviceId);
-            node.dli = Number.parseFloat(v.toFixed(3));
-            var msg = {
-                payload :{
-                    sensor_value : node.dli.toString(),
-                    sensor_type : 'light_dli',
-                    device_id : node.deviceId
-                }
-            };
-            node.send(msg);
+            if (v){
+                node.dli = Number.parseFloat(v.toFixed(3));
+                var msg = {
+                    payload :{
+                        sensor_value : node.dli.toString(),
+                        sensor_type : 'light_dli',
+                        device_id : node.deviceId
+                    }
+                };
+                node.send(msg);
+            }
             //node.status({fill: "green", shape: "dot", text: node.deviceId + " / Value : " + node.dli});
         };
 

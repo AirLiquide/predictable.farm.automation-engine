@@ -33,7 +33,9 @@ class CassandraConnection {
             "save-switch": 'INSERT INTO predictablefarm.relaystate (device_id, sensor_type, sensor_value, last_update) ' +
             'VALUES(?, ?, ?, toTimestamp(now()))', // device_id / sensor_type /  / sensor_value
             "save-sensor": 'INSERT INTO predictablefarm.sensorLog (device_id, sensor_type, sensor_value, created_at) ' +
-            'VALUES(?, ?, ?, toTimestamp(now()))' // device_id / sensor_type / sensor_value
+            'VALUES(?, ?, ?, toTimestamp(now()))', // device_id / sensor_type / sensor_value
+            "get-last-dli": 'SELECT * FROM sensorlog where device_id=? and sensor_type=\'light_dli\' ORDER BY created_at DESC LIMIT 1;' // device_id / sensor_type
+
         };
         var t  = this;
         this.timer = setInterval(()=>{
@@ -100,7 +102,6 @@ class CassandraConnection {
             if (err) {
                 console.error(err);
             } else {
-                console.log(result);
                 callback(result.rows);
             }
         };
@@ -157,7 +158,21 @@ class CassandraConnection {
     getLastDLIValue(deviceID,callback){
         //TODO: call the database
 
-        callback(0);
+        if (this.connected){
+            this.exectQuery(this.queries['get-last-dli'],{
+                    device_id:deviceID
+                },
+                function (res) {
+                    var v = 0;
+                    var date = Date.now();
+                    if (res.length != 0){
+                        v = Number.parseFloat(res[0].sensor_value);
+                        date = new Date(res[0].created_at).getTime();
+                    }
+
+                     callback(v,date);
+                })
+        }
     }
 
     initDB(){

@@ -27,10 +27,10 @@ class DLIStore {
     addDLI(deviceID) {
         var t = this;
         if (!this.map[deviceID])
-            CassandraConnection.getLastDLIValue(deviceID,function (value) {
+            CassandraConnection.getLastDLIValue(deviceID,function (value,date) {
                 t.map[deviceID] = {
-                    lastValueTime: Date.now(),
-                    lastValue: 0,
+                    lastValueTime: date,
+                    lastValue: value,
                     value: value || 0
                 };
             })
@@ -70,7 +70,7 @@ class DLIStore {
             CassandraConnection.addQueryToSensorLogBatch({
                 device_id: deviceID,
                 sensor_type: "light_dli",
-                sensor_value: value
+                sensor_value: dli.toString()
             });
 
             callback(dli);
