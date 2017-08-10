@@ -39,11 +39,14 @@ class CassandraConnection {
         };
         var t  = this;
         this.timer = setInterval(()=>{
-            if (t.connected && t.queryBatch.length!=0)
+            if (t.connected && t.batchBuffer.length!=0)
                 t.saveSensorLogs()
         }, 10000);
 
         this.queryBatch = [];
+        this.batchBuffer = [];
+
+        this.batchSize = 225;
 
         return this;
     }
@@ -76,7 +79,7 @@ class CassandraConnection {
         this.connection.connect(function (err) {
             t.connecting = false;
             if (err) {
-                this.tick = setTimeout(doConnect.bind(t), 10000);
+                this.tick = setTimeout(doConnect.bind(t), 5000);
                 console.log(err);
             } else {
                 this.connected = true;
@@ -140,18 +143,27 @@ class CassandraConnection {
 
         if (typeof q != 'undefined'){
             this.queryBatch.push(query);
+            if (this.queryBatch.length >= this.batchSize ){
+                this.batchBuffer.push(this.queryBatch);
+                this.queryBatch = new Array();
+            }
         }
     }
 
     saveSensorLogs(callback){
         var t = this;
-        this.exectQuery(this.queryBatch,null,function () {
-            console.log("Saved",t.queryBatch.length,"queries.");
-            t.queryBatch = [];
-            if (callback)
-                callback();
 
-        });
+        for (var i =0; i<this.batchBuffer.length;i++){
+            var batch = this.batchBuffer[i];
+            t.exectQuery(batch,null,function () {
+                //console.log("Saved",batch.length,"queries.");
+                if (callback)
+                    callback();
+            });
+        }
+
+        this.batchBuffer = [];
+
 
     }
 
@@ -175,17 +187,9 @@ class CassandraConnection {
         }
     }
 
-    initDB(){
-        let query = "CREATE KEYSPACE PredictableFarm  WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };";
-        exectQuery(query,{},function (res) {
-            let queries = [
-                {
-                    query: "a",
-                    params:{}
-                }
-            ]
-        })
-    }
+
+
+
 
 }
 
