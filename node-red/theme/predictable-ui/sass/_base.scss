@@ -1,0 +1,75 @@
+$dark: #3D3D4F;
+$purple: #46025E;
+$gray: #F0F0F0;
+$lightBlue: #77B6FA;
+$lightOrange: #F6BB42;
+
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+    text-shadow: none;
+    box-shadow: none;
+    box-sizing: border-box;
+    -webkit-box-shadow: none;
+
+    color: rgba(61, 61, 79, 64);
+    font-size: 17px;
+    font-weight: 400;
+}
+
+a,
+a:focus {
+    outline: 0;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    background-color: #F9F9F9;
+    color: $dark;
+}
+
+label {
+    font-size: 17px;
+}
+
+button.ui-button {
+    border-radius: 5px;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    background-color: #F9F9F9;
+ }
+
+
+ .ui-corner-all {
+     border-radius: 5px;
+     overflow: hidden;
+ }
+
+.notification {
+    top: 100px;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+
+    &.notification-success {
+        color: #80AA25;
+        font-size: 22px;
+        font-weight: 300;
+    }
+}
+
+.ui-button.primary {
+    background-color: $purple;
+    border-color: $purple;
+}

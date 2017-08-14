@@ -1,0 +1,69 @@
+#sidebar {
+    background: #F9F9F9;
+    border: none;
+    font-size: 17px;
+    color: #3D3D4F;
+    top: 60px;
+    margin-top: 60px;
+
+    * {
+        background: transparent;
+        color: rgba(61, 61, 79, 64);
+        font-weight: 400;
+    }
+    .red-ui-tabs {
+        background: transparent;
+        height: auto;
+
+        #sidebar-tabs {
+            background: transparent;
+            border-bottom: none;
+            height: auto;
+
+            li {
+                border: none;
+                text-align: center;
+                height: 42px;
+                padding-bottom: 17px;
+
+                span {
+                    font-size: 20px;
+                    font-weight: 300;
+                    color: #000;
+                }
+
+                &.active {
+                    border-bottom: 3px solid $purple;
+                    span {
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+
+    }
+
+    #sidebar-content {
+        top: 44px;
+        margin: 69px 20px;
+
+        .node-info, .plalette-header {
+            display: none !important;
+
+        }
+        .node-help {
+            opacity:0.9;
+        }
+        .sidebar-node-info-stack {
+            .message-properties {
+                display: none !important;
+            }
+        }
+    }
+}
+
+#sidebar-separator {
+    top: 47px;
+}
+
+

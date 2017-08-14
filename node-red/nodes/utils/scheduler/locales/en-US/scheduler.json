@@ -1,0 +1,28 @@
+{
+  "once":"once",
+  "interval":"at interval",
+
+  "everyday":"everyday",
+  "specificDay":"on specific day(s)",
+  "oneDay":"one day",
+
+  "allDay":"all day",
+  "timeRange" :"at time range",
+
+
+  "seconds": "seconds",
+  "minutes": "minutes",
+  "hours" : "hours",
+  "values" : "values",
+
+  "days" :{
+    "sunday" : "Sunday",
+    "monday" : "Monday",
+    "tuesday" : "Tuesday",
+    "wednesday" : "Wednesday",
+    "thursday" : "Thursday",
+    "friday" : "Friday",
+    "saturday" : "Saturday"
+
+  }
+}

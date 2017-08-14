@@ -1,0 +1,9 @@
+{
+  "get_switch": "Get Switch Value",
+  "save_switch": "Save Switch Value",
+  "save_sensor": "Save Sensor Value",
+  "query_prepare" : {
+    "get_switch": "Get Switch Value",
+    "save_switch": "Save Switch Value"
+  }
+}

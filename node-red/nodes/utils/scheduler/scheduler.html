@@ -1,0 +1,796 @@
+<!--
+  Copyright JS Foundation and other contributors, http://js.foundation
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/x-red" data-template-name="scheduler">
+
+    <div class="form-row">
+        <label for="node-input-name" style="width:75px"><i class="fa fa-tag"></i> <span>Name</span></label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div style="margin-bottom:30px">
+    <label for="" style="display:inline-block;width:75px"> <span>Activate</span></label>
+        <div class="form-row" style="display:inline;">
+            <label for="node-input-sendFrequency" style="width:0"> <i></i></label>
+            <select id="node-input-sendFrequency" style="width:22%;font-size:13px;">
+                <option value="once" data-i18n="once" selected></option>
+                <option value="interval" data-i18n="interval"></option>
+            </select>
+        </div>
+        <div class="form-row" style="display:inline;">
+            <label for="node-input-sendDay" style="width:0"> <i></i></label>
+            <select id="node-input-sendDay" style="width:30%;font-size:13px;">
+                <option value="everyday" data-i18n="everyday" selected></option>
+                <option value="days" data-i18n="specificDay"></option>
+                <option value="oneDay" data-i18n="oneDay">/option>
+            </select>
+        </div>
+        <div class="form-row" style="display:inline;">
+            <label for="node-input-sendRange" style="width:0"> <i></i></label>
+            <select id="node-input-sendRange" style="width:25%;display:none;;font-size:13px;">
+                <option value="all-day" data-i18n="allDay" selected></option>
+                <option value="time-range" data-i18n="timeRange"></option>
+            </select>
+            <input type="hidden" id="node-input-crontab">
+        </div>
+    </div>
+
+    <div class="form-row" id="inject-time-row-once">
+        <label for="" style="width:75px"><i class="fa fa-tag"></i> <span>Once</span></label>
+        <span>at</span>
+        <input id="node-input-onceHour" placeholder="Hour" type="number" min="0" max="23" style="width:12.5%;font-size:13px;text-align:right;"></input>
+        :
+        <input id="node-input-onceMinute" placeholder="Minute" type="number" min="0" max="59"style="width:12.5%;font-size:13px;"></input>
+    </div>
+    <div class="form-row hidden" id="inject-time-row-interval">
+        <label for="" style="width:75px"> <span>Interval</span></label>
+        <span style="font-size:13px;">every</span>
+        <input id="node-input-interval" class="inject-time-count" type="number" min="0" max="59" style="text-align:right;font-size:13px;"></input>
+        <select style="width: 100px;font-size:13px;" id="node-input-intervalUnits">
+            <option value="minutes" data-i18n="minutes"></option>
+            <option value="hours" data-i18n="hours"></option>
+        </select><br/>
+    </div>
+
+
+    <div class="form-row hidden" id="inject-time-row-days">
+        <div id="node-input-timeDays" class="inject-time-days">
+            <label for="" style="width:75px"> <span>Days</span></label>
+            <div style="display:inline-block">
+                <div>
+                   <label style="width:110px"><input type='checkbox' class="saved-value" checked value='1'/>Sunday</label>
+                   <label style="width:110px"><input type='checkbox' class="saved-value" checked value='2'/>Monday</label>
+                   <label style="width:110px"><input type='checkbox' class="saved-value" checked value='3'/>Tuesday</label>
+                </div>
+                <div>
+                    <label style="width:110px"><input type='checkbox' class="saved-value" checked value='4'/> Wednesday</label>
+                    <label style="width:110px"><input type='checkbox' class="saved-value" checked value='5'/> Thursday</label>
+                    <label style="width:110px"><input type='checkbox' class="saved-value" checked value='6'/> Friday</label>
+                </div>
+                <div>
+                    <label style="width:110px"><input type='checkbox' class="saved-value" checked value='0'/> Saturday</label>
+                </div>
+                <input type="hidden" id="node-input-days">
+            </div>
+
+        </div>
+    </div>
+    <div class="form-row hidden" id="inject-time-row-one-day">
+        <label for="" style="width:75px"> <span>Day</span></label>
+        <span>on</span>
+         <input id="node-input-day" placeholder="Day" type="number"  min="1" max="31" style="width:15%;font-size:13px;"></input>
+    </div>
+
+    <div class="form-row hidden" id="inject-time-row-time-range">
+        <label for="" style="width:75px"><i class="fa fa-tag"></i> <span>Range</span></label>
+        <span>from</span>
+        <input id="node-input-startHour" placeholder="Hour" type="number" min="0" max="23" style="width:12.5%;font-size:13px;text-align:right;"></input>
+        :
+        <input id="node-input-startMinute" placeholder="Minute" type="number" min="0" max="59"style="width:12.5%;font-size:13px;"></input>
+        <span>to</span>
+        <input id="node-input-endHour" placeholder="Hour" type="number" min="0" max="23" style="width:12.5%;font-size:13px;text-align:right;"></input>
+        :
+        <input id="node-input-endMinute" placeholder="Minute" type="number" min="0" max="59"style="width:12.5%;font-size:13px;"></input>
+        <input type="hidden" id="node-input-timeRange">
+    </div>
+
+
+
+</script>
+<style>
+    .inject-time-row {
+        padding-left: 110px;
+    }
+
+    .inject-time-row select {
+        margin: 3px 0;
+    }
+
+    .inject-time-days label {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        vertical-align: top;
+        width: 100px;
+    }
+
+    .inject-time-days input {
+        width: auto;
+    }
+
+    .inject-time-times {
+        width: 90px;
+    }
+
+    #inject-time-time {
+        width: 75px;
+    }
+
+    .inject-time-count {
+        width: 40px !important;
+    }
+</style>
+<script type="text/x-red" data-help-name="inject">
+    <p>Pressing the button on the left side of the node allows a message on a topic
+       to be injected into the flow.</p>
+    <p>The payload defaults to the current time in millisecs since 1970, but can
+       also be set to various other javascript types.</p>
+    <p>The repeat function allows the payload to be sent on the required schedule.</p>
+    <p>The <i>Inject once at start</i> option actually waits a short interval before firing
+       to give other nodes a chance to instantiate properly.</p>
+    <p>The <i>Flow</i> and <i>Global</i> options allow one to inject a flow or global
+        context value.
+    </p>
+    <p><b>Note: </b>"Interval between times" and "at a specific time" uses cron.
+       This means that 20 minutes will be at the next hour, 20 minutes past and
+       40 minutes past - not in 20 minutes time. If you want every 20 minutes
+       from now - use the "interval" option.</p>
+    <p><b>Note: </b>all string input is escaped. To add a carriage return to a string
+    you should use a following function.</p>
+
+
+
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('scheduler', {
+        category: 'function',
+        color: "#a6bbcf",
+        defaults: {
+            name: {value: ""},
+            topic: {value: ""},
+            payloadType: {value: "date"},
+            crontab: {value: ""},
+            sendFrequency: {value: "once"},
+            sendDay: {value: "everyday"},
+            sendRange: {value: "all-day"},
+            onceHour: {
+                value: "",
+                validate: function (v) {
+                    var selectFrequency = document.getElementById("node-input-sendFrequency");
+                    if (selectFrequency.value == 'once') {
+                        return ( (v != '') && (v > -1 && v < 24) )
+                    }
+                    else {
+                        return true;
+                    }
+
+                }
+            },
+            onceMinute: {
+                value: "",
+                validate: function (v) {
+                    var selectFrequency = document.getElementById("node-input-sendFrequency");
+                    if (selectFrequency.value == 'once') {
+                        return ( (v != '') && (v > -1 && v < 60) )
+                    }
+                    else {
+                        return true;
+                    }
+
+                }
+            },
+            intervalUnits: {value: "minutes"},
+            days: {value: ['true', 'true', 'true', 'true', 'true', 'true', 'true']},
+            day: {
+                value: "",
+                validate: function (v) {
+                    var selectDay = document.getElementById("node-input-sendDay");
+                    if (selectDay.value == 'oneDay') {
+                        return ( (v != '') && (v >= 0 && v <= 31) )
+                    }
+                    else {
+                        return true;
+                    }
+
+                }
+            },
+            startHour: {
+                value: "",
+                validate: function (v) {
+                    var selectFrequency = document.getElementById("node-input-sendFrequency");
+                    var selectRange = document.getElementById("node-input-sendRange");
+
+                    if (selectFrequency.value == 'interval' && selectRange.value == 'time-range') {
+                        return (v > -1 && v < 24 && v != '');
+                    }
+
+                    return true;
+
+                }
+            },
+            startMinute: {
+                value: "",
+                validate: function (v) {
+                    var selectFrequency = document.getElementById("node-input-sendFrequency");
+                    var selectRange = document.getElementById("node-input-sendRange");
+
+                    if (selectFrequency.value == 'interval' && selectRange.value == 'time-range') {
+                        return (v > -1 && v < 60 && v != '');
+                    }
+
+                    return true;
+
+                }
+            },
+            endHour: {
+                value: "",
+                validate: function (v) {
+                    var selectFrequency = document.getElementById("node-input-sendFrequency");
+                    var selectRange = document.getElementById("node-input-sendRange");
+
+                    if (selectFrequency.value == 'interval' && selectRange.value == 'time-range') {
+                        return (v > -1 && v < 24 && v != '');
+                    }
+
+                    return true;
+
+                }
+            },
+            endMinute: {
+                value: "",
+                validate: function (v) {
+                    var selectFrequency = document.getElementById("node-input-sendFrequency");
+                    var selectRange = document.getElementById("node-input-sendRange");
+
+                    if (selectFrequency.value == 'interval' && selectRange.value == 'time-range') {
+                        return (v > -1 && v < 60 && v != '');
+                    }
+
+                    return true;
+
+                }
+            },
+
+            interval: {
+                value: "5",
+                validate: function (v) {
+                    var selectFrequency = document.getElementById("node-input-sendFrequency");
+                    var selectIntervalUnit = document.getElementById("node-input-intervalUnits");
+                    if (selectFrequency.value == 'interval') {
+                        if (v == '') {
+                            return false;
+                        }
+                        if (selectIntervalUnit.value == 'seconds') {
+                            return (v > -1 && v < 60);
+                        }
+                        else if (selectIntervalUnit.value == 'minutes') {
+                            return (v > -1 && v < 60);
+
+                        }
+                        else if (selectIntervalUnit.value == 'hours') {
+                            return (v > -1 && v < 23);
+                        }
+
+
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+
+                }
+            }
+
+        },
+        inputs: 0,
+        outputs: 1,
+        icon: "scheduler.png",
+        label: function () {
+            return "scheduler";
+        },
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
+        },
+        oneditprepare: function () {
+            /*
+             select line
+             */
+            var selectFrequency = document.getElementById("node-input-sendFrequency");
+            var selectDay = document.getElementById("node-input-sendDay");
+            var selectRange = document.getElementById("node-input-sendRange");
+
+            /*
+
+             */
+            var selectOnce = document.getElementById("inject-time-row-once");
+            var selectInterval = document.getElementById("inject-time-row-interval");
+            var selectDays = document.getElementById("inject-time-row-days");
+            var selectOneDay = document.getElementById("inject-time-row-one-day");
+            var selectTimeRange = document.getElementById("inject-time-row-time-range");
+
+
+            /*
+             SELECT/INPUT
+             */
+            var inputOnceHour = document.getElementById("node-input-onceHour");
+
+            /*
+             INIT
+             */
+            var checkSelectFrequency = function (e) {
+                var v = selectFrequency.value;
+                if (v == "once") {
+                    selectRange.style.display = "none";
+                    selectInterval.classList.add("hidden");
+                    selectOnce.classList.remove("hidden");
+
+                    selectTimeRange.classList.add("hidden");
+                }
+                else if (v == "interval") {
+                    selectRange.style.display = "inline";
+                    selectInterval.classList.remove("hidden");
+                    selectOnce.classList.add("hidden");
+
+                    if (selectRange.value == "time-range") {
+                        selectTimeRange.classList.remove("hidden");
+                    }
+                }
+            };
+
+            var checkSelectDay = function (e) {
+                var v = selectDay.value;
+                if (v == "everyday") {
+                    selectDays.classList.add("hidden");
+                    selectOneDay.classList.add("hidden");
+                }
+                else if (v == "days") {
+                    selectDays.classList.remove("hidden");
+                    selectOneDay.classList.add("hidden");
+                }
+                else if (v == "oneDay") {
+                    selectDays.classList.add("hidden");
+                    selectOneDay.classList.remove("hidden");
+
+                }
+            };
+
+            var checkSelectRange = function (e) {
+                var v = selectRange.value;
+                if (v == "all-day") {
+                    selectTimeRange.classList.add("hidden");
+                }
+                else if (v == "time-range") {
+                    selectTimeRange.classList.remove("hidden");
+                }
+            };
+
+            checkSelectFrequency();
+            checkSelectDay();
+            checkSelectRange();
+
+
+            var days = document.getElementById("node-input-timeDays").getElementsByClassName("saved-value");
+            var d = document.getElementById("node-input-days");
+
+            var res = d.value;
+            res = res.replace('[','');
+            res = res.replace(']','');
+            var table = res.split(",");
+
+
+            for (var i = 0; i < days.length; i++) {
+                console.log(table[i]);
+                if (typeof table[i] == 'undefined' || table[i] == '') {
+                    table[i] = 'true';
+                }
+                days[i].checked = (table[i] == 'true');//table[i]);
+            }
+
+
+            /*
+             EVENTS
+             */
+
+
+            selectFrequency.addEventListener("change", checkSelectFrequency);
+
+            selectDay.addEventListener("change", checkSelectDay);
+
+            selectRange.addEventListener("change", checkSelectRange);
+
+            inputOnceHour.addEventListener("change", function (e) {
+
+                if (inputOnceHour.value > inputOnceHour.max) {
+                    inputOnceHour.value = inputOnceHour.max
+                }
+                if (inputOnceHour.value < inputOnceHour.min) {
+                    inputOnceHour.value = inputOnceHour.min
+                }
+            })
+
+        },
+        oneditsave: function () {
+
+            var selectFrequency = document.getElementById("node-input-sendFrequency");
+            var selectDay = document.getElementById("node-input-sendDay");
+            var selectRange = document.getElementById("node-input-sendRange");
+
+            var days = document.getElementById("node-input-timeDays").getElementsByClassName("saved-value");
+            var d = document.getElementById("node-input-days");
+            var table = [];
+
+            for (var i = 0; i < days.length; i++) {
+                table.push(days[i].checked)
+            }
+
+            d.value = JSON.stringify(table);
+
+            var startHour = document.getElementById("node-input-startHour");
+            var startMinute = document.getElementById("node-input-startMinute");
+            var endHour = document.getElementById("node-input-endHour");
+            var endMinute = document.getElementById("node-input-endMinute");
+            var timeRange = document.getElementById("node-input-timeRange");
+
+            var obj = {
+                startHour: startHour.value,
+                startMinute: startMinute.value,
+                endHour: endHour.value,
+                endMinute: endMinute.value,
+            }
+
+            timeRange.value = JSON.stringify(obj);
+
+
+            if (this.valid) {
+
+
+                var cron = {};
+                cron.valid = true;
+
+
+                //CRON DAYS
+
+
+                if (selectDay.value == "days"){
+                    var str = "";
+                    for (var i = 0; i < days.length; i++) {
+                        if (days[i].checked){
+                            str = str +days[i].value +'-';
+                        }
+                    }
+
+                    str = str.slice(0, -1);
+                    cron.dayOfWeek = str;
+                    console.log(str);
+                }
+                else if (selectDay.value == "oneDay"){
+                    var oneDay = document.getElementById("node-input-day");
+
+                    if (oneDay.value == ""){
+                        cron.valid = false;
+                    }
+                    else{
+                        cron.date = oneDay.value;
+                    }
+                }
+
+                if (selectFrequency.value == 'once') {
+
+                    var onceHour = document.getElementById("node-input-onceHour");
+                    var onceMinute = document.getElementById("node-input-onceMinute");
+
+                    if (onceMinute.value == "" || onceHour.value == "") {
+                        cron.valid = false;
+                    }
+                    else {
+                        cron.minute = onceMinute.value.toString();
+                        cron.hour = onceHour.value.toString();
+                    }
+
+
+                }
+                else if (selectFrequency.value == 'interval') {
+                    var selectIntervalUnit = document.getElementById("node-input-intervalUnits");
+                    var selectInterval = document.getElementById("node-input-interval");
+
+                    if (selectInterval.value == "") {
+                        cron.valid = false;
+                    }
+                    else {
+                        cron.interval = {};
+                        if (selectIntervalUnit.value == 'seconds') {
+                            cron.interval.second = selectInterval.value;
+                        }
+                        else if (selectIntervalUnit.value == 'minutes') {
+                            cron.interval.minute = selectInterval.value;
+                        }
+                        else if (selectIntervalUnit.value == 'hours') {
+                            cron.interval.hour = selectInterval.value;
+                        }
+                    }
+
+                    //time-range
+                    var selectRange = document.getElementById("node-input-sendRange");
+                    if (selectRange.value == "time-range"){
+
+                        if (startHour.value =="" || startMinute.value == "" || endHour.value == "" || endMinute.value == ""){
+                            cron.valid = false;
+                        }
+                        else{
+                            var hour = startHour.value + '-' + endHour.value;
+                            var minute = startMinute.value + '-' + endMinute.value;
+
+                            cron.range ={
+                                startHour: startHour.value,
+                                endHour: endHour.value,
+                                startMinute: startMinute.value,
+                                endMinute: endMinute.value,
+                            }
+
+                            //cron.hour = hour;
+                        }
+                    }
+                }
+
+                var cronTexts = [];
+
+                var generatePartOne = !(cron.range && cron.range.startMinute == "0");
+                var generatePartThree = !(cron.range && cron.range.endMinute == "0");
+
+
+
+                if (cron.range){
+                    var startHour = Number.parseFloat(cron.range.startHour);
+                    var endHour = Number.parseFloat(cron.range.endHour);
+                    var startMinute = Number.parseFloat(cron.range.startMinute);
+                    var startHour = Number.parseFloat(cron.range.startHour);
+
+                    if (generatePartOne){
+
+                        //var second = (cron.second)?cron.second:'0';
+                        var minute;
+                        if (cron.minute){
+                            minute = cron.minute;
+                        }
+                        else{
+                            var range = cron.range.startMinute+'-59';
+                            if (cron.interval){
+
+                                if (cron.interval.minute){
+                                    minute = range+'/'+cron.interval.minute;
+                                }
+                                else if (cron.interval.hour){
+                                    minute = startMinute;
+                                }
+                            }
+                            else{
+                                minute = range;
+                            }
+                        }
+                        var hour;
+                        if (cron.hour){
+                            hour = cron.hour;
+                        }
+                        else{
+                            var range = startHour+'-'+(startHour+1);
+                            if (cron.interval){
+                                if (cron.interval.hour){
+                                    hour = range+"/"+cron.interval.hour;
+                                }
+                                else{
+                                    hour =range;
+                                }
+                            }
+                            else{
+                                hour = range;
+                            }
+                        }
+                        //var second = (cron.second)?cron.second:'';
+                        //var minute = cron.range.startMinute+'-59'+((cron.minute)?cron.minute.replace('*',''):'');
+                        //var hour = startHour+'-'+(startHour+1)+((cron.hour)?cron.hour.replace('*',''):'');
+                        var date = (cron.date)?cron.date:'*';
+                        var month = (cron.month)?cron.month:'*';
+                        var dayOfWeek = (cron.dayOfWeek)?cron.dayOfWeek:'*';
+
+                        var cronText = minute+' ' + hour+' ' + date +' ' +month+' ' +dayOfWeek;
+
+                        cronTexts.push(cronText);
+                    }
+
+                    var minute;
+                    if (cron.minute){
+                        minute = cron.minute;
+                    }
+                    else{
+                        if (generatePartOne){
+
+                        }
+                        var range = cron.range.startMinute+'-59';
+                        if (cron.interval){
+
+                            if (cron.interval.minute){
+                                minute = "*/"+cron.interval.minute;
+                            }
+                            else if (cron.interval.hour){
+                                minute = startMinute;
+                            }
+                        }
+                        else{
+                            minute = "*";
+                        }
+                    }
+                    var hour;
+                    if (cron.hour){
+                        hour = cron.hour;
+                    }
+                    else{
+                        var range = (
+                            (generatePartOne)?startHour+1:startHour)+
+                            '-'+
+                            ((generatePartThree)?endHour-1:endHour);
+                        if (cron.interval){
+                            if (cron.interval.hour){
+                                hour = range+"/"+cron.interval.hour;
+                            }
+                            else{
+                                hour =range;
+                            }
+                        }
+                        else{
+                            hour = range;
+                        }
+                    }
+                    //var second = (cron.second)?cron.second:'';
+                    //var minute = (cron.minute)?cron.minute:'*';
+                    //var hour =
+                    //    ((generatePartOne)?startHour+1:startHour)+
+                    //    '-'+
+                    //    ((generatePartThree)?endHour-1:endHour)+
+                    //    ((cron.hour)?cron.hour.replace('*',''):'');
+                    var date = (cron.date)?cron.date:'*';
+                    var month = (cron.month)?cron.month:'*';
+                    var dayOfWeek = (cron.dayOfWeek)?cron.dayOfWeek:'*';
+
+
+                    var cronText = minute+' ' + hour+' ' + date +' ' +month+' ' +dayOfWeek;
+                    cronTexts.push(cronText);
+
+                    if (generatePartThree){
+
+                        var minute;
+                        if (cron.minute){
+                            minute = cron.minute;
+                        }
+                        else{
+                            if (generatePartOne){
+
+                            }
+                            var range = '0-'+startMinute;
+                            if (cron.interval){
+
+                                if (cron.interval.minute){
+                                    minute = range+'/'+cron.interval.minute;
+                                }
+                                else if (cron.interval.hour){
+                                    minute = startMinute;
+                                }
+                            }
+                            else{
+                                minute = "*";
+                            }
+                        }
+                        var hour;
+                        if (cron.hour){
+                            hour = cron.hour;
+                        }
+                        else{
+                            var range = (endHour-1)+'-'+endHour;
+                            if (cron.interval){
+                                if (cron.interval.hour){
+                                    hour = range+"/"+cron.interval.hour;
+                                }
+                                else{
+                                    hour =range;
+                                }
+                            }
+                            else{
+                                hour = range;
+                            }
+                        }
+
+                        //var second = (cron.second)?cron.second:'';
+                        //var minute = '0-'+cron.range.startMinute+((cron.minute)?cron.minute.replace('*',''):'');
+                        //var hour = (endHour-1)+'-'+endHour;
+                        var date = (cron.date)?cron.date:'*';
+                        var month = (cron.month)?cron.month:'*';
+                        var dayOfWeek = (cron.dayOfWeek)?cron.dayOfWeek:'*';
+
+                        var cronText = minute+' ' + hour+' ' + date +' ' +month+' ' +dayOfWeek;
+
+                        cronTexts.push(cronText);
+                    }
+                }
+                else{
+                    console.log("hello");
+                    //var second = (cron.second)?cron.second:'0';
+                    var minute;
+                    if (cron.minute){
+                        minute = cron.minute;
+                    }
+                    else{
+                        if (cron.interval){
+                            if (cron.interval.minute){
+                                minute = '*/'+cron.interval.minute;
+                            }
+                            else if (cron.interval.hour){
+                                minute = "0";
+                            }
+                        }
+                        else{
+                            minute = "*";
+                        }
+                    }
+                    var hour;
+                    if (cron.hour){
+                        hour = cron.hour;
+                    }
+                    else{
+                        if (cron.interval){
+                            if (cron.interval.hour){
+                                hour = "*/"+cron.interval.hour;
+                            }
+                            else{
+                                hour ="*";
+                            }
+                        }
+                        else{
+                            hour = "*";
+                        }
+                    }
+                    var date = (cron.date)?cron.date:'*';
+                    var month = (cron.month)?cron.month:'*';
+                    var dayOfWeek = (cron.dayOfWeek)?cron.dayOfWeek:'*';
+
+
+                    var cronText = minute+' ' + hour+' ' + date +' ' +month+' ' +dayOfWeek;
+                    cronTexts.push(cronText);
+                }
+
+                var crontab = document.getElementById("node-input-crontab");
+
+                console.log(cronTexts);
+                crontab.value = JSON.stringify({
+                    value:cronTexts,
+                    valid:cron.valid
+                });
+            }
+        }
+    });
+
+</script>

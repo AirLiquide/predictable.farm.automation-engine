@@ -1,0 +1,98 @@
+#palette {
+    background: #F0F0F0;
+    width: 288px;
+    border: none;
+
+    #palette-search {
+        margin:46px 32px 4px 32px;
+        border-radius: 9px;
+        height: auto;
+        border-bottom: none;
+
+        input {
+            height: 43px;
+            border-radius: 9px;
+        }
+    }
+
+    #palette-container {
+        background: #F0F0F0;
+    }
+
+    .palette-scroll {
+        top: 120px;
+    }
+
+    .palette-content {
+        background: none;
+
+        .palette_node {
+            width: 213px;
+            border-radius: 9px;
+            border-color: transparent;
+
+
+            .palette_label {
+                color: #fff !important;
+                font-size: 14px;
+                margin: 4px;
+                font-weight: 300;
+                font-family: "Roboto";
+            }
+
+            .palette_port {
+                border-radius: 50%;
+                top: 10px !important;
+                width: 12px;
+                height: 12px;
+                background: white;
+
+                &.palette_port_output {
+                    right: -6px;
+                }
+
+                &.palette_port_input {
+                    left: -6px;
+                }
+            }
+        }
+    }
+
+    .palette-header {
+        background: none;
+        color: #46025E;
+        border-bottom: 1px solid #979797;
+        position: relative;
+
+        i {
+            float: right;
+            font-size: 30px;
+            margin-top: 0px;
+        }
+
+        span {
+            margin-left: 25px;
+            text-transform: capitalize;
+            font-weight: 300;
+            font-size: 20px;
+            color: #46025E;
+        }
+
+        &:after {
+            border: 1px solid #979797;
+            width: 90%;
+            left: 5%;
+            position: absolute;
+            bottom: 0px;
+        }
+    }
+
+
+    .palette-category {
+        border: none;
+    }
+
+}
+.red-ui-popover  i {
+    display: none;
+}

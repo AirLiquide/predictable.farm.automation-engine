@@ -1,0 +1,84 @@
+<script type="text/x-red" data-template-name="predictable_email">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+
+
+    <div class="form-row">
+        <label for="node-input-mail"><i class="fa fa-envelope"></i> <span>To</span></label>
+        <input type="text" id="node-input-mail" placeholder="email@address.com">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-subject"><i class="fa fa-envelope"></i> <span>Title</span></label>
+        <input type="text" id="node-input-subject" placeholder="Mail Subject">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-content"><i class="fa fa-envelope"></i> <span>Content</span></label>
+        <textarea id="node-input-content" placeholder="Something happened" rows="10" style="resize:none;width:70%"></textarea>
+    </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="predictable_email">
+    <p>Sends the <code>msg.payload</code> as an email, with a subject of <code>msg.topic</code>.</p>
+    <p>The default message recipient can be configured in the node, if it is left
+    blank it should be set using the <code>msg.to</code> property of the incoming message. If left blank
+    you can also specify <code>msg.cc</code> and/or <code>msg.bcc</code> properties.</p>
+    <p>You may optionally set <code>msg.from</code> in the payload which will override the <code>userid</code>
+    default value.</p>
+    <p>The payload can be html format.</p>
+    <p>If the payload is a binary buffer then it will be converted to an attachment.
+    The filename should be set using <code>msg.filename</code>. Optionally <code>msg.description</code> can be added for the body text.</p>
+    <p>Alternatively you may provide <code>msg.attachments</code> which should contain an array of one or
+    more attachments in <a href="https://www.npmjs.com/package/nodemailer#attachments" target="_new">nodemailer</a> format.</p>
+    <p>If required by your recipient you may also pass in a <code>msg.envelope</code> object, typically containing extra from and to properties.</p>
+
+</script>
+
+<script type="text/javascript">
+    (function () {
+        RED.nodes.registerType('predictable_email', {
+            category: 'notifications',
+            color: "#c7e9c0",
+            defaults: {
+                secure: {value: true},
+                name: {
+                    value: ""
+                },
+                mail: {
+                    value: "",
+                    required: true
+                },
+                subject: {
+                    value: "",
+                    required: true
+                },
+                content: {
+                    value: "",
+                    required: true
+                }
+            },
+            inputs: 1,
+            outputs: 0,
+            icon: "envelope.png",
+            paletteLabel: "Email",
+            align: "right",
+            label: function () {
+                return this.name || this.mail || "Email";
+            },
+            labelStyle: function () {
+                return (this.name || !this.mail) ? "node_label_italic" : "";
+            },
+            oneditprepare: function () {
+                if (this.credentials.global) {
+                    $('#node-tip').show();
+                } else {
+                    $('#node-tip').hide();
+                }
+            }
+        });
+    })();
+</script>

@@ -1,0 +1,13 @@
+{
+  "sensor": "Sensor value",
+  "relay": "Relay value",
+  "on" : "ON",
+  "off" : "OFF",
+
+  "math_equal":{
+    "sensor": "Sensor value",
+    "relay": "Relay value",
+    "on" : "ON",
+    "off" : "OFF"
+  }
+}
