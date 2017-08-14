@@ -52,6 +52,11 @@ class WsEventHandler {
             if (weh.getState() == STATE.timeout){
                 weh.setState(STATE.discoTO);
                 _node.status({fill: "red", shape: "ring", text: "disconnected after timeout"});
+                _node.send([null,{
+                    payload : {
+                        time : Date.now()
+                    }
+                }])
             }
             else if (weh.getState() == STATE.connected){
                 weh.setState(STATE.disconnected);
@@ -109,7 +114,7 @@ class WsEventHandler {
                 _node.status({fill: "green", shape: "dot", text: "Connected"});
             }
 
-            _node.send(msg);
+            _node.send([msg,null]);
         });
 
         this.ws.on("*", function (event, data) {
