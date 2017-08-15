@@ -9,6 +9,7 @@ module.exports = function (RED) {
     var WsEventHandler = require('../../../../src/utils/WsEventHandler');
     var SocketServer = require('../../../../src/utils/SocketServer');
     var NodeRegister = require('../../../../src/utils/NodeRegister');
+    var RelayStateHandler = require('../../../../src/utils/RelayStateHandler');
     var nodeName = "global_actuator";
 
 
@@ -63,37 +64,40 @@ module.exports = function (RED) {
                 //var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
 
                 if (true || msg.valid){
-                    var mymsg = {
-                        device_id: node.deviceId,
-                        sensor_type: 'relay' + node.relayId,
-                        sensor_value: null
-                    };
+                    if (RelayStateHandler.hasRelayState(node.deviceId,'relay'+node.relayId) && RelayStateHandler.getRelayState(node.deviceId,'relay'+node.relayId)){
+                        var mymsg = {
+                            device_id: node.deviceId,
+                            sensor_type: 'relay' + node.relayId,
+                            sensor_value: null
+                        };
 
-                    if (this.value == -1){
-                        if (msg.payload.relayValue){
-                            mymsg.sensor_value= msg.payload.relayValue;
-                            //ws.getSocket().emit('sensor-receive', mymsg/* msg.payload*/);
-                            this.registration.sendToSensor(mymsg,node.deviceId);
+                        if (this.value == -1){
+                            if (msg.payload.relayValue){
+                                mymsg.sensor_value= msg.payload.relayValue;
+                                //ws.getSocket().emit('sensor-receive', mymsg/* msg.payload*/);
+                                this.registration.sendToSensor(mymsg,node.deviceId);
+                            }
+                            else{
+                                node.alert("No value to send");
+                            }
+
                         }
                         else{
-                            node.alert("No value to send");
-                        }
+                            if (/*isValid*/true) {
+                                //console.log("actuator command valid :)");
+                                mymsg.sensor_value= this.value;
+                                //  msg.payload.sensor_type ='relay1';//'relay'+node.relayId;
+                                // msg.payload.sensor_value =0; //node.value;
+                                //console.log(JSON.stringify(mymsg));
+                                //ws.getSocket().emit('sensor-receive', mymsg/* msg.payload*/);
+                                this.registration.sendToSensor(mymsg,node.deviceId);
 
-                    }
-                    else{
-                        if (/*isValid*/true) {
-                            //console.log("actuator command valid :)");
-                            mymsg.sensor_value= this.value;
-                            //  msg.payload.sensor_type ='relay1';//'relay'+node.relayId;
-                            // msg.payload.sensor_value =0; //node.value;
-                            //console.log(JSON.stringify(mymsg));
-                            //ws.getSocket().emit('sensor-receive', mymsg/* msg.payload*/);
-                            this.registration.sendToSensor(mymsg,node.deviceId);
-
-                        } else {
-                            //console.log("actuator command invalid");
+                            } else {
+                                //console.log("actuator command invalid");
+                            }
                         }
                     }
+
                 }
             });
 

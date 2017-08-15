@@ -9,6 +9,7 @@
 var SocketActions = require('./SocketActions');
 var DLIStore = require('./DLIStore');
 var CassandraConnection = require('./CassandraConnection');
+var RelayStateHandler = require('./RelayStateHandler');
 
 var url = require('url');
 
@@ -331,6 +332,11 @@ class SocketServer {
 
                 else if (type.match(/^relay(\d+)$/g)) {
                     var relayId = Number.parseInt(type.match(/\d+/g));
+
+                    if (!RelayStateHandler.hasRelayState(deviceId,type)){
+                        RelayStateHandler.addRelay(deviceId,type);
+                    }
+
                     sensorNodes.forEach(function each(node) {
 
                         //console.log(node.sensorId ,sensorId , node.nodeType,node.relayId,relayId);

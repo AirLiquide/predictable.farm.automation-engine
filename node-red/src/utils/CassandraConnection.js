@@ -3,6 +3,7 @@
  */
 "use strict";
 var cassandra = require('cassandra-driver');
+var RelayStateHandler = require("./RelayStateHandler");
 
 
 
@@ -30,6 +31,7 @@ class CassandraConnection {
         doConnect = this.doConnect;
         this.queries = {
             "get-switch": 'SELECT * FROM predictablefarm.relaystate WHERE device_id= ? AND sensor_type = ?',// device_id / sensor_type
+            "get-all-relaystate": 'SELECT * FROM predictablefarm.relaystate',// device_id / sensor_type
             "save-switch": 'INSERT INTO predictablefarm.relaystate (device_id, sensor_type, sensor_value, last_update) ' +
             'VALUES(?, ?, ?, toTimestamp(now()))', // device_id / sensor_type /  / sensor_value
             "save-sensor": 'INSERT INTO predictablefarm.sensorLog (device_id, sensor_type, sensor_value, created_at) ' +
@@ -84,6 +86,7 @@ class CassandraConnection {
             } else {
                 this.connected = true;
                 t.connected = true;
+                RelayStateHandler.initRelays();
                 console.log("Connection to cassandra database done")
             }
         });
@@ -187,9 +190,14 @@ class CassandraConnection {
         }
     }
 
-
-
-
+    getAllRelayState(callback){
+        if (this.connected){
+            this.exectQuery(this.queries['get-all-relaystate'],{},
+                function (res) {
+                    callback(res);
+                })
+        }
+    }
 
 }
 
