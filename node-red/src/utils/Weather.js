@@ -6,6 +6,7 @@
 
 
 var https = require("https");
+var DashBoardSocket = require('./DashBoardSocket')
 
 /*  * Setting up block level variable to store class state  * , set's to null by default.  */
 var instance = null;
@@ -136,6 +137,11 @@ class Weather {
                 var b = Buffer.concat(buffers);
 
                 var data = JSON.parse(b);
+
+                //TODO: extract data of the current time to send it
+
+                var currentWeather =  data.currently;
+                DashBoardSocket.sendWeatherToDashboard(currentWeather);
 
                 this.getTemperatureNodes().forEach(function(node){
                     var msg = {

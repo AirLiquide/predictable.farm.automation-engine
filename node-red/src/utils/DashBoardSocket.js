@@ -166,6 +166,10 @@ class DashBoardSocket {
 
         }
 
+        sendWeatherToDashboard(weather){
+            this.emit("update-weather",weather);
+        }
+
         emit(event, data)
         {
             this.socket.emit(event, data);
