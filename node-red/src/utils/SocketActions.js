@@ -35,6 +35,9 @@ class SocketActions {
     static get UPDATE_DATA() {
         return "UPDATE_DATA";
     }
+    static get UPDATE_RELAYSTATE() {
+        return "update-relaystate";
+    }
 
     static isValidAction(action) {
         var properties = Object.getOwnPropertyNames(SocketActions);

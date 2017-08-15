@@ -374,6 +374,12 @@ class SocketServer {
         ws.on(SocketActions.TEST_EMIT_ACTION, function (message) {
             //console.log("sent")
         });
+        
+        ws.on(SocketActions.UPDATE_RELAYSTATE,function (message) {
+
+            //TODO : handle change.
+            
+        })
 
 
         ws.on('disconnect', function () {
