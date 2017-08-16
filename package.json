@@ -8,6 +8,7 @@
     "cron": "^1.2.1",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
+    "node-schedule": "^1.2.4",
     "socket.io": "^1.7.1"
   },
   "devDependencies": {
