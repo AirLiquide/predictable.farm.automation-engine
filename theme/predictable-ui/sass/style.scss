@@ -1,0 +1,46 @@
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 100;
+    src: url('../../vendor/predictable-ui/fonts/roboto/Roboto-Thin.ttf');
+    src: url('../../vendor/predictable-ui/fonts/roboto/Roboto-Thin.ttf') format('truetype') ;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 300;
+    src: url('../../vendor/predictable-ui/fonts/roboto/Roboto-Light.ttf');
+    src: url('../../vendor/predictable-ui/fonts/roboto/Roboto-Light.ttf') format('truetype') ;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 400;
+    src: url('../../vendor/predictable-ui/fonts/roboto/Roboto-Regular.ttf');
+    src: url('../../vendor/predictable-ui/fonts/roboto/Roboto-Regular.ttf') format('truetype') ;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 500;
+    src: url('../../vendor/predictable-ui/fonts/roboto/Roboto-Medium.ttf');
+    src: url('../../vendor/predictable-ui/fonts/roboto/Roboto-Medium.ttf') format('truetype') ;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 700;
+    src: url('../../vendor/predictable-ui/fonts/roboto/Roboto-Bold.ttf');
+    src: url('../../vendor/predictable-ui/fonts/roboto/Roboto-Bold.ttf') format('truetype') ;
+    font-style: normal;
+}
+
+@import "normalize";
+@import "base";
+@import "header";
+@import "palette";
+@import "workspace";
+@import "sidebar";
