@@ -4,6 +4,7 @@
 "use strict";
 var SocketActions = require('./SocketActions');
 var SocketServer = require('./SocketServer');
+var RelayStateHandler = require('./RelayStateHandler');
 
 var STATE = {
     notFound: "Not found",
@@ -103,10 +104,15 @@ class NodeRegister {
         }
 
         if (this.node.nodeType == "global_actuator" || this.node.nodeType == 'sensor_actuator') {
+
+            var mode = "AUTO";
+            if (RelayStateHandler.hasRelayState(data.device_id,data.sensor_type))
+                mode = RelayStateHandler.getRelayState(data.device_id,data.sensor_type)?"AUTO":"MANUAL";
+
             this.node.status({
                 fill: "green",
                 shape: "dot",
-                text: data.device_id + " / Value : " + ((data.sensor_value == 0) ? "ON" : "OFF")
+                text: data.device_id + " / Value : " + (((data.sensor_value == 0) ? "ON" : "OFF") + " | " + mode)
             });
         }
         else if (this.node.nodeType == "sensor_light_dli") {

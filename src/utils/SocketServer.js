@@ -8,8 +8,9 @@
 
 var SocketActions = require('./SocketActions');
 var DLIStore = require('./DLIStore');
-var CassandraConnection = require('./CassandraConnection');
 var RelayStateHandler = require('./RelayStateHandler');
+var CassandraConnection = require('./CassandraConnection');
+
 
 var url = require('url');
 

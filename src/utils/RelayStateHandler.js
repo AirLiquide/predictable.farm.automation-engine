@@ -23,7 +23,18 @@ class RelayStateHandler {
     constructor() {
 
         this.devices = {};
-        this.initialized = false
+        this.initialized = false;
+
+        var check = function () {
+            if (CassandraConnection.connected){
+                this.initRelays();
+            }
+            else{
+                setTimeout(check.bind(this),1000);
+            }
+        };
+
+        setTimeout(check.bind(this),1000);
 
         return this;
     }
@@ -35,17 +46,31 @@ class RelayStateHandler {
             }
 
             if(!this.devices.devicesID.relay){
-                this.device.devicesID.relay = true;
+                this.devices.devicesID.relay = true;
+                CassandraConnection.addNewRelayState({
+                    device_id: deviceID,
+                    sensor_type : relay
+                })
             }
         }
     }
 
     initRelays(){
         var t = this;
+
+
         CassandraConnection.getAllRelayState(function (res) {
             //todo : assign DB value to the catalog
 
-            console.log(res);
+            res.forEach(function (el) {
+                var id = el.device_id;
+                if(!t.devices[id]){
+                    t.devices[id] = {}
+                }
+
+                t.devices[id][el.sensor_type]= (el.sensor_value == 1);
+
+            });
 
             t.initialized = true
         })

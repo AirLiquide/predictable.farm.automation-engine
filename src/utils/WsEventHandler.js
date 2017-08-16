@@ -3,6 +3,7 @@
  */
 "use strict";
 var SocketActions = require(__dirname+'/SocketActions');
+var RelayStateHandler = require('./RelayStateHandler');
 
 var STATE ={
     notFound : "Not found",
@@ -105,7 +106,10 @@ class WsEventHandler {
             };
 
             if (nodeType == "global_actuator"){
-                _node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + ((data.sensor_value ==0)? "ON":"OFF")});
+                var mode = "AUTO";
+                if (RelayStateHandler.hasRelayState(data.device_id,data.sensor_type))
+                    mode = RelayStateHandler.getRelayState(data.device_id,data.sensor_type)?"AUTO":"MANUAL";
+                _node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + ((data.sensor_value ==0)? "ON":"OFF") +" / " + mode});
             }
             else if (nodeType !="global_sensor" && nodeType != "global_all_sensor"){
                 _node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + data.sensor_value});
