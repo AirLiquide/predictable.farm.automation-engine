@@ -5,10 +5,10 @@ module.exports = function (RED) {
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
-    var SocketActions = require('../.././utils/SocketActions');
-    var WsEventHandler = require('../.././utils/WsEventHandler');
-    var SocketServer = require('../.././utils/SocketServer');
-    var DashBoardSocket = require('../.././utils/DashBoardSocket');
+    var SocketActions = require('../../../src/utils/SocketActions');
+    var WsEventHandler = require('../../../src/utils/WsEventHandler');
+    var SocketServer = require('../../../src/utils/SocketServer');
+    var DashBoardSocket = require('../../../src/utils/DashBoardSocket');
     var nodeName = "global_dashboard_actuator";
 
 

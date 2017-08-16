@@ -45,6 +45,8 @@ class RelayStateHandler {
         CassandraConnection.getAllRelayState(function (res) {
             //todo : assign DB value to the catalog
 
+            console.log(res);
+
             t.initialized = true
         })
     }

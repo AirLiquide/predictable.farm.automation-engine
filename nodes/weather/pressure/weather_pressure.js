@@ -6,7 +6,7 @@ module.exports = function (RED) {
     //var foo = require("foo-library");
 
     var nodeName = "weather_pressure";
-    var Weather = require('../.././utils/Weather');
+    var Weather = require('../../../src/utils/Weather');
 
 
     // The main node definition - most things happen in here

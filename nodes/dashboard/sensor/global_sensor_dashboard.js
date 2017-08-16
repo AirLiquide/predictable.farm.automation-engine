@@ -5,8 +5,8 @@ module.exports = function (RED) {
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
-    var SocketActions = require('../.././utils/SocketActions');
-    var DashBoardSocket = require('../.././utils/DashBoardSocket');
+    var SocketActions = require('../../../src/utils/SocketActions');
+    var DashBoardSocket = require('../../../src/utils/DashBoardSocket');
     var nodeName = "global_sensor_dashboard";
 
 

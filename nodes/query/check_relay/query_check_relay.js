@@ -5,7 +5,7 @@ module.exports = function(RED) {
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
-    var CassandraConnection = require('../.././utils/CassandraConnection');
+    var CassandraConnection = require('../../../src/utils/CassandraConnection');
 
     // The main node definition - most things happen in here
     function QueryCheckRelayNode(n) {

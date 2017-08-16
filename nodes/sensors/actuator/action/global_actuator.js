@@ -5,11 +5,11 @@ module.exports = function (RED) {
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
-    var SocketActions = require('../../.././utils/SocketActions');
-    var WsEventHandler = require('../../.././utils/WsEventHandler');
-    var SocketServer = require('../../.././utils/SocketServer');
-    var NodeRegister = require('../../.././utils/NodeRegister');
-    var RelayStateHandler = require('../../.././utils/RelayStateHandler');
+    var SocketActions = require('../../../../src/utils/SocketActions');
+    var WsEventHandler = require('../../../../src/utils/WsEventHandler');
+    var SocketServer = require('../../../../src/utils/SocketServer');
+    var NodeRegister = require('../../../../src/utils/NodeRegister');
+    var RelayStateHandler = require('../../../../src/utils/RelayStateHandler');
     var nodeName = "global_actuator";
 
 

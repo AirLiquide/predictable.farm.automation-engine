@@ -6,11 +6,11 @@ module.exports = function (RED) {
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
-    var SocketActions = require('../../.././utils/SocketActions');
-    var WsEventHandler = require('../../.././utils/WsEventHandler');
-    var SocketServer = require('../../.././utils/SocketServer');
-    var NodeRegister = require('../../.././utils/NodeRegister');
-    var DLIStore = require('../../.././utils/DLIStore');
+    var SocketActions = require('../../../../src/utils/SocketActions');
+    var WsEventHandler = require('../../../../src/utils/WsEventHandler');
+    var SocketServer = require('../../../../src/utils/SocketServer');
+    var NodeRegister = require('../../../../src/utils/NodeRegister');
+    var DLIStore = require('../../../../src/utils/DLIStore');
     var schedule = require('node-schedule');
     var nodeName = "sensor_light_dli";
 
