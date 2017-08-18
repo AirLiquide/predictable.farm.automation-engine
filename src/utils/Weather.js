@@ -140,7 +140,13 @@ class Weather {
 
                 //TODO: extract data of the current time to send it
 
-                var currentWeather =  data.currently;
+                var currentWeather = {
+                    "latitude" : data.latitude,
+                    "longitude" : data.longitude,
+                    "currently" : data.currently
+                }
+
+
                 DashBoardSocket.sendWeatherToDashboard(currentWeather);
 
                 this.getTemperatureNodes().forEach(function(node){
