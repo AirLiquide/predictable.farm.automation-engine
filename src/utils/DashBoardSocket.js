@@ -8,6 +8,7 @@ var socketClient = require('socket.io-client');
 //var cloudAddress = 'http://bridge.predictable.farm';
 
 var SocketServer = require('./SocketServer');
+var RelayStateHandler = require('./RelayStateHandler');
 
 var cloudAddress = 'http://35.158.33.67';
 
@@ -45,8 +46,6 @@ class DashBoardSocket {
 
         this.socket.on('sensor-receive', function (msg) {
 
-            console.log("HELLO");
-
             var data = JSON.parse(msg);
             console.log(msg);
             var socket_io_data = {
@@ -57,6 +56,7 @@ class DashBoardSocket {
             };
 
             SocketServer.sendToSensor(msg,data.device_id);
+            RelayStateHandler.updateRelay(data.device_id,data.sensor_type, '1');
 
             /*
             var aKeys = Object.keys(socket_io_data).sort();
@@ -101,9 +101,6 @@ class DashBoardSocket {
 
             cs.on('sensor-receive', function (msg) {
 
-                console.log("DAFUK")
-
-
                 var socket_io_data = {
                     'device_id': null,
                     'sensor_type': null,
@@ -111,13 +108,20 @@ class DashBoardSocket {
                     'sensor_value': 0
                 };
 
+                var data = JSON.parse(msg);
+                var type = data.sensor_type;
+
                 var aKeys = Object.keys(socket_io_data).sort();
                 var bKeys = Object.keys(msg).sort();
                 var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
 
                 var actuators = Object.keys(_actuators);
 
-                actuators.forEach(function each(actuator) {
+                if (type.match(/^relay(\d+)$/g)) {
+                    SocketServer.sendToSensor(msg,data.device_id)
+                }
+
+                actuators.forEach(function each(actuator) { //might be removed
                     var node = actuators[actuator];
 
                     if (isValid && node.deviceid == msg.device_id){
@@ -125,8 +129,6 @@ class DashBoardSocket {
                             payload: msg
                         });
                     }
-                    // in this example just send it straight on... should process it here really
-                    //node.send(msg);
                 });
             });
 

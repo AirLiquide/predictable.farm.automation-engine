@@ -77,13 +77,27 @@ class SocketServer {
 
     sendToSensor(data,deviceId){
         //console.log("HELLO")
+
+
+        if(! data instanceof String){
+            try {
+                data = JSON.stringify(data);
+
+            }
+            catch (e){
+
+            }
+        }
+
         var sensors = Object.keys(_sensors);
         sensors.forEach(function each(sensor) {
             if (_sensors[sensor].deviceId == deviceId) { //id is the sensor id
+                console.log("send data to device",deviceId)
                 _sensors[sensor].socket.emit('sensor-receive', JSON.stringify(data));
 
             }
         });
+
     }
 
     handleConnection(ws) {
@@ -334,9 +348,9 @@ class SocketServer {
                 else if (type.match(/^relay(\d+)$/g)) {
                     var relayId = Number.parseInt(type.match(/\d+/g));
 
-                    if (!RelayStateHandler.hasRelayState(deviceId,type)){
-                        RelayStateHandler.addRelay(deviceId,type);
-                    }
+                    var value = data.sensor_mode;
+
+                    RelayStateHandler.updateRelay(deviceId,type,value);
 
                     sensorNodes.forEach(function each(node) {
 

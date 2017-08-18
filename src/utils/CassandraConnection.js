@@ -31,6 +31,7 @@ class CassandraConnection {
             "get-all-relaystate": 'SELECT * FROM predictablefarm.relaystate',// device_id / sensor_type
             "add-relaystate": 'INSERT INTO predictablefarm.relaystate (device_id, sensor_type, sensor_value, last_update) ' +
             'VALUES(?, ?, 1, toTimestamp(now()))', // device_id / sensor_type /  / sensor_value
+            "update-relaystate": "UPDATE predictablefarm.relaystate SET sensor_value = ? WHERE device_id = ? and sensor_type = ?",
             "save-sensor": 'INSERT INTO predictablefarm.sensorLog (device_id, sensor_type, sensor_value, created_at) ' +
             'VALUES(?, ?, ?, toTimestamp(now()))', // device_id / sensor_type / sensor_value
             "get-last-dli": 'SELECT * FROM sensorlog where device_id=? and sensor_type=\'light_dli\' ORDER BY created_at DESC LIMIT 1;' // device_id / sensor_type
@@ -200,6 +201,16 @@ class CassandraConnection {
     addNewRelayState(params,callback){
         if (this.connected){
             this.exectQuery(this.queries['add-relaystate'],params,
+                function (res) {
+                    if (callback)
+                        callback(res);
+                })
+        }
+    }
+
+    updateRelay(params,callback){
+        if (this.connected){
+            this.exectQuery(this.queries['update-relaystate'],params,
                 function (res) {
                     if (callback)
                         callback(res);

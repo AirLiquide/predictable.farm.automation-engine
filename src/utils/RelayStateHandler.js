@@ -39,28 +39,57 @@ class RelayStateHandler {
         return this;
     }
 
-    addRelay(deviceID,relay){
+    addRelay(deviceID,relay,value){
         if (this.initialized){
-            if (!this.devices.deviceID){
-                this.devices.devicesID = {};
+            if (!this.devices[deviceID]){
+                this.devices[deviceID] = {};
             }
 
-            if(!this.devices.devicesID.relay){
-                this.devices.devicesID.relay = true;
+            if(typeof this.devices[deviceID][relay] == 'undefined'){
+                var v = (typeof value == 'undefined')?false:(value == 1);
+                this.devices[deviceID][relay] = v || false;
                 CassandraConnection.addNewRelayState({
                     device_id: deviceID,
                     sensor_type : relay
                 })
+                console.log("added new Relay State :",deviceID,relay)
+                console.log(this.devices)
+            }
+
+            //console.log(this.devices)
+        }
+    }
+
+    updateRelay(deviceID,relay,value){
+
+
+        console.log(this.devices);
+
+        if (this.hasRelayState(deviceID,relay)){
+            var v = (value == 1);
+            //console.log(this.devices[deviceID][relay],v,(this.devices[deviceID][relay] == v));
+            if ( !(this.devices[deviceID][relay] == v) ){ //
+                this.devices[deviceID][relay] = v;
+                CassandraConnection.updateRelay({
+                    sensor_value : value,
+                    device_id: deviceID,
+                    sensor_type : relay,
+                })
+
+                console.log("Updated new Relay State :",deviceID,relay,value);
+                console.log(this.devices)
             }
         }
+        else{
+            this.addRelay(deviceID,relay,value)
+        }
+
     }
 
     initRelays(){
         var t = this;
 
-
         CassandraConnection.getAllRelayState(function (res) {
-            //todo : assign DB value to the catalog
 
             res.forEach(function (el) {
                 var id = el.device_id;
@@ -68,7 +97,7 @@ class RelayStateHandler {
                     t.devices[id] = {}
                 }
 
-                t.devices[id][el.sensor_type]= (el.sensor_value == 1);
+                t.devices[id][el.sensor_type] = (el.sensor_value == 1);
 
             });
 
@@ -77,14 +106,14 @@ class RelayStateHandler {
     }
 
     getRelayState(deviceID,relay){
-        if (this.devices.devices && this.devices.devices.relay)
-            return this.devices.devices.relay;
+        if (this.devices[deviceID] && this.devices[deviceID][relay])
+            return this.devices[deviceID][relay];
         else
             return null;
     }
 
     hasRelayState(deviceID,relay){
-        return (this.devices.devices && this.devices.devices.relay)
+        return (!(typeof this.devices[deviceID] == 'undefined') && !(typeof this.devices[deviceID][relay] == 'undefined'))
     }
 
 
