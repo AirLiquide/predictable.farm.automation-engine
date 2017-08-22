@@ -440,7 +440,8 @@ button.ui-button {
   top: 100px;
   border: none;
   box-shadow: none;
-  background-color: transparent; }
+  background-color: rgba(255, 255, 255, 0.7);
+  text-align: center; }
   .notification.notification-success {
     color: #80AA25;
     font-size: 22px;
@@ -562,6 +563,17 @@ button.ui-button {
   #node-dialog-confirm-deploy-deploy span {
     color: #fff; }
 
+#menu-item-subflow {
+  display: none; }
+
+#menu-item-help {
+  display: none; }
+
+@media screen and (max-width: 720px) {
+  #btn-deploy {
+    top: auto;
+    bottom: 50px;
+    right: 50Px; } }
 #palette {
   background: #F0F0F0;
   width: 288px;
@@ -623,7 +635,81 @@ button.ui-button {
       bottom: 0px; }
   #palette .palette-category {
     border: none; }
+  #palette #palette_node_comment {
+    background-color: #dddddd !important; }
 
+@media (max-width: 767px) {
+  #header .header-toolbar {
+    margin-top: 9px;
+    padding: 0;
+    float: right;
+    border: 0; }
+
+  #header span.logo {
+    background: none; }
+
+  #header #btn-deploy {
+    position: fixed;
+    left: 125px;
+    top: auto;
+    bottom: 30px; }
+
+  #workspace {
+    left: 120px !important; }
+
+  #palette {
+    width: 120px; }
+
+  #palette #palette-search {
+    margin: 0; }
+
+  #palette #palette-search input {
+    height: 20px; }
+
+  #palette #palette-search .red-ui-searchBox-container i.fa-search {
+    top: 5px; }
+
+  #palette .palette-scroll {
+    top: 25px; }
+
+  #palette .palette-header {
+    padding: 0; }
+
+  #palette .palette-header i {
+    font-size: 20px;
+    margin-bottom: 0; }
+
+  #palette .palette-header span {
+    margin-left: 5px;
+    font-size: 14px; }
+
+  #palette .palette-content .palette_node {
+    width: 110px; }
+
+  #palette .palette-content .palette_node .palette_label {
+    font-size: 10px;
+    margin: 4px 25px; }
+
+  .palette_icon_container {
+    width: 25px; }
+
+  #sidebar {
+    top: 0px !important;
+    margin: 0; }
+
+  #sidebar .red-ui-tabs #sidebar-tabs li {
+    padding: 0;
+    height: 30px; }
+
+  #sidebar .red-ui-tabs #sidebar-tabs li span {
+    font-size: 12px; }
+
+  #sidebar #sidebar-content {
+    margin: 0;
+    top: 30px; }
+
+  #sidebar .debug-message span, .debug-message a {
+    font-size: 12px; } }
 .red-ui-popover i {
   display: none; }
 
@@ -725,6 +811,8 @@ button.ui-button {
       opacity: 0.9; }
     #sidebar #sidebar-content .sidebar-node-info-stack .message-properties {
       display: none !important; }
+  #sidebar .node-info-tips {
+    display: none; }
 
 #sidebar-separator {
   top: 47px; }

@@ -92,7 +92,95 @@
         border: none;
     }
 
+
+    #palette_node_comment {
+        background-color:rgb(221, 221, 221) !important;
+    }
+
 }
+
+@media (max-width: 767px) {
+    #header .header-toolbar {
+        margin-top: 9px;
+        padding: 0;
+        float: right;
+        border: 0;
+    }
+
+    #header span.logo {
+        background: none;
+    }
+    #header #btn-deploy {
+        position: fixed;
+        left: 125px;
+        top: auto;
+        bottom: 30px;
+    }
+
+    #workspace {
+        left: 120px !important;
+    }
+
+
+
+    #palette {
+        width: 120px;
+    }
+    #palette #palette-search {
+        margin: 0;
+    }
+    #palette #palette-search input {
+        height: 20px;
+    }
+    #palette #palette-search .red-ui-searchBox-container i.fa-search {
+        top: 5px;
+    }
+    #palette .palette-scroll {
+        top: 25px;
+    }
+    #palette .palette-header {
+        padding: 0;
+    }
+    #palette .palette-header i {
+        font-size: 20px;
+        margin-bottom: 0;
+    }
+    #palette .palette-header span {
+        margin-left: 5px;
+        font-size: 14px;
+    }
+    #palette .palette-content .palette_node {
+        width: 110px;
+    }
+    #palette .palette-content .palette_node .palette_label{
+        font-size: 10px;
+        margin: 4px 25px;
+    }
+    .palette_icon_container {
+        width: 25px;
+    }
+
+    #sidebar {
+        top: 0px !important;
+        margin: 0;
+    }
+    #sidebar .red-ui-tabs #sidebar-tabs li {
+        padding: 0;
+        height: 30px;
+    }
+    #sidebar .red-ui-tabs #sidebar-tabs li span {
+        font-size: 12px;
+    }
+    #sidebar #sidebar-content {
+        margin: 0;
+        top: 30px;
+    }
+    #sidebar .debug-message span, .debug-message a {
+        font-size: 12px;
+    }
+}
+
 .red-ui-popover  i {
     display: none;
 }
+
