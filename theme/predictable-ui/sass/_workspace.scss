@@ -1,136 +1,142 @@
 #workspace {
-    left: 288px;
-    border: none;
+  left: 288px;
+  border: none;
 
 
 
-    .red-ui-tabs {
-        background: transparent;
-        padding-left: 0;
+  .red-ui-tabs {
+    background: transparent;
+    padding-left: 0;
 
-        .red-ui-tab-button {
-            background: transparent;
-            border-bottom: none;
-            transform: perspective(100px) rotateX(30deg)!important;
-            -webkit-transform: perspective(100px) rotateX(30deg)!important;
+    .red-ui-tab-button {
+      background: transparent;
+      border-bottom: none;
+      transform: perspective(100px) rotateX(30deg)!important;
+      -webkit-transform: perspective(100px) rotateX(30deg)!important;
 
-            a {
-              border-bottom: none;
-              border-top-left-radius: 8px;
-              border-top-right-radius: 8px;
-            }
-
-        }
-
-        #workspace-tabs {
-          border-bottom: none;
-          position: relative;
-          top: 2px;
-
-            li
-             {
-
-                border-radius: 10px 10px 0 0 !important;
-                border-bottom: none;
-
-                text-align: center;
-                color: rgba(0,0,0, 42);
-                position: relative;
-                background: #F9F9F9;
-
-                transform: perspective(100px) rotateX(30deg)!important;
-                -webkit-transform: perspective(100px) rotateX(30deg)!important;
-
-                &.active {
-                    color: rgba(0,0,0, 100);
-                }
-
-                &.active{
-                    background: #fff;
-                }
-
-                &:before {
-                  // height: 100%;
-                  // width: 30px;
-                  // border-radius: 10px 10px 0px 0px;
-                 background-color: #F9F9F9;
-                  // content: "";
-                  // position: absolute;
-                  // left: 104px;
-                  // top: 0px;
-                  // -webkit-transform: skewX(40deg);
-                  // transform: skewX(40deg);
-                  // z-index: 2;
-
-                  // transform: perspective(100px) rotateX(30deg)!important;
-                  // -webkit-transform: perspective(100px) rotateX(30deg)!important;
-                  // border-color: transparent transparent #000 #000;
-                  // border-style: solid;
-                  // border-width: 23px 23px 23px 23px;
-                  // height:8px;
-                  // width:10px;
-                  // position:absolute;
-                  // top:0px;
-                  // right:-43px;
-                }
-
-                span {
-                  text-overflow: ellipsis;
-                  transform: skewY(1deg);
-                }
-            }
-        }
-    }
-
-    .nodegroup {
-        rect.node {
-            //width: 213px;
-        }
-
-        .port_output {
-            // transform: translate(210px,10px);
-            // -webkit-transform: translate(210px,10px);
-            // -moz-transform: translate(210px,10px);
-        }
-
-        .node_label {
-            fill: #FFF;
-            font-weight: 100;
-        }
+      a {
+        border-bottom: none;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
 
     }
+
+    #workspace-tabs {
+      border-bottom: none;
+      position: relative;
+      top: 2px;
+
+      li
+      {
+
+        border-radius: 10px 10px 0 0 !important;
+        border-bottom: none;
+
+        text-align: center;
+        color: rgba(0,0,0, 42);
+        position: relative;
+        background: #F9F9F9;
+
+        transform: perspective(100px) rotateX(30deg)!important;
+        -webkit-transform: perspective(100px) rotateX(30deg)!important;
+
+        &.active {
+          color: rgba(0,0,0, 100);
+        }
+
+        &.active{
+          background: #fff;
+        }
+
+        &:before {
+          // height: 100%;
+          // width: 30px;
+          // border-radius: 10px 10px 0px 0px;
+          background-color: #F9F9F9;
+          // content: "";
+          // position: absolute;
+          // left: 104px;
+          // top: 0px;
+          // -webkit-transform: skewX(40deg);
+          // transform: skewX(40deg);
+          // z-index: 2;
+
+          // transform: perspective(100px) rotateX(30deg)!important;
+          // -webkit-transform: perspective(100px) rotateX(30deg)!important;
+          // border-color: transparent transparent #000 #000;
+          // border-style: solid;
+          // border-width: 23px 23px 23px 23px;
+          // height:8px;
+          // width:10px;
+          // position:absolute;
+          // top:0px;
+          // right:-43px;
+        }
+
+        span {
+          text-overflow: ellipsis;
+          transform: skewY(1deg);
+        }
+      }
+    }
+  }
+
+  .nodegroup {
+
+    rect.node[fill="#ffffff"] {
+      fill: #999;
+    }
+
+    rect.node {
+      //width: 213px;
+    }
+
+    .port_output {
+      // transform: translate(210px,10px);
+      // -webkit-transform: translate(210px,10px);
+      // -moz-transform: translate(210px,10px);
+    }
+
+    .node_label {
+      fill: #FFF;
+      font-weight: 100;
+    }
+
+  }
 
 }
 
 
 #editor-stack{
-    .editor-tray-toolbar {
+  z-index: 50;
+  .editor-tray-toolbar {
     #node-dialog-delete {
-        border-color: #AD1625;
-            color: #eee !important;
-            background: #AD1625;
+      border-color: #AD1625;
+      color: #eee !important;
+      background: #AD1625;
     }
 
-        button {
-          border-radius: 5px;
-          &.primary {
-            background: $purple;
-            border-color: $purple;
-            color: #FFF;
-        }
-        }
+    button {
+      border-radius: 5px;
+      &.primary {
+        background: $purple;
+        border-color: $purple;
+        color: #FFF;
+      }
     }
-    .editor-tray-content {
-        .fa.fa-tag {
-            display: none;
-        }
+  }
+  .editor-tray-content {
+    .fa.fa-tag {
+      display: none;
     }
+  }
 
-    .form-row label {
-        display: inline-block;
-        width: 100px;
-        font-size: 17px;
-    }
+  .form-row label {
+    display: inline-block;
+    width: 100px;
+    font-size: 17px;
+  }
 
 
 }

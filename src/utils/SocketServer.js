@@ -33,7 +33,6 @@ class SocketServer {
         _sensors = {};
         sensorNodes = [];
         actuatorNodes = [];
-        //server.on('connection', this.handleConnection);
         server.on('connection', this.handleConnection);
         console.log("Socket Server started!");
         return this;

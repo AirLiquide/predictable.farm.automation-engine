@@ -678,26 +678,30 @@ button.ui-button {
         #workspace .red-ui-tabs #workspace-tabs li span {
           text-overflow: ellipsis;
           transform: skewY(1deg); }
+  #workspace .nodegroup rect.node[fill="#ffffff"] {
+    fill: #999; }
   #workspace .nodegroup .node_label {
     fill: #FFF;
     font-weight: 100; }
 
-#editor-stack .editor-tray-toolbar #node-dialog-delete {
-  border-color: #AD1625;
-  color: #eee !important;
-  background: #AD1625; }
-#editor-stack .editor-tray-toolbar button {
-  border-radius: 5px; }
-  #editor-stack .editor-tray-toolbar button.primary {
-    background: #46025E;
-    border-color: #46025E;
-    color: #FFF; }
-#editor-stack .editor-tray-content .fa.fa-tag {
-  display: none; }
-#editor-stack .form-row label {
-  display: inline-block;
-  width: 100px;
-  font-size: 17px; }
+#editor-stack {
+  z-index: 50; }
+  #editor-stack .editor-tray-toolbar #node-dialog-delete {
+    border-color: #AD1625;
+    color: #eee !important;
+    background: #AD1625; }
+  #editor-stack .editor-tray-toolbar button {
+    border-radius: 5px; }
+    #editor-stack .editor-tray-toolbar button.primary {
+      background: #46025E;
+      border-color: #46025E;
+      color: #FFF; }
+  #editor-stack .editor-tray-content .fa.fa-tag {
+    display: none; }
+  #editor-stack .form-row label {
+    display: inline-block;
+    width: 100px;
+    font-size: 17px; }
 
 #sidebar {
   background: #F9F9F9;
@@ -758,6 +762,9 @@ button.ui-button {
   #header span.logo {
     background: none;
     width: 200px; }
+
+  #header span.logo img {
+    display: none; }
 
   #header .header-buttons .header-button {
     position: fixed;
@@ -881,6 +888,9 @@ button.ui-button {
     top: 30px; }
 
   #sidebar .debug-message span, .debug-message a {
-    font-size: 12px; } }
+    font-size: 12px; }
+
+  .node-help {
+    display: none !important; } }
 
 /*# sourceMappingURL=style.css.map */
