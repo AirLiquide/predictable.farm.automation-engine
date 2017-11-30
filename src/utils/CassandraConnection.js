@@ -156,6 +156,7 @@ class CassandraConnection {
            if(tempTab[data.device_id + '-' + data.sensor_type].counter == nbToAverage){
              console.log( 'if 3 ok')
              var averageSum = 0;
+             var i =0;
              for (i = 0; i < nbToAverage; i++) {
                   averageSum +=  tempTab[data.device_id + '-' + data.sensor_type].value[i];
               }
