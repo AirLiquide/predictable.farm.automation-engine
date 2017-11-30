@@ -159,12 +159,12 @@ class CassandraConnection {
              var averageSum = 0;
              var i =0;
              for (i = 0; i < nbToAverage; i++) {
-                averageSum =  averageSum +  tempTab[data.device_id + '-' + data.sensor_type].value[i];
+                averageSum =  Number(averageSum) +  Number(tempTab[data.device_id + '-' + data.sensor_type].value[i]);
               }
               console.log( 'average SUM')
               console.log(averageSum);
              var averageValue = averageSum / nbToAverage;
-             var params = [data.device_id, data.sensor_type,averageValue];
+             var params = [data.device_id, data.sensor_type, averageValue];
              var q = this.queries['save-sensor'];
              console.log( 'q', q, params)
 
