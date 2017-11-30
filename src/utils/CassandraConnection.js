@@ -21,6 +21,9 @@ var dbConfig = {
 
 var instance = null;
 var doConnect = null;
+var tempTab = []; // tab pour reduire le nombre d'enregistrement
+var nbToAverage = 10; // nb pour reduire le nombre d'enregistrement
+var errPercentage = 1; //in percentage
 
 
 class CassandraConnection {
@@ -132,22 +135,81 @@ class CassandraConnection {
     }
 
     addQueryToSensorLogBatch(data){
-        var params = [data.device_id, data.sensor_type,data.sensor_value];
-        var q = this.queries['save-sensor'];
-        var query = {
-            query : q,
-            params: params
-        };
 
-        //console.log('added',data,"to batch");
 
-        if (typeof q != 'undefined'){
-            this.queryBatch.push(query);
-            if (this.queryBatch.length >= this.batchSize ){
-                this.batchBuffer.push(this.queryBatch);
-                this.queryBatch = new Array();
-            }
+
+        if(this.tempTab[data.device_id + '-' + data.sensor_type]){
+
+          if(this.tempTab[data.device_id + '-' + data.sensor_type].value && this.tempTab[data.device_id + '-' + data.sensor_type].value[this.tempTab[data.device_id + '-' + data.sensor_type].counter] ){
+            this.tempTab[data.device_id + '-' + data.sensor_type].value[this.tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
+          } else{
+            this.tempTab[data.device_id + '-' + data.sensor_type].counter = 0
+            this.tempTab[data.device_id + '-' + data.sensor_type].value = []
+            this.tempTab[data.device_id + '-' + data.sensor_type].value[this.tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
+          }
+           if(this.tempTab[data.device_id + '-' + data.sensor_type].counter == this.nbToAverage){
+             var averageSum = 0;
+             for (i = 0; i < this.nbToAverage; i++) {
+                  averageSum +=  this.tempTab[data.device_id + '-' + data.sensor_type].value[i];
+              }
+              console.log(averageSum);
+             var averageValue = averageSum / this.nbToAverage;
+             var params = [data.device_id, data.sensor_type,averageValue];
+             var q = this.queries['save-sensor'];
+             var query = {
+                 query : q,
+                 params: params
+             };
+
+             //console.log('added',data,"to batch");
+
+             if (typeof q != 'undefined'){
+                 this.queryBatch.push(query);
+                 if (this.queryBatch.length >= this.batchSize ){
+                     this.batchBuffer.push(this.queryBatch);
+                     this.queryBatch = new Array();
+                 }
+             }
+
+           }
+
+        }else{
+          this.tempTab[data.device_id + '-' + data.sensor_type] = [];
+          if(this.tempTab[data.device_id + '-' + data.sensor_type].value && this.tempTab[data.device_id + '-' + data.sensor_type].value[this.tempTab[data.device_id + '-' + data.sensor_type].counter] ){
+            this.tempTab[data.device_id + '-' + data.sensor_type].value[this.tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
+          } else{
+            this.tempTab[data.device_id + '-' + data.sensor_type].counter = 0
+            this.tempTab[data.device_id + '-' + data.sensor_type].value = []
+            this.tempTab[data.device_id + '-' + data.sensor_type].value[this.tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
+          }
+           if(this.tempTab[data.device_id + '-' + data.sensor_type].counter == this.nbToAverage){
+             var averageSum = 0;
+             for (i = 0; i < this.nbToAverage; i++) {
+                  averageSum +=  this.tempTab[data.device_id + '-' + data.sensor_type].value[i];
+              }
+              console.log(averageSum);
+             var averageValue = averageSum / this.nbToAverage;
+             var params = [data.device_id, data.sensor_type,averageValue];
+             var q = this.queries['save-sensor'];
+             var query = {
+                 query : q,
+                 params: params
+             };
+
+             //console.log('added',data,"to batch");
+
+             if (typeof q != 'undefined'){
+                 this.queryBatch.push(query);
+                 if (this.queryBatch.length >= this.batchSize ){
+                     this.batchBuffer.push(this.queryBatch);
+                     this.queryBatch = new Array();
+                 }
+             }
+
+           }
         }
+
+
     }
 
     saveSensorLogs(callback){
