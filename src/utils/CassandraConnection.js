@@ -144,11 +144,12 @@ class CassandraConnection {
           if(tempTab[data.device_id + '-' + data.sensor_type].value && tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter] ){
             console.log( 'if 2 ok')
             tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
+            tempTab[data.device_id + '-' + data.sensor_type].counter += 1;
           } else{
             console.log( 'if 2 err')
             tempTab[data.device_id + '-' + data.sensor_type].counter = 0
             tempTab[data.device_id + '-' + data.sensor_type].value = []
-            tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
+            tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter ] = data.sensor_value
             console.log(tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter + 1])
           }
           console.log('counter',tempTab[data.device_id + '-' + data.sensor_type].counter)
