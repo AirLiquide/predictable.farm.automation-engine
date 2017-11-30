@@ -139,23 +139,31 @@ class CassandraConnection {
 
 
         if(tempTab[data.device_id + '-' + data.sensor_type]){
+          console.log( 'if 1 ok')
 
           if(tempTab[data.device_id + '-' + data.sensor_type].value && tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter] ){
+            console.log( 'if 2 ok')
             tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
           } else{
+            console.log( 'if 2 err')
             tempTab[data.device_id + '-' + data.sensor_type].counter = 0
             tempTab[data.device_id + '-' + data.sensor_type].value = []
             tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
           }
            if(tempTab[data.device_id + '-' + data.sensor_type].counter == nbToAverage){
+             console.log( 'if 3 ok')
              var averageSum = 0;
              for (i = 0; i < nbToAverage; i++) {
                   averageSum +=  tempTab[data.device_id + '-' + data.sensor_type].value[i];
               }
+              console.log( 'average SUM')
               console.log(averageSum);
              var averageValue = averageSum / nbToAverage;
              var params = [data.device_id, data.sensor_type,averageValue];
              var q = this.queries['save-sensor'];
+             console.log( 'q', q, params)
+
+
              var query = {
                  query : q,
                  params: params
@@ -174,6 +182,7 @@ class CassandraConnection {
            }
 
         }else{
+          console.log( 'if 1 err')
           tempTab[data.device_id + '-' + data.sensor_type] = [];
           if(tempTab[data.device_id + '-' + data.sensor_type].value && tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter] ){
             tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
@@ -195,6 +204,7 @@ class CassandraConnection {
                  query : q,
                  params: params
              };
+             console.log( 'q', q, params)
 
              //console.log('added',data,"to batch");
 
