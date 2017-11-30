@@ -138,22 +138,22 @@ class CassandraConnection {
 
 
 
-        if(this.tempTab[data.device_id + '-' + data.sensor_type]){
+        if(tempTab[data.device_id + '-' + data.sensor_type]){
 
-          if(this.tempTab[data.device_id + '-' + data.sensor_type].value && this.tempTab[data.device_id + '-' + data.sensor_type].value[this.tempTab[data.device_id + '-' + data.sensor_type].counter] ){
-            this.tempTab[data.device_id + '-' + data.sensor_type].value[this.tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
+          if(tempTab[data.device_id + '-' + data.sensor_type].value && tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter] ){
+            tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
           } else{
-            this.tempTab[data.device_id + '-' + data.sensor_type].counter = 0
-            this.tempTab[data.device_id + '-' + data.sensor_type].value = []
-            this.tempTab[data.device_id + '-' + data.sensor_type].value[this.tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
+            tempTab[data.device_id + '-' + data.sensor_type].counter = 0
+            tempTab[data.device_id + '-' + data.sensor_type].value = []
+            tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
           }
-           if(this.tempTab[data.device_id + '-' + data.sensor_type].counter == this.nbToAverage){
+           if(tempTab[data.device_id + '-' + data.sensor_type].counter == nbToAverage){
              var averageSum = 0;
-             for (i = 0; i < this.nbToAverage; i++) {
-                  averageSum +=  this.tempTab[data.device_id + '-' + data.sensor_type].value[i];
+             for (i = 0; i < nbToAverage; i++) {
+                  averageSum +=  tempTab[data.device_id + '-' + data.sensor_type].value[i];
               }
               console.log(averageSum);
-             var averageValue = averageSum / this.nbToAverage;
+             var averageValue = averageSum / nbToAverage;
              var params = [data.device_id, data.sensor_type,averageValue];
              var q = this.queries['save-sensor'];
              var query = {
