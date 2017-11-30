@@ -138,6 +138,28 @@ class CassandraConnection {
 
 
       console.log(data.device_id,  data.sensor_type, data.sensor_value, typeof data.sensor_value)
+
+      if(data.sensor_type == 'relay1' || data.sensor_type == 'relay2' || data.sensor_type == 'relay3' || data.sensor_type == 'relay4' ){
+        var params = [data.device_id, data.sensor_type, data.sensor_value];
+        var q = this.queries['save-sensor'];
+        console.log( 'q', q, params)
+
+
+        var query = {
+            query : q,
+            params: params
+        };
+
+        //console.log('added',data,"to batch");
+
+        if (typeof q != 'undefined'){
+            this.queryBatch.push(query);
+            if (this.queryBatch.length >= this.batchSize ){
+                this.batchBuffer.push(this.queryBatch);
+                this.queryBatch = new Array();
+            }
+        }
+      }
         if(tempTab[data.device_id + '-' + data.sensor_type]){
           console.log( 'if 1 ok')
 
