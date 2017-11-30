@@ -137,7 +137,7 @@ class CassandraConnection {
     addQueryToSensorLogBatch(data){
 
 
-
+      console.log(data.device_id,  data.sensor_type, data.sensor_value, typeof data.sensor_value)
         if(tempTab[data.device_id + '-' + data.sensor_type]){
           console.log( 'if 1 ok')
 
