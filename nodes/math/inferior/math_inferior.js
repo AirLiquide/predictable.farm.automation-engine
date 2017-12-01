@@ -37,7 +37,8 @@ module.exports = function (RED) {
                     data = data.replace(',','.').replace(' ','');
                 }
                 this.value = this.value.replace(',','.').replace(' ','');
-                console.log('value',this.value);
+                console.log('************************nodered****************************');
+                console.log('valuen nodred',this.value);
                 if (!isNaN(data)){
                   console.log('data', data);
                     data = Number.parseFloat(data);
@@ -48,7 +49,7 @@ module.exports = function (RED) {
                     }
                     else{
                       console.log('false', node.id);
-                        node.send({valid:false,sender :node.id});
+                        // node.send({valid:false,sender :node.id});
                     }
                 }
                 else{
