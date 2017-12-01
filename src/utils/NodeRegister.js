@@ -106,7 +106,7 @@ class NodeRegister {
             this.node.status({
                 fill: "green",
                 shape: "dot",
-                text: data.device_id + " / Value : " + ((data.sensor_value == 0) ? "ON" : "OFF")
+                text: data.device_id + " / Value : " + ((data.sensor_value == 0) ? "OFF" : "ON")
             });
         }
         else if (this.node.nodeType == "sensor_light_dli") {
