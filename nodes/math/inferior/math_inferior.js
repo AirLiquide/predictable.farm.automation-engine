@@ -50,7 +50,7 @@ module.exports = function (RED) {
                     }
                     else{
                       console.log('false', node.id);
-                      msg2 =  {valid:true, sender :node.id};
+                      msg2 =  {valid:false, sender :node.id};
                       node.send([[],[msg2]]);
 
                         // node.send({valid:false,sender :node.id});
