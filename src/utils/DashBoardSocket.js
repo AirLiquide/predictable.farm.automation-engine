@@ -179,7 +179,7 @@ class DashBoardSocket {
     emit(event, data)
     {
         this.socket.emit(event, data);
-        this.cloudSocket.emit(event, data);
+        // this.cloudSocket.emit(event, data);
     }
 
     close()
