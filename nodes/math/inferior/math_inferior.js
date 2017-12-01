@@ -37,8 +37,9 @@ module.exports = function (RED) {
                     data = data.replace(',','.').replace(' ','');
                 }
                 this.value = this.value.replace(',','.').replace(' ','');
-
+                console.log('value',this.value);
                 if (!isNaN(data)){
+                  console.log('data', data);
                     data = Number.parseFloat(data);
                     if (data < Number.parseFloat(this.value) ){
                         msg.sender = node.id;
@@ -46,10 +47,12 @@ module.exports = function (RED) {
                         node.send(msg);
                     }
                     else{
+                      console.log('false', node.id);
                         node.send({valid:false,sender :node.id});
                     }
                 }
                 else{
+                  console.log(err)
                     node.error("Payload must be a Number")
                 }
 
