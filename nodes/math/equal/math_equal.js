@@ -16,6 +16,7 @@ module.exports = function (RED) {
 
         // Store local copies of the node configuration (as defined in the .html)
         this.value = n.value;
+        var msg2 = {}
         this.compareValue = n.compareValue;
 
         // copy "this" object in case we need it in context of callbacks of other functions.

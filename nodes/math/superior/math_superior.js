@@ -10,7 +10,7 @@ module.exports = function (RED) {
 
         // Create a RED node
         RED.nodes.createNode(this, n);
-
+        var msg2 = {}
         // Store local copies of the node configuration (as defined in the .html)
         this.value = n.value;
 
