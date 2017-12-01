@@ -47,6 +47,8 @@ module.exports = function (RED) {
                     }
                     else{
                         // node.send({valid:false,sender :node.id});
+                        msg2 =  {valid:false, payload:data};
+                        node.send([[],[msg2]]);
                     }
                 }
                 else{
