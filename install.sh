@@ -1,8 +1,6 @@
-<<<<<<< HEAD
+
 #!/bin/bash
-=======
-#!/bin/sh
->>>>>>> master
+
 echo ">> Copying theme settings to node-red `~/.node-red/`"
 cp ./theme/settings.js ~/.node-red/settings.js
 
@@ -19,4 +17,3 @@ echo ">> Copying template index.mst to node-red"
 cp ./theme/index.mst $node_red_dir/editor/templates/index.mst
 echo ">> Copying locale editor.json to node-red"
 cp ./theme/editor.json $node_red_dir/red/api/locales/en-US/
-
