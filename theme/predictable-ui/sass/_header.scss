@@ -68,7 +68,6 @@
     }
 
 
-
     #btn-sidemenu-parent {
 
 
@@ -196,3 +195,19 @@
 }
 
 
+
+#menu-item-subflow {
+    display: none;
+}
+
+#menu-item-help {
+    display: none;
+}
+
+@media screen and (max-width: 720px){
+    #btn-deploy {
+        top: auto;
+        bottom: 50px;
+        right: 50Px;
+    }
+}

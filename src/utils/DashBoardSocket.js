@@ -1,10 +1,12 @@
 /**
  * Created by admin on 22/02/2017.
  */
+
 "use strict"
 
 const crypto = require('crypto');
 var socketClient = require('socket.io-client');
+
 //var cloudAddress = 'http://bridge.predictable.farm';
 
 var SocketServer = require('./SocketServer');
@@ -12,6 +14,20 @@ var RelayStateHandler = require('./RelayStateHandler');
 
 var cloudAddress = 'http://35.158.33.67';
 
+// =======
+// var cloudAddress;
+//
+// try{
+//     var config = require(__dirname + "/../config.js");
+//     console.error(config);
+//     cloudAddress = config.cloudUrl;
+// }
+// catch(e){
+//     console.error(e);
+//     cloudAddress = false;
+// }
+// var SocketServer = require('./SocketServer');
+// >>>>>>> master
 var farmID = process.env.FARM_ID || "";
 var secretKey = process.env.PREDICTABLE_KEY || "";
 
@@ -33,9 +49,13 @@ class DashBoardSocket {
         _dashboard = {};
         _clients = {};
         this.socket = socketClient('http://dashboard:80/');
-        this.cloudSocket = socketClient(cloudAddress, {
-            query: "farmId=" + farmID
-        });
+
+        this.cloudSocket = false;
+        if(cloudAddress){
+            this.cloudSocket = socketClient(cloudAddress, {
+                query: "farmId=" + farmID
+            });
+        }
         this.socket.on('connect', function () {
             console.log("Node-RED connected to dashboard");
         });
@@ -81,58 +101,61 @@ class DashBoardSocket {
         });
         this.socket.emit("hello");
 
-        var cs = this.cloudSocket;
-        this.cloudSocket.on('connect', function () {
 
-            cs.on('connect_error', function (error) {
-                //console.log(error);
-            });
-            cs.on("authenticate", function (msg) {
-                var hash = encrypt(msg);
-                cs.emit('authenticate', hash);
+        if(cloudAddress){
+          var cs = this.cloudSocket;
+          this.cloudSocket.on('connect', function () {
 
-            });
-            cs.on("authenticated", function (msg) {
-                console.log("Node-RED connected to Bridge");
-            });
-            cs.on("authenticated", function (msg) {
-                console.log("Node-RED connected to Cloud Dashboard");
-            });
+              cs.on('connect_error', function (error) {
+                  //console.log(error);
+              });
+              cs.on("authenticate", function (msg) {
+                  var hash = encrypt(msg);
+                  cs.emit('authenticate', hash);
 
-            cs.on('sensor-receive', function (msg) {
+              });
+              cs.on("authenticated", function (msg) {
+                  console.log("Node-RED connected to Bridge");
+              });
+              cs.on("authenticated", function (msg) {
+                  console.log("Node-RED connected to Cloud Dashboard");
+              });
 
-                var socket_io_data = {
-                    'device_id': null,
-                    'sensor_type': null,
-                    'sensor_id': null,
-                    'sensor_value': 0
-                };
+              cs.on('sensor-receive', function (msg) {
 
-                var data = JSON.parse(msg);
-                var type = data.sensor_type;
+                  var socket_io_data = {
+                      'device_id': null,
+                      'sensor_type': null,
+                      'sensor_id': null,
+                      'sensor_value': 0
+                  };
 
-                var aKeys = Object.keys(socket_io_data).sort();
-                var bKeys = Object.keys(msg).sort();
-                var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
+                  var data = JSON.parse(msg);
+                  var type = data.sensor_type;
 
-                var actuators = Object.keys(_actuators);
+                  var aKeys = Object.keys(socket_io_data).sort();
+                  var bKeys = Object.keys(msg).sort();
+                  var isValid = JSON.stringify(aKeys) === JSON.stringify(bKeys);
 
-                if (type.match(/^relay(\d+)$/g)) {
-                    SocketServer.sendToSensor(msg,data.device_id)
-                }
+                  var actuators = Object.keys(_actuators);
 
-                actuators.forEach(function each(actuator) { //might be removed
-                    var node = actuators[actuator];
+                  if (type.match(/^relay(\d+)$/g)) {
+                      SocketServer.sendToSensor(msg,data.device_id)
+                  }
 
-                    if (isValid && node.deviceid == msg.device_id){
-                        node.send({
-                            payload: msg
-                        });
-                    }
-                });
-            });
+                  actuators.forEach(function each(actuator) { //might be removed
+                      var node = actuators[actuator];
 
-        });
+                      if (isValid && node.deviceid == msg.device_id){
+                          node.send({
+                              payload: msg
+                          });
+                      }
+                  });
+              });
+
+          });
+      }
     }
 
         registerNode(node, type)

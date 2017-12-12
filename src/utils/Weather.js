@@ -8,6 +8,7 @@
 var https = require("https");
 var DashBoardSocket = require('./DashBoardSocket')
 
+
 /*  * Setting up block level variable to store class state  * , set's to null by default.  */
 var instance = null;
 

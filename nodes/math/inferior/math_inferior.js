@@ -14,6 +14,8 @@ module.exports = function (RED) {
         // Store local copies of the node configuration (as defined in the .html)
         this.value = n.value;
 
+        var msg2 = {}
+
         // copy "this" object in case we need it in context of callbacks of other functions.
         var node = this;
         node.path = n.path;
@@ -39,17 +41,23 @@ module.exports = function (RED) {
                 this.value = this.value.replace(',','.').replace(' ','');
 
                 if (!isNaN(data)){
+                  console.log('data', data);
                     data = Number.parseFloat(data);
                     if (data < Number.parseFloat(this.value) ){
                         msg.sender = node.id;
                         msg.valid = true;
-                        node.send([msg,null]);
+                        node.send(msg, msg2);
                     }
                     else{
-                        node.send([null,{payload:msg.payload,valid:false,sender :node.id}]);
+                      console.log('false', node.id);
+                      msg2 =  {valid:false, payload:data};
+                      node.send([[],[msg2]]);
+
+                        // node.send({valid:false,sender :node.id});
                     }
                 }
                 else{
+                  console.log(err)
                     node.error("Payload must be a Number")
                 }
 

@@ -58,6 +58,7 @@ class WsEventHandler {
                         time : Date.now()
                     }
                 }])
+
             }
             else if (weh.getState() == STATE.connected){
                 weh.setState(STATE.disconnected);
@@ -110,6 +111,7 @@ class WsEventHandler {
                 if (RelayStateHandler.hasRelayState(data.device_id,data.sensor_type))
                     mode = RelayStateHandler.getRelayState(data.device_id,data.sensor_type)?"AUTO":"MANUAL";
                 _node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + ((data.sensor_value ==0)? "ON":"OFF") +" / " + mode});
+
             }
             else if (nodeType !="global_sensor" && nodeType != "global_all_sensor"){
                 _node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + data.sensor_value});
@@ -119,6 +121,7 @@ class WsEventHandler {
             }
 
             _node.send([msg,null]);
+
         });
 
         this.ws.on("*", function (event, data) {

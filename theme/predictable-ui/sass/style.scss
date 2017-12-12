@@ -38,9 +38,167 @@
     font-style: normal;
 }
 
-@import "normalize";
-@import "base";
-@import "header";
-@import "palette";
-@import "workspace";
-@import "sidebar";
+
+@import "_normalize.scss";
+@import "_base.scss";
+@import "_header.scss";
+@import "_palette.scss";
+@import "_workspace.scss";
+@import "_sidebar.scss";
+
+
+@media (max-width: 767px) {
+    *{
+        font-size: 12px;
+    }
+    #header .header-toolbar {
+        margin-top: 9px;
+        padding: 0;
+        float: right;
+        border: 0;
+    }
+
+    #header span.logo {
+        background: none;
+        width: 200px;
+    }
+    #header span.logo img{
+        display: none;
+    }
+
+    #header .header-buttons .header-button {
+        position: fixed;
+        bottom: 2px;
+        right: auto;
+        top: auto;
+        z-index: 99;
+        border-radius: 5px;
+    }
+    #header .header-buttons .header-button>img {
+        width: 30px;
+        height: 30px;
+    }
+    #header .header-buttons .header-button.node {
+        left: 160px;
+    }
+    #header .header-buttons .header-button.dash {
+        left: 195px;
+    }
+    #header #btn-deploy {
+        position: fixed;
+        left: 125px;
+        top: auto;
+        bottom: 2px;
+        height: 30px;
+        width: 30px;
+        border-radius: 5px;
+        padding: 0;
+        text-align: center;
+        padding-top: 3px;
+    }
+    #btn-deploy.disabled .deploy-button-content>img {
+        margin: 0;
+    }
+
+    #header #btn-sidemenu-parent ul.dropdown-menu{
+        left: -10px;
+    }
+    #header #btn-sidemenu-parent ul.dropdown-menu li a {
+        padding: 1px 19px;
+    }
+    #header #btn-sidemenu-parent ul.dropdown-menu li.divider{
+        margin: 1px 10px;
+    }
+    #header #btn-sidemenu-parent ul.dropdown-menu li a span.menu-label{
+        font-size: 14px;
+    }
+
+    #workspace {
+        left: 120px !important;
+    }
+    #workspace-footer{
+        border-left: 1px solid #bbb;
+        height: 35px;
+        padding-top:  2px;
+    }
+    .workspace-footer-button {
+        height: 30px;
+        width: 30px;
+        line-height: 28px;
+        font-size: 24px;
+    }
+
+
+
+    #palette {
+        width: 120px;
+        border-radius: 9px;
+    }
+    #palette #palette-search {
+        margin: 0;
+    }
+    #palette #palette-search input {
+        height: 20px;
+    }
+    #palette #palette-search .red-ui-searchBox-container i.fa-search {
+        top: 5px;
+    }
+    #palette .palette-scroll {
+        top: 25px;
+    }
+    #palette .palette-header {
+        padding: 0;
+    }
+    #palette .palette-header i {
+        font-size: 20px;
+        margin-bottom: 0;
+    }
+    #palette .palette-header span {
+        margin-left: 5px;
+        font-size: 14px;
+    }
+    #palette .palette-content .palette_node {
+        width: 110px;
+    }
+    #palette .palette-content .palette_node .palette_label{
+        font-size: 10px;
+        margin: 4px 25px;
+    }
+    .palette_icon_container {
+        width: 25px;
+    }
+    #palette-footer{
+        height: 35px;
+        padding-top: 2px;
+    }
+    .palette-button{
+        height: 30px;
+        width: 30px;
+        line-height: 28px;
+        font-size: 24px;
+    }
+
+    #sidebar {
+        top:  0px;
+        margin: 0;
+    }
+    #sidebar .red-ui-tabs #sidebar-tabs li {
+        padding: 0;
+        height: 30px;
+    }
+    #sidebar .red-ui-tabs #sidebar-tabs li span {
+        font-size: 12px;
+    }
+    #sidebar #sidebar-content {
+        margin: 0;
+        top: 30px;
+    }
+    #sidebar .debug-message span, .debug-message a {
+        font-size: 12px;
+    }
+
+
+    .node-help {
+        display: none !important;
+    }
+}

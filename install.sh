@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #!/bin/bash
+=======
+#!/bin/sh
+>>>>>>> master
 echo ">> Copying theme settings to node-red `~/.node-red/`"
 cp ./theme/settings.js ~/.node-red/settings.js
 

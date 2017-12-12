@@ -43,6 +43,7 @@ module.exports = function (RED) {
 
                 //console.log(node.lastData[msg.sender])
                 if (msg.sender && node.entries.indexOf(msg.sender) !=-1){
+
                     if (true || msg.valid){
                         node.lastData[msg.sender] = msg.payload;
 
@@ -69,6 +70,7 @@ module.exports = function (RED) {
                                 valid:false
                             });
                         }
+
                     }
                     else{
                         node.lastData[msg.sender] = null;

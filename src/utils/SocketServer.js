@@ -8,10 +8,15 @@
 
 var SocketActions = require('./SocketActions');
 var DLIStore = require('./DLIStore');
+<<<<<<< HEAD
 var RelayStateHandler = require('./RelayStateHandler');
 var CassandraConnection = require('./CassandraConnection');
 
 
+=======
+var CassandraConnection = require('./CassandraConnection');
+
+>>>>>>> master
 var url = require('url');
 
 var io = require('socket.io').Server;
@@ -35,7 +40,10 @@ class SocketServer {
         _sensors = {};
         sensorNodes = [];
         actuatorNodes = [];
+<<<<<<< HEAD
         //server.on('connection', this.handleConnection);
+=======
+>>>>>>> master
         server.on('connection', this.handleConnection);
         console.log("Socket Server started!");
         return this;
@@ -77,6 +85,7 @@ class SocketServer {
 
     sendToSensor(data,deviceId){
         //console.log("HELLO")
+<<<<<<< HEAD
 
 
         if(! data instanceof String){
@@ -93,11 +102,19 @@ class SocketServer {
         sensors.forEach(function each(sensor) {
             if (_sensors[sensor].deviceId == deviceId) { //id is the sensor id
                 console.log("send data to device",deviceId)
+=======
+        var sensors = Object.keys(_sensors);
+        sensors.forEach(function each(sensor) {
+            if (_sensors[sensor].deviceId == deviceId) { //id is the sensor id
+>>>>>>> master
                 _sensors[sensor].socket.emit('sensor-receive', JSON.stringify(data));
 
             }
         });
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
     }
 
     handleConnection(ws) {
@@ -395,12 +412,15 @@ class SocketServer {
         ws.on(SocketActions.TEST_EMIT_ACTION, function (message) {
             //console.log("sent")
         });
-        
+<<<<<<< HEAD
+
         ws.on(SocketActions.UPDATE_RELAYSTATE,function (message) {
 
             //TODO : handle change.
-            
+
         })
+=======
+>>>>>>> master
 
 
         ws.on('disconnect', function () {
