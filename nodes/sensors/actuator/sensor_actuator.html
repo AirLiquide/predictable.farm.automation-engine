@@ -62,7 +62,6 @@
         outputs:1,              // set the number of outputs - 0 to n
         // set the icon (held in icons dir below where you save the node)
         icon: "action.png",     // saved in  icons/myicon.png
-<<<<<<< HEAD
         paletteLabel:"Relay State",
         color: "#6d8fc6",
 	label: function() {     // sets the default label contents
@@ -70,15 +69,7 @@
             return this.name||"Relay State" + this.relayId;
         else
             return this.name||"Relay State";
-=======
-        paletteLabel:"Relay",
-        color: "#6d8fc6",
-	label: function() {     // sets the default label contents
-        if (this.relayId)
-            return this.name||"Relay " + this.relayId;
-        else
-            return this.name||"Relay";
->>>>>>> master
+
         },
         labelStyle: function() { // sets the class to apply to the label
             return this.name?"node_label_italic":"";
