@@ -25,7 +25,7 @@ RUN node-red& sleep 20 && for i in 'node-red-dashboard/ui_base' 'node-red-dashbo
       -d '{ "enabled": false}'; \
    done
 
-RUN chmod +x ./install.sh && ./install.sh
+RUN chmod +x ./install.sh; sync; ./install.sh
 #RUN apt-get update && apt-get install -y nano
 
 #Reset workdir
