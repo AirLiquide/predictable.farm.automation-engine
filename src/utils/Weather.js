@@ -1,13 +1,8 @@
-/**
- * Created by admin on 01/03/2017.
- */
 
 "use strict";
 
 
 var https = require("https");
-var DashBoardSocket = require('./DashBoardSocket')
-
 
 /*  * Setting up block level variable to store class state  * , set's to null by default.  */
 var instance = null;
@@ -136,19 +131,8 @@ class Weather {
 
             res.on('end', () => {
                 var b = Buffer.concat(buffers);
-
-                var data = JSON.parse(b);
-
-                //TODO: extract data of the current time to send it
-
-                var currentWeather = {
-                    "latitude" : data.latitude,
-                    "longitude" : data.longitude,
-                    "currently" : data.currently
-                }
-
-
-                DashBoardSocket.sendWeatherToDashboard(currentWeather);
+                console.log(b)
+                var data = b;
 
                 this.getTemperatureNodes().forEach(function(node){
                     var msg = {
