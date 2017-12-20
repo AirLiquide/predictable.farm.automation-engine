@@ -103,6 +103,7 @@ module.exports = function(RED) {
       RED.nodes.registerType("query_check_relay", QueryCheckRelayNode);
     } else{
       isInit == true
+      function QueryCheckRelayNode(n) {
       // Create a RED node
       RED.nodes.createNode(this, n);
 
@@ -113,6 +114,7 @@ module.exports = function(RED) {
       var node = this;
       node.path = n.path;
       node.wholemsg = (n.wholemsg === "true");
+    }
 
     }
 
