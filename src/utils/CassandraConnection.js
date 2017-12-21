@@ -8,7 +8,7 @@ var cassandra = require('cassandra-driver');
 var dbConfig = {
     defaults: {
         //hosts: {value: "predictable-server"}, //don't use localhost or 127.0.0.1
-        hosts: {value: 'db'}, //oriented for docker sub-network
+        hosts: {value: '127.0.0.1'}, //oriented for docker sub-network
         port: {value: "9042"},
         keyspace: {value: "predictablefarm"}
     },
@@ -85,7 +85,7 @@ class CassandraConnection {
             t.connecting = false;
             if (err) {
                 this.tick = setTimeout(doConnect.bind(t), 5000);
-                console.log(err);
+                console.log('error connection',err);
             } else {
                 this.connected = true;
                 t.connected = true;
