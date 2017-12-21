@@ -68,7 +68,7 @@
 
         },
         inputs: 1, // set the number of inputs - only 0 or 1
-        outputs: 1, // set the number of outputs - 0 to n
+        outputs: 2, // set the number of outputs - 0 to n
         // set the icon (held in icons dir below where you save the node)
         icon: "equal.png", // saved in  icons/myicon.png
         paletteLabel: "Equal",
@@ -84,7 +84,7 @@
                     v = this.value;
                 }
                 else if (this.equalType == 'relay' && this.relayValue) {
-                    v = (this.relayValue == 1) ? 'OFF' : 'ON';
+                    v = (this.relayValue == 1) ? 'ON' : 'OFF';
                 }
             }
             return v || "";

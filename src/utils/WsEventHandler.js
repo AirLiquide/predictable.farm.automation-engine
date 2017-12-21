@@ -100,7 +100,7 @@ class WsEventHandler {
             };
 
             if (nodeType == "global_actuator"){
-                _node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + ((data.sensor_value ==0)? "ON":"OFF")});
+                _node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + ((data.sensor_value ==1)? "ON":"OFF")});
             }
             else if (nodeType !="global_sensor" && nodeType != "global_all_sensor"){
                 _node.status({fill: "green", shape: "dot", text: data.device_id + " / Value : " + data.sensor_value});
