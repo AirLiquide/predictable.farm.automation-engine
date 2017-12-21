@@ -3,12 +3,14 @@
  */
 "use strict";
 var cassandra = require('cassandra-driver');
+var RelayStateHandler = require("./RelayStateHandler");
+
 
 
 var dbConfig = {
     defaults: {
         //hosts: {value: "predictable-server"}, //don't use localhost or 127.0.0.1
-        hosts: {value: '127.0.0.1'}, //oriented for docker sub-network
+        hosts: {value: 'cassandra'}, //oriented for docker sub-network
         port: {value: "9042"},
         keyspace: {value: "predictablefarm"}
     },
@@ -21,22 +23,17 @@ var dbConfig = {
 var instance = null;
 var doConnect = null;
 
-var tempTab = []; // tab pour reduire le nombre d'enregistrement
-var nbToAverage = 10; // nb pour reduire le nombre d'enregistrement
-var errPercentage = 1; //in percentage
-
 
 class CassandraConnection {
-    console.log('hi queries');
+
     constructor() {
         this.connect();
         doConnect = this.doConnect;
         this.queries = {
             "get-switch": 'SELECT * FROM predictablefarm.relaystate WHERE device_id= ? AND sensor_type = ?',// device_id / sensor_type
             "get-all-relaystate": 'SELECT * FROM predictablefarm.relaystate',// device_id / sensor_type
-            "add-relaystate": 'INSERT INTO predictablefarm.relaystate (device_id, sensor_type, sensor_value, last_update) ' +
-            'VALUES(?, ?, 1, toTimestamp(now()))', // device_id / sensor_type /  / sensor_value
-            "update-relaystate": "UPDATE predictablefarm.relaystate SET sensor_value = ? WHERE device_id = ? and sensor_type = ?",
+            "save-switch": 'INSERT INTO predictablefarm.relaystate (device_id, sensor_type, sensor_value, last_update) ' +
+            'VALUES(?, ?, ?, toTimestamp(now()))', // device_id / sensor_type /  / sensor_value
             "save-sensor": 'INSERT INTO predictablefarm.sensorLog (device_id, sensor_type, sensor_value, created_at) ' +
             'VALUES(?, ?, ?, toTimestamp(now()))', // device_id / sensor_type / sensor_value
             "get-last-dli": 'SELECT * FROM sensorlog where device_id=? and sensor_type=\'light_dli\' ORDER BY created_at DESC LIMIT 1;' // device_id / sensor_type
@@ -85,12 +82,11 @@ class CassandraConnection {
             t.connecting = false;
             if (err) {
                 this.tick = setTimeout(doConnect.bind(t), 5000);
-                console.log('error connection',err);
+                console.log(err);
             } else {
                 this.connected = true;
                 t.connected = true;
-                //todo : add callback subscription and call it here
-
+                RelayStateHandler.initRelays();
                 console.log("Connection to cassandra database done")
             }
         });
@@ -139,67 +135,22 @@ class CassandraConnection {
     }
 
     addQueryToSensorLogBatch(data){
+        var params = [data.device_id, data.sensor_type,data.sensor_value];
+        var q = this.queries['save-sensor'];
+        var query = {
+            query : q,
+            params: params
+        };
 
-      // var relayPass = false;
-      // if ( counterFilterTempArray[data.device_id + data.sensor_type]   ){
-      //   console.log( 'lenght : '+ counterFilterTempArray[data.device_id + data.sensor_type].length + counterFilterTempArray[data.device_id + data.sensor_type])
-      //   if (data.sensor_type.substring(0,5) == 'relay'){
-      //     relayPass = true;
-      //   }
-      //   if (counterFilterTempArray[data.device_id + data.sensor_type].length > 3 || relayPass == true){
-      //     console.log(counterFilterTempArray[data.device_id + data.sensor_type] + ' index 1 ' + counterFilterTempArray[data.device_id + data.sensor_type][1] + 'lenght' + counterFilterTempArray[data.device_id + data.sensor_type].length)
-      //      if(relayPass == true){
-      //        average = data.sensor_value
-      //      } else {
-      //        var temp0 = Number(counterFilterTempArray[data.device_id + data.sensor_type][0])
-      //        var temp1 = Number(counterFilterTempArray[data.device_id + data.sensor_type][1])
-      //        var temp2 = Number(counterFilterTempArray[data.device_id + data.sensor_type][2])
-      //        var temp3 = Number(counterFilterTempArray[data.device_id + data.sensor_type][3])
-      //        var average = ( temp0 + temp1 + temp2 + temp3) / 4
-      //      }
-      //      console.log( ' in writing init ' + data.sensor_type + typeof data.sensor_type)
-      //      data.sensor_value = average.toString();
-      //      console.log(data.sensor_type + ' in writing ' + average + typeof average)
-      //      if (typeof data.device_id === 'string' && typeof data.sensor_type === 'string' && typeof data.sensor_value === 'string' && data.sensor_value != 'NAN'){
-      //        var params = [data.device_id, data.sensor_type,data.sensor_value];
-      //        var q = this.queries['save-sensor'];
-      //        var query = {
-      //            query : q,
-      //            params: params
-      //        };
-      //
-      //        //console.log('added',data,"to batch");
-      //
-      //        if (typeof q != 'undefined'){
-      //            this.queryBatch.push(query);
-      //            if (this.queryBatch.length >= this.batchSize ){
-      //                this.batchBuffer.push(this.queryBatch);
-      //                this.queryBatch = new Array();
-      //            }
-      //        }
-      //      }
-      //
-      //
-      //
-      //   } else {
-      //     console.log(counterFilter + ' in writing wait' )
-      //     relayPass = false;
-      //     counterFilter = counterFilter + 1
-      //     if (typeof counterFilterTempArray[data.device_id + data.sensor_type] != undefined  ){
-      //       counterFilterTempArray[data.device_id + data.sensor_type].push(data.sensor_value)
-      //     } else {
-      //       counterFilterTempArray[data.device_id + data.sensor_type] = [];
-      //       counterFilterTempArray[data.device_id + data.sensor_type].push(data.sensor_value)
-      //     }
-      //
-      //   }
-      //
-      // } else {
-      //   counterFilterTempArray[data.device_id + data.sensor_type] = [];
-      //   this.addQueryToSensorLogBatch(data);
-      // }
-      //
+        //console.log('added',data,"to batch");
 
+        if (typeof q != 'undefined'){
+            this.queryBatch.push(query);
+            if (this.queryBatch.length >= this.batchSize ){
+                this.batchBuffer.push(this.queryBatch);
+                this.queryBatch = new Array();
+            }
+        }
     }
 
     saveSensorLogs(callback){
@@ -243,32 +194,10 @@ class CassandraConnection {
         if (this.connected){
             this.exectQuery(this.queries['get-all-relaystate'],{},
                 function (res) {
-                    if (callback)
-                        callback(res);
+                    callback(res);
                 })
         }
     }
-
-    addNewRelayState(params,callback){
-        if (this.connected){
-            this.exectQuery(this.queries['add-relaystate'],params,
-                function (res) {
-                    if (callback)
-                        callback(res);
-                })
-        }
-    }
-
-    updateRelay(params,callback){
-        if (this.connected){
-            this.exectQuery(this.queries['update-relaystate'],params,
-                function (res) {
-                    if (callback)
-                        callback(res);
-                })
-        }
-    }
-
 
 }
 
