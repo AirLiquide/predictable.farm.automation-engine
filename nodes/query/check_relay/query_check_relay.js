@@ -4,7 +4,7 @@ module.exports = function(RED) {
     "use strict";
     // require any external libraries we may need....
     //var foo = require("foo-library");
-    var isInit = false;
+    var isInit = true;
     if (isInit == true){
       var CassandraConnection = require('../../../src/utils/CassandraConnection');
 
