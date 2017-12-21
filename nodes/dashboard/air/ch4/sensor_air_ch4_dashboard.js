@@ -1,7 +1,7 @@
 // node-red input binding for sensor-ch4;
 
 module.exports = function (RED) {
-    "use strict";
+    
     // require any external libraries we may need....
     //var foo = require("foo-library");
 
