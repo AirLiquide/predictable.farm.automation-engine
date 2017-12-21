@@ -132,22 +132,117 @@ class CassandraConnection {
     }
 
     addQueryToSensorLogBatch(data){
-        var params = [data.device_id, data.sensor_type,data.sensor_value];
-        var q = this.queries['save-sensor'];
-        var query = {
-            query : q,
-            params: params
-        };
 
-        //console.log('added',data,"to batch");
+    console.log(data.device_id,  data.sensor_type, data.sensor_value, typeof data.sensor_value)
 
-        if (typeof q != 'undefined'){
-            this.queryBatch.push(query);
-            if (this.queryBatch.length >= this.batchSize ){
-                this.batchBuffer.push(this.queryBatch);
-                this.queryBatch = new Array();
-            }
+    if(data.sensor_type == 'relay1' || data.sensor_type == 'relay2' || data.sensor_type == 'relay3' || data.sensor_type == 'relay4' ){
+      var params = [data.device_id, data.sensor_type, data.sensor_value];
+      var q = this.queries['save-sensor'];
+      console.log( 'q', q, params)
+
+
+      var query = {
+          query : q,
+          params: params
+      };
+
+      //console.log('added',data,"to batch");
+
+      if (typeof q != 'undefined'){
+          this.queryBatch.push(query);
+          if (this.queryBatch.length >= this.batchSize ){
+              this.batchBuffer.push(this.queryBatch);
+              this.queryBatch = new Array();
+          }
+      }
+    }
+      if(tempTab[data.device_id + '-' + data.sensor_type]){
+        console.log( 'if 1 ok')
+
+        if(tempTab[data.device_id + '-' + data.sensor_type].value && tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter] ){
+          console.log( 'if 2 ok')
+          tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
+          tempTab[data.device_id + '-' + data.sensor_type].counter += 1;
+        } else{
+          console.log( 'if 2 err')
+          tempTab[data.device_id + '-' + data.sensor_type].counter = 0
+          tempTab[data.device_id + '-' + data.sensor_type].value = []
+          tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter ] = data.sensor_value
+          console.log(tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter + 1])
         }
+        console.log('counter',tempTab[data.device_id + '-' + data.sensor_type].counter)
+         if(tempTab[data.device_id + '-' + data.sensor_type].counter == nbToAverage){
+           tempTab[data.device_id + '-' + data.sensor_type].counter = 0
+           console.log( 'if 3 ok')
+           var averageSum = 0;
+           var i =0;
+           for (i = 0; i < nbToAverage; i++) {
+              averageSum =  Number(averageSum) +  Number(tempTab[data.device_id + '-' + data.sensor_type].value[i]);
+            }
+            console.log( 'average SUM')
+            console.log(averageSum);
+           var averageValue = averageSum / nbToAverage;
+           var params = [data.device_id, data.sensor_type, averageValue.toString()];
+           var q = this.queries['save-sensor'];
+           console.log( 'q', q, params)
+
+
+           var query = {
+               query : q,
+               params: params
+           };
+
+           //console.log('added',data,"to batch");
+
+           if (typeof q != 'undefined'){
+               this.queryBatch.push(query);
+               if (this.queryBatch.length >= this.batchSize ){
+                   this.batchBuffer.push(this.queryBatch);
+                   this.queryBatch = new Array();
+               }
+           }
+
+         }
+
+      }else{
+        console.log( 'if 1 err')
+        tempTab[data.device_id + '-' + data.sensor_type] = [];
+        if(tempTab[data.device_id + '-' + data.sensor_type].value && tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter] ){
+          tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
+        } else{
+          tempTab[data.device_id + '-' + data.sensor_type].counter = 0
+          tempTab[data.device_id + '-' + data.sensor_type].value = []
+          tempTab[data.device_id + '-' + data.sensor_type].value[tempTab[data.device_id + '-' + data.sensor_type].counter + 1] = data.sensor_value
+        }
+         if(tempTab[data.device_id + '-' + data.sensor_type].counter == nbToAverage){
+           var averageSum = 0;
+           var i = 0;
+           for (i = 0; i < nbToAverage; i++) {
+                averageSum =  Number(averageSum) +  Number(tempTab[data.device_id + '-' + data.sensor_type].value[i]);
+            }
+            console.log(averageSum);
+           var averageValue = averageSum / nbToAverage;
+           var params = [data.device_id, data.sensor_type, averageValue.toString()];
+           var q = this.queries['save-sensor'];
+           var query = {
+               query : q,
+               params: params
+           };
+           console.log( 'q', q, params)
+
+           //console.log('added',data,"to batch");
+
+           if (typeof q != 'undefined'){
+               this.queryBatch.push(query);
+               if (this.queryBatch.length >= this.batchSize ){
+                   this.batchBuffer.push(this.queryBatch);
+                   this.queryBatch = new Array();
+               }
+           }
+
+         }
+      }
+
     }
 
     saveSensorLogs(callback){
