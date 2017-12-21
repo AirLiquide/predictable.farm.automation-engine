@@ -12,7 +12,7 @@ var socketClient = require('socket.io-client');
 var SocketServer = require('./SocketServer');
 var RelayStateHandler = require('./RelayStateHandler');
 
-var cloudAddress = 'http://35.158.33.67';
+// var cloudAddress = 'http://35.158.33.67';
 
 // =======
 // var cloudAddress;

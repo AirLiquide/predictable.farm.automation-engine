@@ -8,7 +8,7 @@ var cassandra = require('cassandra-driver');
 var dbConfig = {
     defaults: {
         //hosts: {value: "predictable-server"}, //don't use localhost or 127.0.0.1
-        hosts: {value: 'cassandra'}, //oriented for docker sub-network
+        hosts: {value: 'db'}, //oriented for docker sub-network
         port: {value: "9042"},
         keyspace: {value: "predictablefarm"}
     },
