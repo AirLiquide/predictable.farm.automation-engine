@@ -4,7 +4,7 @@ module.exports = function(RED) {
     "use strict";
     // require any external libraries we may need....
     //var foo = require("foo-library");
-    var isInit = true;
+    var isInit = false;
     if (isInit == true){
       var CassandraConnection = require('../../../src/utils/CassandraConnection');
 
@@ -17,6 +17,8 @@ module.exports = function(RED) {
           };
 
           // Create a RED node
+          console.log('this  ',this);
+          console.log('n  ', n)
           RED.nodes.createNode(this, n);
 
           // Store local copies of the node configuration (as defined in the .html)
@@ -104,6 +106,9 @@ module.exports = function(RED) {
     } else{
       isInit == true
       function QueryCheckRelayNode(n) {
+        console.log('hi noik')
+        console.log('this  ',this);
+        console.log('n  ', n)
       // Create a RED node
       RED.nodes.createNode(this, n);
 
@@ -115,7 +120,7 @@ module.exports = function(RED) {
       node.path = n.path;
       node.wholemsg = (n.wholemsg === "true");
     }
-
+    RED.nodes.registerType("query_check_relay", QueryCheckRelayNode);
     }
 
 
