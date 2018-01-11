@@ -21,6 +21,10 @@ var dbConfig = {
 
 var instance = null;
 var doConnect = null;
+var tempTab = []; // tab pour reduire le nombre d'enregistrement
+var nbToAverage = 10; // nb pour reduire le nombre d'enregistrement
+var errPercentage = 1; //in percentage
+
 
 
 class CassandraConnection {
