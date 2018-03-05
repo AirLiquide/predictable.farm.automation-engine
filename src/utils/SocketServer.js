@@ -28,12 +28,13 @@ var instance = null;
 
 class SocketServer {
     constructor() {
-        server = require('socket.io').listen(3000);
+        this.server = require('socket.io').listen(3000);
         _clients = {};
         _sensors = {};
         sensorNodes = [];
         actuatorNodes = [];
-        server.on('connection', this.handleConnection);
+        this.server.on('connection', this.handleConnection);
+        setTimeout(function() { this.registerWebSocketClientLocalEmmiter() }.bind(this), 5000);
         console.log("Socket Server started!");
         return this;
     }
@@ -83,6 +84,83 @@ class SocketServer {
         });
     }
 
+
+    registerWebSocketClientLocalEmmiter() {
+        const WebSocket = require('ws');
+
+        const ws = new WebSocket('ws://127.0.0.1:1880/recipes/comms');
+
+        ws.on('message', function incoming(data) {
+            data = JSON.parse(data);
+
+            if(data.topic === 'notification/runtime-deploy') {
+                console.log('------------------------------------- TOTO ------------------------------');
+
+                var request = require('request');
+
+                request({
+                    url: 'http://127.0.0.1:1880/recipes/flows',
+                    headers: {
+                        'Connection': 'keep-alive'
+                    }
+                }, function (error, response, body) {
+                    if (!error && response.statusCode === 200) {
+                        this.formatLocalGraphs(JSON.parse(body));
+                    }
+                }.bind(this));
+            }
+        }.bind(this));
+    }
+
+    formatLocalGraphs(data) {
+        let rootFlowsId = data.filter(this.extractTab).filter(this.extractOffline).filter(this.excludeDisabled);
+        this.formatOfflineNodes(data, this.formatOfflineIds(rootFlowsId));
+    }
+
+    extractTab(node) {
+        return node.type === "tab";
+    }
+
+    excludeDisabled(node) {
+        if(node.disabled === undefined) {
+            return true;
+        } else {
+            return !node.disabled;
+        }
+    }
+
+    extractOffline(node) {
+        if(node.info === undefined) {
+            return false;
+        } else {
+            return  node.info.indexOf("CRITICAL_OFFLINE") !== -1;
+        }
+    }
+
+    formatOfflineIds(nodes) {
+        let ids = [];
+
+        for(let node of nodes) {
+            ids.push(node.id);
+        }
+
+        return ids;
+    }
+
+    formatOfflineNodes(data, rootFlowsId) {
+        let graphs = [];
+
+        for(let i = 0; i < data.length; i++) {
+            if(data[i].z !== undefined) {
+                if(data[i].type !== 'tab' && rootFlowsId.indexOf(data[i].z) !== -1) {
+                    graphs.push(data[i]);
+                }
+            }
+        }
+
+        this.server.sockets.emit("local-graph", graphs);
+    }
+
     handleConnection(ws) {
         do
             var id = (1 + Math.random() * 4294967295).toString(16);
@@ -90,7 +168,10 @@ class SocketServer {
         var role = ws.handshake.query.role;
         var deviceId = ws.handshake.query.sensorId;
 
+        console.log("---------------");
         console.log("deviceID :",deviceId)
+        console.log("---------------");
+
         var client = {
             socket: ws,
             deviceId: deviceId,
