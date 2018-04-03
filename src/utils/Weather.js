@@ -20,10 +20,11 @@ class Weather {
         this.pressureNodes = [];
         this.ozoneNodes = [];
         this.geolocNodes = [];
+        this.listLocalisation = [];
         var weather = this;
 
         this.loc = require(__dirname + '/Geoloc')(function(){
-            weather.checkWeather();
+            // weather.checkWeather();
             console.log("Weather station started")
         });
 
@@ -57,6 +58,9 @@ class Weather {
     getGeoLocNodes(){
         return this.geolocNodes;
     }
+    getlistLocalisation(){
+        return this.listLocalisation;
+    }
 
     registerNode(node, name){
 
@@ -81,6 +85,8 @@ class Weather {
         else if (name == "weather_geoloc"){
             this.geolocNodes.push(node);
         }
+
+        this.updateListLocalisation(node);
 
     }
 
@@ -117,101 +123,141 @@ class Weather {
     }
 
     checkWeather(){
-        if (!this.options){
+        if (this.weatherLoop) {
+          clearTimeout(this.weatherLoop);
+          this.weatherLoop = 0;
+        }
+        for (var i = 0; i < this.listLocalisation.length; i++) {
             this.options = {
                 hostname: 'api.darksky.net',
                 port: 443,
-                path: '/forecast/197172f19af1baa7e50089fa303099d0/'+this.loc.getLatitude()+','+ this.loc.getLongitude()+'?exclude=[minutely,daily,alerts,flags]&units=si',
+                path: '/forecast/'+ this.listLocalisation[i].apiKey + '/'+this.listLocalisation[i].latitude+','+ this.listLocalisation[i].longitude+'?exclude=[minutely,daily,alerts,flags]&units=si',
                 method: 'GET'
             };
+
+
+          //console.log(options.path)
+
+          var req = https.request(this.options, (res) => {
+
+              var buffers = [];
+
+              res.on('end', () => {
+                  var b = Buffer.concat(buffers);
+
+                  var data = JSON.parse(b);
+
+                  this.getTemperatureNodes().forEach(function(node){
+                    if(this.listLocalisation.latitude == node.latitude && this.listLocalisation.longitude == node.longitude){
+                      var msg = {
+                          payload : data.hourly.data[node.delay].temperature
+                      };
+
+                      node.send(msg);
+                    }
+
+                  });
+
+                  this.getDewPointNodesNodes().forEach(function(node){
+                    if(this.listLocalisation.latitude == node.latitude && this.listLocalisation.longitude == node.longitude){
+                      var msg = {
+                          payload : data.hourly.data[node.delay].dewPoint
+                      };
+
+                      node.send(msg);
+                    }
+                  });
+
+                  this.getHumidityNodes().forEach(function(node){
+                    if(this.listLocalisation.latitude == node.latitude && this.listLocalisation.longitude == node.longitude){
+                      var msg = {
+                          payload : data.hourly.data[node.delay].humidity
+                      };
+
+                      node.send(msg);
+                    }
+                  });
+
+                  this.getCloudCoverNodes().forEach(function(node){
+                    if(this.listLocalisation.latitude == node.latitude && this.listLocalisation.longitude == node.longitude){
+                      var msg = {
+                          payload : data.hourly.data[node.delay].cloudCover
+                      };
+
+                      node.send(msg);
+                    }
+                  });
+
+                  this.getPressureNodes().forEach(function(node){
+                    if(this.listLocalisation.latitude == node.latitude && this.listLocalisation.longitude == node.longitude){
+                      var msg = {
+                          payload : data.hourly.data[node.delay].pressure
+                      };
+
+                      node.send(msg);
+                    }
+                  });
+
+                  this.getOzoneNodes().forEach(function(node){
+                    if(this.listLocalisation.latitude == node.latitude && this.listLocalisation.longitude == node.longitude){
+                      var msg = {
+                          payload : data.hourly.data[node.delay].ozone
+                      };
+
+                      node.send(msg);
+                    }
+                  });
+
+                  // this.getGeoLocNodes().forEach(function(node){
+                  //
+                  //     var msg = {
+                  //         payload : this.loc.getCity()
+                  //     };
+                  //
+                  //     node.send(msg);
+                  // });
+
+              });
+
+              res.on('data', (d) => {
+
+                  buffers.push(d);
+
+                  //console.log(JSON.parse(d));
+              });
+          });
+
+          req.on('error', (e) => {
+              console.error(e);
+          });
+
+          req.end();
+
+          var w = this;
+
+          this.weatherLoop = setTimeout(function(){w.checkWeather()},1000*60*5);
+      }
+
+
+    }
+    updateListLocalisation(node){
+      var counter= 0;
+      for (var i = 0; i < this.listLocalisation.length; i++) {
+        if (this.listLocalisation[i].includes(node.longitude) && this.listLocalisation[i].includes(node.latitude)){
+
+        }else{
+          counter +=1;
         }
-
-        //console.log(options.path)
-
-        var req = https.request(this.options, (res) => {
-
-            var buffers = [];
-
-            res.on('end', () => {
-                var b = Buffer.concat(buffers);
-
-                var data = JSON.parse(b);
-
-                this.getTemperatureNodes().forEach(function(node){
-                    var msg = {
-                        payload : data.hourly.data[node.delay].temperature
-                    };
-
-                    node.send(msg);
-                });
-
-                this.getDewPointNodesNodes().forEach(function(node){
-                    var msg = {
-                        payload : data.hourly.data[node.delay].dewPoint
-                    };
-
-                    node.send(msg);
-                });
-
-                this.getHumidityNodes().forEach(function(node){
-                    var msg = {
-                        payload : data.hourly.data[node.delay].humidity
-                    };
-
-                    node.send(msg);
-                });
-
-                this.getCloudCoverNodes().forEach(function(node){
-                    var msg = {
-                        payload : data.hourly.data[node.delay].cloudCover
-                    };
-
-                    node.send(msg);
-                });
-
-                this.getPressureNodes().forEach(function(node){
-                    var msg = {
-                        payload : data.hourly.data[node.delay].pressure
-                    };
-
-                    node.send(msg);
-                });
-
-                this.getOzoneNodes().forEach(function(node){
-                    var msg = {
-                        payload : data.hourly.data[node.delay].ozone
-                    };
-
-                    node.send(msg);
-                });
-
-                this.getGeoLocNodes().forEach(function(node){
-                    var msg = {
-                        payload : this.loc.getCity()
-                    };
-
-                    node.send(msg);
-                });
-
-            });
-
-            res.on('data', (d) => {
-
-                buffers.push(d);
-
-                //console.log(JSON.parse(d));
-            });
-        });
-
-        req.on('error', (e) => {
-            console.error(e);
-        });
-
-        req.end();
-
-        var w = this;
-
-        setTimeout(function(){w.checkWeather()},1000*60*5);
+        if(counter>= listLocalisation.length){
+          var newLocalisation = {
+            longitude: node.longitude,
+            latitude: node.latitude,
+            apiKey: node.apiKey
+          }
+          this.listLocalisation.push(newLocalisation);
+          this.checkWeather();
+        }
+      }
 
 
     }
