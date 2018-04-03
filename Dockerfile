@@ -26,7 +26,7 @@ RUN node-red& sleep 2 && for i in 'node-red-dashboard/ui_base' 'node-red-dashboa
       -d '{ "enabled": false}'; \
    done
 
-RUN ./install.sh
+RUN chmod +x ./install.sh && ./install.sh
 #RUN apt-get update && apt-get install -y nano
 
 #Reset workdir
