@@ -35,7 +35,7 @@ module.exports = function (RED) {
         // Note: this sample doesn't do anything much - it will only send
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
-
+        console.log('##############@@@@@@@@@@api', this.apiKey, this)
         if (this.delay !== "") {
             Weather.registerNode(this, nodeName, this.apiKey, this.longitude, this.latitude);
         }
