@@ -266,6 +266,18 @@ class Weather {
           this.checkWeather();
         }
       }
+      if( listLocalisation.length <= 0){
+
+        var newLocalisation = {
+          longitude: node.longitude,
+          latitude: node.latitude,
+          apiKey: node.apiKey
+        }
+        console.log('new loc : ' +newLocalisation)
+        this.listLocalisation.push(newLocalisation);
+        this.checkWeather();
+      }
+
 
 
     }
