@@ -137,7 +137,7 @@ class Weather {
                 path: '/forecast/'+ this.listLocalisation[i].apiKey + '/'+this.listLocalisation[i].latitude+','+ this.listLocalisation[i].longitude+'?exclude=[minutely,daily,alerts,flags]&units=si',
                 method: 'GET'
             };
-            console.log('get', this.option)
+            console.log('get', this.options)
 
           //console.log(options.path)
 
@@ -147,7 +147,7 @@ class Weather {
 
               res.on('end', () => {
                   var b = Buffer.concat(buffers);
-
+                  console.log(b)
                   var data = JSON.parse(b);
 
                   this.getTemperatureNodes().forEach(function(node){
