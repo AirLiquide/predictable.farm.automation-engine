@@ -37,7 +37,7 @@ module.exports = function (RED) {
         // Look at other real nodes for some better ideas of what to do....
 
         if (this.delay !== "") {
-            Weather.registerNode(this, nodeName);
+            Weather.registerNode(this, nodeName, this.apiKey, this.longitude, this.latitude);
         }
 
         this.on("close", function () {

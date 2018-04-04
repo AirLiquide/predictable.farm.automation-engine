@@ -62,7 +62,7 @@ class Weather {
         return this.listLocalisation;
     }
 
-    registerNode(node, name){
+    registerNode(node, name, apiKey, longitude, latitude){
 
         if (name == "weather_temperature"){
             this.temperatureNodes.push(node);
@@ -86,7 +86,7 @@ class Weather {
             this.geolocNodes.push(node);
         }
 
-        this.updateListLocalisation(node);
+        this.updateListLocalisation(node, apiKey, longitude, latitude);
 
     }
 
@@ -244,11 +244,11 @@ class Weather {
 
 
     }
-    updateListLocalisation(node){
-      console.log('update : ', node)
+    updateListLocalisation(node, apiKey, longitude, latitude){
+      console.log('update : ', node, apiKey, longitude, latitude)
       var counter= 0;
       for (var i = 0; i < this.listLocalisation.length; i++) {
-        if (this.listLocalisation[i].includes(node.longitude) && this.listLocalisation[i].includes(node.latitude)){
+        if (this.listLocalisation[i].includes(longitude) && this.listLocalisation[i].includes(latitude)){
           console.log('exist ')
         }else{
             console.log('+1 ')
@@ -257,9 +257,9 @@ class Weather {
         if(counter>= listLocalisation.length){
 
           var newLocalisation = {
-            longitude: node.longitude,
-            latitude: node.latitude,
-            apiKey: node.apiKey
+            longitude: longitude,
+            latitude: latitude,
+            apiKey: apiKey
           }
           console.log('new loc : ' + JSON.parse(newLocalisation))
           this.listLocalisation.push(newLocalisation);
@@ -269,9 +269,9 @@ class Weather {
       if( this.listLocalisation.length <= 0){
 
         var newLocalisation = {
-          longitude: node.longitude,
-          latitude: node.latitude,
-          apiKey: node.apiKey
+          longitude: longitude,
+          latitude: latitude,
+          apiKey: apiKey
         }
         console.log('new loc : ' +JSON.parse(newLocalisation))
         this.listLocalisation.push(newLocalisation);
