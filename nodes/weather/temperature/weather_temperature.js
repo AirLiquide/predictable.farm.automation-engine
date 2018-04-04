@@ -25,6 +25,7 @@ module.exports = function (RED) {
 
         // copy "this" object in case we need it in context of callbacks of other functions.
         var node = this;
+        console.log(this)
 
 
         node.path = n.path;

@@ -130,7 +130,7 @@ class Weather {
           console.log(' end clear')
         }
         for (var i = 0; i < this.listLocalisation.length; i++) {
-          console.log('loop connections', this.listLocalisation[i])
+          console.log('loop connections', this.listLocalisation[i], this.listLocalisation)
             this.options = {
                 hostname: 'api.darksky.net',
                 port: 443,
@@ -261,7 +261,7 @@ class Weather {
             latitude: node.latitude,
             apiKey: node.apiKey
           }
-          console.log('new loc : ' +newLocalisation)
+          console.log('new loc : ' + JSON.parse(newLocalisation))
           this.listLocalisation.push(newLocalisation);
           this.checkWeather();
         }
@@ -273,7 +273,7 @@ class Weather {
           latitude: node.latitude,
           apiKey: node.apiKey
         }
-        console.log('new loc : ' +newLocalisation)
+        console.log('new loc : ' +J SON.parse(newLocalisation))
         this.listLocalisation.push(newLocalisation);
         this.checkWeather();
       }
