@@ -39,7 +39,7 @@ module.exports = function (RED) {
           console.log('##############@@@@@@@@@@api this : ', this)
             console.log('##############@@@@@@@@@@api n :', n)
         if (this.delay !== "") {
-            Weather.registerNode(this, nodeName, this.apiKey, this.longitude, this.latitude);
+            Weather.registerNode(this, nodeName, n);
         }
 
         this.on("close", function () {
