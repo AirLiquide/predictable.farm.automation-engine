@@ -151,7 +151,8 @@ class Weather {
                   var data = JSON.parse(b);
 
                   this.getTemperatureNodes().forEach(function(node){
-                    if(this.listLocalisation.latitude == node.latitude && this.listLocalisation.longitude == node.longitude){
+                    console.log('nodeeee', node)
+                    if(this.listLocalisation[i].latitude == node.latitude && this.listLocalisation[i].longitude == node.longitude){
                       console.log('send temp')
                       var msg = {
                           payload : data.hourly.data[node.delay].temperature
@@ -163,7 +164,7 @@ class Weather {
                   });
 
                   this.getDewPointNodesNodes().forEach(function(node){
-                    if(this.listLocalisation.latitude == node.latitude && this.listLocalisation.longitude == node.longitude){
+                    if(this.listLocalisation[i].latitude == node.latitude && this.listLocalisation[i].longitude == node.longitude){
                       var msg = {
                           payload : data.hourly.data[node.delay].dewPoint
                       };
@@ -173,7 +174,7 @@ class Weather {
                   });
 
                   this.getHumidityNodes().forEach(function(node){
-                    if(this.listLocalisation.latitude == node.latitude && this.listLocalisation.longitude == node.longitude){
+                    if(this.listLocalisation[i].latitude == node.latitude && this.listLocalisation[i].longitude == node.longitude){
                       var msg = {
                           payload : data.hourly.data[node.delay].humidity
                       };
@@ -183,7 +184,7 @@ class Weather {
                   });
 
                   this.getCloudCoverNodes().forEach(function(node){
-                    if(this.listLocalisation.latitude == node.latitude && this.listLocalisation.longitude == node.longitude){
+                    if(this.listLocalisation[i].latitude == node.latitude && this.listLocalisation[i].longitude == node.longitude){
                       var msg = {
                           payload : data.hourly.data[node.delay].cloudCover
                       };
@@ -193,7 +194,7 @@ class Weather {
                   });
 
                   this.getPressureNodes().forEach(function(node){
-                    if(this.listLocalisation.latitude == node.latitude && this.listLocalisation.longitude == node.longitude){
+                    if(this.listLocalisation[i].latitude == node.latitude && this.listLocalisation[i].longitude == node.longitude){
                       var msg = {
                           payload : data.hourly.data[node.delay].pressure
                       };
