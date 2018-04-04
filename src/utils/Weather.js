@@ -261,7 +261,7 @@ class Weather {
             latitude: data.latitude,
             apiKey: data.apiKey
           }
-          console.log('new loc : ' + JSON.parse(newLocalisation))
+          console.log('new loc : ' , newLocalisation)
           this.listLocalisation.push(newLocalisation);
           this.checkWeather();
         }
@@ -273,7 +273,7 @@ class Weather {
           latitude: data.latitude,
           apiKey: data.apiKey
         }
-        console.log('new loc : ' +JSON.parse(newLocalisation))
+        console.log('new loc : ' , newLocalisation)
         this.listLocalisation.push(newLocalisation);
         this.checkWeather();
       }
