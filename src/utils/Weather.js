@@ -245,7 +245,7 @@ class Weather {
 
     }
     updateListLocalisation(node, data){
-      console.log('update : ', node, apiKey, longitude, latitude)
+      console.log('update : ', node)
       var counter= 0;
       for (var i = 0; i < this.listLocalisation.length; i++) {
         if (this.listLocalisation[i].includes(data.longitude) && this.listLocalisation[i].includes(data.latitude)){
