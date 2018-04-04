@@ -124,17 +124,20 @@ class Weather {
 
     checkWeather(){
         if (this.weatherLoop) {
+          console.log('clear')
           clearTimeout(this.weatherLoop);
           this.weatherLoop = 0;
+          console.log(' end clear')
         }
         for (var i = 0; i < this.listLocalisation.length; i++) {
+          console.log('loop connections', this.listLocalisation[i])
             this.options = {
                 hostname: 'api.darksky.net',
                 port: 443,
                 path: '/forecast/'+ this.listLocalisation[i].apiKey + '/'+this.listLocalisation[i].latitude+','+ this.listLocalisation[i].longitude+'?exclude=[minutely,daily,alerts,flags]&units=si',
                 method: 'GET'
             };
-
+            console.log('get', this.option)
 
           //console.log(options.path)
 
@@ -149,6 +152,7 @@ class Weather {
 
                   this.getTemperatureNodes().forEach(function(node){
                     if(this.listLocalisation.latitude == node.latitude && this.listLocalisation.longitude == node.longitude){
+                      console.log('send temp')
                       var msg = {
                           payload : data.hourly.data[node.delay].temperature
                       };
@@ -241,19 +245,23 @@ class Weather {
 
     }
     updateListLocalisation(node){
+      console.log('update : ', node)
       var counter= 0;
       for (var i = 0; i < this.listLocalisation.length; i++) {
         if (this.listLocalisation[i].includes(node.longitude) && this.listLocalisation[i].includes(node.latitude)){
-
+          console.log('exist ')
         }else{
+            console.log('+1 ')
           counter +=1;
         }
         if(counter>= listLocalisation.length){
+
           var newLocalisation = {
             longitude: node.longitude,
             latitude: node.latitude,
             apiKey: node.apiKey
           }
+          console.log('new loc : ' +newLocalisation)
           this.listLocalisation.push(newLocalisation);
           this.checkWeather();
         }
