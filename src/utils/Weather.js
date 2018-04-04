@@ -266,7 +266,7 @@ class Weather {
           this.checkWeather();
         }
       }
-      if( listLocalisation.length <= 0){
+      if( this.listLocalisation.length <= 0){
 
         var newLocalisation = {
           longitude: node.longitude,
