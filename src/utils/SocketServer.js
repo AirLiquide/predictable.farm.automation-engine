@@ -92,69 +92,30 @@ class SocketServer {
         console.log('------------------------------------- init ws comms ------------------------------');
         ws.on('message', function incoming(data) {
             console.log('on socket message', data)
-            data = JSON.parse(data);
 
-            if(data.topic === 'notification/runtime-deploy') {
-                console.log('------------------------------------- TOTO ------------------------------');
+            dataTab = JSON.parse(data);
+            dataTab.forEach((data) => {
+                console.log('------------------------------------- TATO ------------------------------');
+              if(data.topic === 'notification/runtime-deploy') {
+                  console.log('------------------------------------- TOTO ------------------------------');
 
-                var request = require('request');
+                  var request = require('request');
 
-                request({
-                    url: 'http://127.0.0.1:1880/recipes/flows',
-                    headers: {
-                        'Connection': 'keep-alive'
-                    }
-                }, function (error, response, body) {
-                    if (!error && response.statusCode === 200) {
-                        this.formatLocalGraphs(JSON.parse(body));
-                    }
-                }.bind(this));
-            }
+                  request({
+                      url: 'http://127.0.0.1:1880/recipes/flows',
+                      headers: {
+                          'Connection': 'keep-alive'
+                      }
+                  }, function (error, response, body) {
+                      if (!error && response.statusCode === 200) {
+                          this.formatLocalGraphs(JSON.parse(body));
+                      }
+                  }.bind(this));
+              }
+            });
+
         }.bind(this));
 
-        ws.on('notification/runtime-deploy', function incoming(data) {
-            console.log('on socket notif', data)
-            data = JSON.parse(data);
-            console.log('------------------------------------- TATA 1 ------------------------------');
-            if(data.topic === 'notification/runtime-deploy') {
-                console.log('------------------------------------- TOTO ------------------------------');
-
-                var request = require('request');
-
-                request({
-                    url: 'http://127.0.0.1:1880/recipes/flows',
-                    headers: {
-                        'Connection': 'keep-alive'
-                    }
-                }, function (error, response, body) {
-                    if (!error && response.statusCode === 200) {
-                        this.formatLocalGraphs(JSON.parse(body));
-                    }
-                }.bind(this));
-            }
-        }.bind(this));
-        ws.on("*", function incoming(data) {
-          console.log('on socket ***', data)
-          console.log('------------------------------------- TATA 2 ------------------------------');
-            data = JSON.parse(data);
-
-            if(data.topic === 'notification/runtime-deploy') {
-                console.log('------------------------------------- TOTO ------------------------------');
-
-                var request = require('request');
-
-                request({
-                    url: 'http://127.0.0.1:1880/recipes/flows',
-                    headers: {
-                        'Connection': 'keep-alive'
-                    }
-                }, function (error, response, body) {
-                    if (!error && response.statusCode === 200) {
-                        this.formatLocalGraphs(JSON.parse(body));
-                    }
-                }.bind(this));
-            }
-        }.bind(this));
     }
 
     formatLocalGraphs(data) {
