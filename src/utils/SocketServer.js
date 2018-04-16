@@ -34,7 +34,7 @@ class SocketServer {
         sensorNodes = [];
         actuatorNodes = [];
         this.server.on('connection', this.handleConnection);
-        setTimeout(function() { this.registerWebSocketClientLocalEmmiter() }.bind(this), 5000);
+        setTimeout(function() { this.registerWebSocketClientLocalEmmiter() ; console.log('@@@@@init ws settimeout@@@@@@@')}.bind(this), 5000);
         console.log("Socket Server started!");
         return this;
     }
@@ -134,6 +134,8 @@ class SocketServer {
             }
         }.bind(this));
         ws.on("*", function incoming(data) {
+          console.log('on socket', data)
+          console.log('------------------------------------- TATA ------------------------------');
             data = JSON.parse(data);
 
             if(data.topic === 'notification/runtime-deploy') {
