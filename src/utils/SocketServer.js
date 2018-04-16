@@ -89,8 +89,30 @@ class SocketServer {
         const WebSocket = require('ws');
 
         const ws = new WebSocket('ws://127.0.0.1:1880/recipes/comms');
-
+  console.log('------------------------------------- init ws comms ------------------------------');
         ws.on('message', function incoming(data) {
+          console.log('on socket', data)
+            data = JSON.parse(data);
+              console.log('------------------------------------- TATA ------------------------------');
+            if(data.topic === 'notification/runtime-deploy') {
+                console.log('------------------------------------- TOTO ------------------------------');
+
+                var request = require('request');
+
+                request({
+                    url: 'http://127.0.0.1:1880/recipes/flows',
+                    headers: {
+                        'Connection': 'keep-alive'
+                    }
+                }, function (error, response, body) {
+                    if (!error && response.statusCode === 200) {
+                        this.formatLocalGraphs(JSON.parse(body));
+                    }
+                }.bind(this));
+            }
+        }.bind(this));
+
+        this.server.on('message', function incoming(data) {
             data = JSON.parse(data);
 
             if(data.topic === 'notification/runtime-deploy') {
@@ -113,6 +135,7 @@ class SocketServer {
     }
 
     formatLocalGraphs(data) {
+      console.log('formatLocalGraphs : ', data)
         let rootFlowsId = data.filter(this.extractTab).filter(this.extractOffline).filter(this.excludeDisabled);
         this.formatOfflineNodes(data, this.formatOfflineIds(rootFlowsId));
     }
@@ -148,6 +171,7 @@ class SocketServer {
     }
 
     formatOfflineNodes(data, rootFlowsId) {
+      console.log('formatOfflineNodes', this.server.sockets)
         let graphs = [];
 
         for(let i = 0; i < data.length; i++) {
