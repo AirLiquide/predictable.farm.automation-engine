@@ -91,9 +91,9 @@ class SocketServer {
         const ws = new WebSocket('ws://127.0.0.1:1880/recipes/comms');
         console.log('------------------------------------- init ws comms ------------------------------');
         ws.on('message', function incoming(data) {
-            console.log('on socket', data)
+            console.log('on socket message', data)
             data = JSON.parse(data);
-            console.log('------------------------------------- TATA ------------------------------');
+
             if(data.topic === 'notification/runtime-deploy') {
                 console.log('------------------------------------- TOTO ------------------------------');
 
@@ -113,9 +113,9 @@ class SocketServer {
         }.bind(this));
 
         ws.on('notification/runtime-deploy', function incoming(data) {
-            console.log('on socket', data)
+            console.log('on socket notif', data)
             data = JSON.parse(data);
-            console.log('------------------------------------- TATA ------------------------------');
+            console.log('------------------------------------- TATA 1 ------------------------------');
             if(data.topic === 'notification/runtime-deploy') {
                 console.log('------------------------------------- TOTO ------------------------------');
 
@@ -134,8 +134,8 @@ class SocketServer {
             }
         }.bind(this));
         ws.on("*", function incoming(data) {
-          console.log('on socket', data)
-          console.log('------------------------------------- TATA ------------------------------');
+          console.log('on socket ***', data)
+          console.log('------------------------------------- TATA 2 ------------------------------');
             data = JSON.parse(data);
 
             if(data.topic === 'notification/runtime-deploy') {
