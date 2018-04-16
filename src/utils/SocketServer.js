@@ -93,7 +93,7 @@ class SocketServer {
         ws.on('message', function incoming(data) {
             console.log('on socket message', data)
 
-            dataTab = JSON.parse(data);
+            var dataTab = JSON.parse(data);
             dataTab.forEach((data) => {
                 console.log('------------------------------------- TATO ------------------------------');
               if(data.topic === 'notification/runtime-deploy') {
