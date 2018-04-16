@@ -89,7 +89,6 @@ class SocketServer {
         const WebSocket = require('ws');
 
         const ws = new WebSocket('ws://127.0.0.1:1880/recipes/comms');
-        const ws2 = new WebSocket('ws://127.0.0.1/recipes/comms');
         console.log('------------------------------------- init ws comms ------------------------------');
         ws.on('message', function incoming(data) {
             console.log('on socket', data)
@@ -134,7 +133,7 @@ class SocketServer {
                 }.bind(this));
             }
         }.bind(this));
-        ws2.on('message', function incoming(data) {
+        ws.on("*", function incoming(data) {
             data = JSON.parse(data);
 
             if(data.topic === 'notification/runtime-deploy') {
