@@ -165,7 +165,7 @@ class SocketServer {
                 }
             }
         }
-
+        console.log("local-graph", graphs)
         this.server.sockets.emit("local-graph", graphs);
     }
 
