@@ -14,20 +14,7 @@ var RelayStateHandler = require('./RelayStateHandler');
 
 // var cloudAddress = 'http://35.158.33.67';
 
-// =======
-// var cloudAddress;
-//
-// try{
-//     var config = require(__dirname + "/../config.js");
-//     console.error(config);
-//     cloudAddress = config.cloudUrl;
-// }
-// catch(e){
-//     console.error(e);
-//     cloudAddress = false;
-// }
-// var SocketServer = require('./SocketServer');
-// >>>>>>> master
+
 var farmID = process.env.FARM_ID || "";
 var secretKey = process.env.PREDICTABLE_KEY || "";
 
