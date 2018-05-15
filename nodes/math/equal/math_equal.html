@@ -25,8 +25,8 @@
     <div class="form-row" id="relay-value-row">
         <label for="node-input-relayValue"><i class="fa fa-tag"></i> Value</label>
         <select  id="node-input-relayValue">
-            <option value=0 data-i18n="math_equal.on" selected></option>
-            <option value=1 data-i18n="math_equal.off"></option>
+            <option value=1 data-i18n="math_equal.on" selected></option>
+            <option value=0 data-i18n="math_equal.off"></option>
         </select>
     </div>
 
@@ -85,8 +85,8 @@
                     v = this.value;
                 }
                 else if (this.equalType == 'relay' && this.relayValue) {
+                    v = (this.relayValue == 1) ? 'ON' : 'OFF';
 
-                    v = (this.relayValue == 1) ? 'ON' : 'OFF'; //onoff bug
                 }
             }
             return v || "";

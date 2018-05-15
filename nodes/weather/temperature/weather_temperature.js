@@ -25,6 +25,7 @@ module.exports = function (RED) {
 
         // copy "this" object in case we need it in context of callbacks of other functions.
         var node = this;
+        console.log(node)
 
 
         node.path = n.path;
@@ -34,9 +35,9 @@ module.exports = function (RED) {
         // Note: this sample doesn't do anything much - it will only send
         // this message once at startup...
         // Look at other real nodes for some better ideas of what to do....
-
+    
         if (this.delay !== "") {
-            Weather.registerNode(this, nodeName);
+            Weather.registerNode(this, nodeName, n);
         }
 
         this.on("close", function () {

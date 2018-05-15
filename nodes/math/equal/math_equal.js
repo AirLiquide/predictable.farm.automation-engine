@@ -22,7 +22,7 @@ module.exports = function (RED) {
 
 
         this.compareValue = n.compareValue;
-
+        var msg2 = {}
         // copy "this" object in case we need it in context of callbacks of other functions.
         var node = this;
         node.path = n.path;
@@ -57,10 +57,8 @@ module.exports = function (RED) {
                         node.send(msg);
                     }
                     else{
-                        // node.send({valid:false,sender :node.id});
-                        msg2 =  {valid:false, payload:data};
-                        node.send([[],[msg2]]);
-
+                      msg2 =  {valid:false, payload:data};
+                      node.send([[],[msg2]]);
                     }
                 }
                 else{

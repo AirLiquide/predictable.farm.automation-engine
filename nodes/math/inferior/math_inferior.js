@@ -13,9 +13,7 @@ module.exports = function (RED) {
 
         // Store local copies of the node configuration (as defined in the .html)
         this.value = n.value;
-
         var msg2 = {}
-
         // copy "this" object in case we need it in context of callbacks of other functions.
         var node = this;
         node.path = n.path;
@@ -49,11 +47,8 @@ module.exports = function (RED) {
                         node.send(msg, msg2);
                     }
                     else{
-                      console.log('false', node.id);
                       msg2 =  {valid:false, payload:data};
-                      node.send([[],[msg2]]);
-
-                        // node.send({valid:false,sender :node.id});
+                    node.send([[],[msg2]]);
                     }
                 }
                 else{

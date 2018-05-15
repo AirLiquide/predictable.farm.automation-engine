@@ -10,7 +10,8 @@
     "grunt-contrib-watch": "^1.0.0",
     "node-schedule": "^1.2.4",
     "nodemailer": "^4.0.1",
-    "socket.io": "^1.7.1"
+    "socket.io": "^1.7.1",
+    "request":"^2.85.0"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
