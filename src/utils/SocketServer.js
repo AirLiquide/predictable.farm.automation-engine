@@ -110,8 +110,28 @@ class SocketServer {
             console.log('on socket message', data)
 
             var dataTab = JSON.parse(data);
-            dataTab.forEach((data) => {
-                console.log('------------------------------------- TATO ------------------------------');
+            console.log('dataTab : ', dataTab)
+            if (dataTab.length > 1){
+              dataTab.forEach((data) => {
+                  console.log('------------------------------------- TATO ------------------------------');
+                if(data.topic === 'notification/runtime-deploy') {
+                    console.log('------------------------------------- TOTO ------------------------------');
+
+                    var request = require('request');
+
+                    request({
+                        url: 'http://127.0.0.1:1880/recipes/flows',
+                        headers: {
+                            'Connection': 'keep-alive'
+                        }
+                    }, function (error, response, body) {
+                        if (!error && response.statusCode === 200) {
+                            this.formatLocalGraphs(JSON.parse(body));
+                        }
+                    }.bind(this));
+                }
+              });
+            } else {
               if(data.topic === 'notification/runtime-deploy') {
                   console.log('------------------------------------- TOTO ------------------------------');
 
@@ -128,7 +148,7 @@ class SocketServer {
                       }
                   }.bind(this));
               }
-            });
+            }
 
         }.bind(this));
 
