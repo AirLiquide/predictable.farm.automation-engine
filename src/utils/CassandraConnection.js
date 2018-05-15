@@ -90,7 +90,8 @@ class CassandraConnection {
             } else {
                 this.connected = true;
                 t.connected = true;
-                RelayStateHandler.initRelays();
+                // RelayStateHandler.initRelays();
+                getInstance().initRelays();
                 console.log("Connection to cassandra database done")
             }
         });
@@ -287,6 +288,25 @@ class CassandraConnection {
                      callback(v,date);
                 })
         }
+    }
+
+    initRelays() {
+        var t = RelayStateHandler;
+
+        getInstance().getAllRelayState(function (res) {
+
+            res.forEach(function (el) {
+                var id = el.device_id;
+                if(!t.devices[id]){
+                    t.devices[id] = {}
+                }
+
+                t.devices[id][el.sensor_type] = (el.sensor_value == 1);
+
+            });
+
+            t.initialized = true
+        });
     }
 
     getAllRelayState(callback){
