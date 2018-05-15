@@ -155,7 +155,7 @@ class SocketServer {
     }
 
     formatOfflineNodes(data, rootFlowsId) {
-      console.log('formatOfflineNodes', this.server.sockets)
+      
         let graphs = [];
 
         for(let i = 0; i < data.length; i++) {
@@ -165,7 +165,7 @@ class SocketServer {
                 }
             }
         }
-        console.log("local-graph", JSON.stringify(graphs))
+
         this.server.sockets.emit("local-graph", graphs);
     }
 
