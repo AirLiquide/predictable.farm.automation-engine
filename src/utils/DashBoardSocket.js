@@ -8,7 +8,7 @@ const crypto = require('crypto');
 var socketClient = require('socket.io-client');
 
 //var cloudAddress = 'http://bridge.predictable.farm';
-
+var cloudAddress = null
 var SocketServer = require('./SocketServer');
 var RelayStateHandler = require('./RelayStateHandler');
 
