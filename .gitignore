@@ -1,4 +1,6 @@
 node_modules/*
-.gitignore
 .idea/*
 command.sh
+logs/*
+.DS_Store
+config.js
