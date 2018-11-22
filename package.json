@@ -1,7 +1,10 @@
 {
-  "name": "node-red-ilab",
+  "name": "predictable.farm.automation-engine",
+  "author": "Air Liquide",
+  "license": "MIT",
   "version": "1.0.0",
   "description": "",
+  "keywords": [],
   "dependencies": {
     "cassandra-driver": "^3.0.1",
     "compass-mixins": "^0.12.10",
@@ -22,7 +25,6 @@
   "scripts": {
     "_postinstall": "./install.sh"
   },
-  "keywords": [],
   "node-red": {
     "nodes": {
       "global_actuator": "nodes/sensors/actuator/action/global_actuator.js",
