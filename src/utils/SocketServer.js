@@ -135,9 +135,9 @@ class SocketServer {
             console.log('dataTab : ', dataTab)
             if (dataTab.length > 1){
               dataTab.forEach((data) => {
-                  console.log('------------------------------------- TATO ------------------------------');
+                  console.log('------------------------------------- MARKER ------------------------------');
                 if(data.topic === 'notification/runtime-deploy') {
-                    console.log('------------------------------------- TOTO ------------------------------');
+                    console.log('------------------------------------- MARKER ------------------------------');
 
                     var request = require('request');
 
@@ -155,7 +155,7 @@ class SocketServer {
               });
             } else {
               if(data.topic === 'notification/runtime-deploy') {
-                  console.log('------------------------------------- TOTO ------------------------------');
+                  console.log('------------------------------------- MARKER ------------------------------');
 
                   var request = require('request');
 
