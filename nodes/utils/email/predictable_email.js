@@ -23,7 +23,7 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,n);
         this.topic = n.topic;
         this.name = n.name;
-        this.outserver = "mail.gandi.net";
+        this.outserver = "YOUR_OUTBOUND_SERVER";
         this.outport = "465";
         this.secure = true;
         this.mail = n.mail;
@@ -47,8 +47,8 @@ module.exports = function(RED) {
             }
         }
 
-        this.userid = "***REMOVED***";
-        this.password = "***REMOVED***";
+        this.userid = "YOUR_EMAIL_ACCOUNT";
+        this.password = "YOUR_EMAIL_PASSWORD";
         if (flag) {
             RED.nodes.addCredentials(n.id,{userid:this.userid, password:this.password, global:true});
         }
